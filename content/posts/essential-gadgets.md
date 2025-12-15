@@ -1,16 +1,16 @@
 ---
-title: "My Essential Developer Gadgets"
+title: "Mis Gadgets Esenciales de Desarrollo"
 date: "2024-03-15T09:30:00Z"
-description: "A look at the hardware that powers my daily workflow."
-tags: ["Gear", "Productivity", "Setup"]
+description: "Un vistazo al hardware que potencia mi flujo de trabajo diario."
+tags: ["Gear", "Productividad", "Setup"]
 ---
 
-Having the right gear is crucial for productivity. Here are some of my favorites:
+Tener el equipo adecuado es crucial para la productividad. Aquí están algunos de mis favoritos:
 
-- **Keyboard**: Mechanical, split layout
-- **Mouse**: Logitecg MX Master 3
-- **Monitor**: 4K standard display
+- **Teclado**: Mecánico, diseño dividido
+- **Mouse**: Logitech MX Master 3
+- **Monitor**: Pantalla 4K estándar
 
-In the [/setup](/setup) page, I list everything in detail.
+En la página de [/setup](/setup), listo todo en detalle.
 
-> "The best tool is the one you have with you."
+> "La mejor herramienta es la que tienes contigo."

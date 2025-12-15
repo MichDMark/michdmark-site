@@ -2,20 +2,23 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  /* Default to Dark Mode colors */
-  --background: #050505;
-  --foreground: #ededed;
-  
+  /* Default to Dark Mode colors - Softened Contrast */
+  --background: #121212;
+  /* Was #050505 */
+  --foreground: #e5e5e5;
+  /* Was #ededed - slightly softer */
+
   /* Brand Colors */
   --brand-red: #FF0000;
-  --brand-dark: #050505;
-  --brand-gray: #1A1A1A;
+  --brand-dark: #121212;
+  --brand-gray: #1E1E1E;
+  /* Was #1A1A1A - slightly lighter */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
+
   --color-brand-red: var(--brand-red);
   --color-brand-dark: var(--brand-dark);
   --color-brand-gray: var(--brand-gray);

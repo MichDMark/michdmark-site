@@ -42,9 +42,9 @@ export default function Home() {
       <section>
         <Container>
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-white font-heading">Latest from the Blog</h2>
+            <h2 className="text-2xl font-bold text-white font-heading">Últimos artículos</h2>
             <Link href="/blog" className="text-sm text-brand-red hover:text-white transition-colors flex items-center gap-1">
-              All Posts <ArrowRight className="w-4 h-4" />
+              Ver todos <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

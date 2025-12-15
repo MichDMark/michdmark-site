@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
+import { es } from "date-fns/locale";
 import { Post } from "@/lib/posts";
 import { MoveRight } from "lucide-react";
 
@@ -21,18 +22,18 @@ export function PostCard({ post }: PostCardProps) {
                         </span>
                     ))}
                 </div>
-                <time dateTime={post.date} className="text-xs text-zinc-500 font-mono">
-                    {format(parseISO(post.date), "MMM d, yyyy")}
+                <time dateTime={post.date} className="text-xs text-zinc-400 font-mono capitalize">
+                    {format(parseISO(post.date), "MMM d, yyyy", { locale: es })}
                 </time>
             </div>
             <h3 className="text-xl font-bold text-white group-hover:text-brand-red transition-colors">
                 {post.title}
             </h3>
-            <p className="text-sm text-zinc-400 line-clamp-2">
+            <p className="text-sm text-zinc-400 line-clamp-2 leading-relaxed">
                 {post.description}
             </p>
             <div className="mt-auto pt-4 flex items-center text-xs font-bold text-white uppercase tracking-wider group-hover:gap-2 transition-all">
-                Read Post <MoveRight className="w-4 h-4 ml-1" />
+                Leer Artículo <MoveRight className="w-4 h-4 ml-1" />
             </div>
         </Link>
     );

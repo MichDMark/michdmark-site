@@ -1,14 +1,14 @@
 ---
-title: "The Future of Web Design"
+title: "El Futuro del Diseño Web"
 date: "2024-03-10T14:15:00Z"
-description: "Trends I'm watching in 2024: Dark mode, Bento grids, and more."
-tags: ["Design", "Trends", "CSS"]
+description: "Tendencias que estoy observando en 2024: Modo oscuro, Bento grids y más."
+tags: ["Diseño", "Tendencias", "CSS"]
 ---
 
-Web design moves fast. This year, we're seeing:
+El diseño web se mueve rápido. Este año, estamos viendo:
 
-- **Dark Mode Default**: Just like this site.
-- **Micro-interactions**: Subtle animations that delight.
-- **Glassmorphism**: It's back and cleaner than ever.
+- **Modo Oscuro por Defecto**: Justo como este sitio.
+- **Micro-interacciones**: Animaciones sutiles que deleitan.
+- **Glassmorphism**: Está de vuelta y más limpio que nunca.
 
-Minimalism doesn't mean boring. It means focused.
+Minimalismo no significa aburrido. Significa enfocado.

@@ -14,8 +14,8 @@ export default function BlogPage() {
     return (
         <Container className="py-24">
             <SectionHeader
-                title="Blog"
-                description="Thoughts on software engineering, design, and gadgetry."
+                title="Artículos"
+                description="Reflexiones sobre desarrollo web, diseño y tecnología."
                 className="mb-12"
             />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,24 +1,24 @@
 ---
-title: "Building a Modern Portfolio with Next.js"
+title: "Creando un Portafolio Moderno con Next.js"
 date: "2024-03-20T12:00:00Z"
-description: "How I built this website using Next.js App Router, Tailwind CSS, and TypeScript."
-tags: ["Next.js", "React", "Web Development"]
+description: "Cómo construí este sitio web usando Next.js App Router, Tailwind CSS y TypeScript."
+tags: ["Next.js", "React", "Desarrollo Web"]
 ---
 
-## Why Next.js?
+## ¿Por qué Next.js?
 
-Next.js offers the best developer experience for building React applications. With the **App Router**, we get:
+Next.js ofrece la mejor experiencia de desarrollador para construir aplicaciones React. Con el **App Router**, obtenemos:
 
-1. Server Components by default
-2. Simplified routing
-3. Great performance
+1. Server Components por defecto
+2. Enrutamiento simplificado
+3. Gran rendimiento
 
-This portfolio is built with simplicity in mind.
+Este portafolio está construido con la simplicidad en mente.
 
-### The Stack
+### El Stack
 
 - **Framework**: Next.js 14+
-- **Styling**: Tailwind CSS
-- **Content**: Markdown (using gray-matter)
+- **Estilos**: Tailwind CSS
+- **Contenido**: Markdown (usando gray-matter)
 
-Check out the code on [GitHub](https://github.com)!
+¡Revisa el código en [GitHub](https://github.com)!

@@ -4,6 +4,7 @@ import { format, parseISO } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import { es } from "date-fns/locale";
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
@@ -51,8 +52,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     ))}
                 </div>
                 <h1 className="text-3xl font-bold text-white md:text-5xl mb-4">{post.title}</h1>
-                <time className="text-zinc-500 font-mono">
-                    {format(parseISO(post.date), "MMMM d, yyyy")}
+                <time className="text-zinc-500 font-mono capitalize">
+                    {format(parseISO(post.date), "d 'de' MMMM, yyyy", { locale: es })}
                 </time>
             </div>
 
