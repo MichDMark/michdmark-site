@@ -19,7 +19,8 @@ export default function AboutPage() {
                     <SectionHeader title="About Me" className="mb-6" />
                     <div className="prose prose-invert text-zinc-400">
                         <p className="mb-4">
-                            Hello! I'm Mich, a passionate developer and tech enthusiast. I build high-quality web applications and share my journey in tech.
+                            Soy Mich, un desarrollador apasionado por crear productos digitales.
+                            Escribo código, diseño interfaces y comparto lo que aprendo en el camino.
                         </p>
                         <p className="mb-4">
                             My goal is to create software that is not only functional but also beautiful and intuitive. I believe in the power of minimalism and clean code.

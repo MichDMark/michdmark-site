@@ -2,17 +2,21 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  /* Default to Dark Mode colors - Softened Contrast */
-  --background: #121212;
-  /* Was #050505 */
-  --foreground: #e5e5e5;
-  /* Was #ededed - slightly softer */
-
-  /* Brand Colors */
-  --brand-red: #FF0000;
-  --brand-dark: #121212;
-  --brand-gray: #1E1E1E;
-  /* Was #1A1A1A - slightly lighter */
+  --bg: #0b0f14;
+  /* charcoal */
+  --surface: #0f1620;
+  /* card / surface */
+  --surface-2: #111b26;
+  /* deeper surface */
+  --text: #e6eaf0;
+  /* soft white */
+  --muted: #a6b0bf;
+  /* secondary text */
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #e11d48;
+  /* softer red */
+  --accent-2: #fb7185;
+  /* optional hover */
 }
 
 @theme inline {
@@ -28,7 +32,8 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+  background:
+    radial-gradient(80% 50% at 50% 0%,
+      #111827 0%,
+      #0B0F14 60%);
 }

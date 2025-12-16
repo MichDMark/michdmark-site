@@ -18,19 +18,18 @@ export default function Home() {
         <Container>
           <div className="max-w-2xl">
             <h1 className="text-4xl sm:text-6xl font-heading font-bold text-white mb-6 tracking-tight">
-              Developer. <span className="text-brand-red">Creator.</span><br />
-              Builder.
+              Desarrollador. <span className="text-brand-red">Creador de Contenido</span><br />
+              Maker.
             </h1>
             <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
-              I'm Mich, a developer passionate about building digital products that live on the internet.
-              I write code, design interfaces, and share what I learn along the way.
+              Soy Mich, desarrollador, creador de contenido y maker. Funciono después de 2 tazas de café.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <Link
                 href="/projects"
                 className="px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-zinc-200 transition-colors"
               >
-                View Work
+                Ver Proyectos
               </Link>
               <SocialLinks className="px-2" />
             </div>

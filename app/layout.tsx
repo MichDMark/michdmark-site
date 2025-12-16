@@ -16,8 +16,12 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Tech Creator",
-  description: "Personal blog and portfolio.",
+  title: {
+    default: "Mich — Desarrollador & Creador",
+    template: "%s | Mich",
+  },
+  description:
+    "Blog personal de Mich creador de contenido, desarrollo web, gadgets y electrónica.",
 };
 
 export default function RootLayout({
@@ -26,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="es" className="dark">
       <body
         className={cn(
           inter.variable,
