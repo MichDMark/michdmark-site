@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
-import { cn } from "@/lib/utils";
+import { MobileMenu } from "./MobileMenu"; // ✅ nuevo
 
 const navItems = [
     { name: "Blog", href: "/blog" },
@@ -16,6 +16,8 @@ export function Navbar() {
         <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
             <Container className="flex h-16 items-center justify-between">
                 <Logo />
+
+                {/* Desktop nav */}
                 <nav className="hidden md:flex items-center gap-6">
                     {navItems.map((item) => (
                         <Link
@@ -27,10 +29,9 @@ export function Navbar() {
                         </Link>
                     ))}
                 </nav>
-                {/* Mobile Nav Placeholder (Simple link group for now) */}
-                <nav className="flex md:hidden items-center gap-4 overflow-x-auto">
-                    {/* Simplified for mobile for now, or just show Logo */}
-                </nav>
+
+                {/* ✅ Mobile menu */}
+                <MobileMenu items={navItems} />
             </Container>
         </header>
     );
