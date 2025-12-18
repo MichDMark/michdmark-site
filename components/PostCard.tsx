@@ -9,32 +9,76 @@ interface PostCardProps {
 }
 
 export function PostCard({ post }: PostCardProps) {
+    const formattedDate = format(parseISO(post.date), "d MMM yyyy", { locale: es }); // ej: 20 mar 2024
+
     return (
         <Link
             href={`/blog/${post.slug}`}
-            className="group flex flex-col gap-3 rounded-2xl border border-white/5 bg-white/5 p-6 hover:border-brand-red/50 hover:bg-white/10 transition-colors"
+            className="
+        group relative flex flex-col gap-3 rounded-2xl
+        border border-[var(--border)]
+        bg-[var(--surface)]/70
+        p-6
+        shadow-[0_0_0_1px_rgba(255,255,255,0.02)]
+        backdrop-blur
+        hover:bg-[var(--surface)]/85
+        hover:border-white/15
+        transition
+      "
         >
-            <div className="flex items-center justify-between">
-                <div className="flex gap-2">
+            {/* Top row */}
+            <div className="flex items-start justify-between gap-4">
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
-                        <span key={tag} className="text-xs font-medium text-brand-red font-mono">
+                        <span
+                            key={tag}
+                            className="
+                rounded-full border border-white/10 bg-white/5
+                px-2.5 py-1
+                text-[11px] font-medium
+                text-[var(--accent)]
+                font-mono
+              "
+                        >
                             #{tag}
                         </span>
                     ))}
                 </div>
-                <time dateTime={post.date} className="text-xs text-zinc-400 font-mono capitalize">
-                    {format(parseISO(post.date), "MMM d, yyyy", { locale: es })}
+
+                {/* Date */}
+                <time
+                    dateTime={post.date}
+                    className="shrink-0 text-[11px] text-[var(--muted2)] font-mono capitalize"
+                >
+                    {formattedDate}
                 </time>
             </div>
-            <h3 className="text-xl font-bold text-white group-hover:text-brand-red transition-colors">
+
+            {/* Title */}
+            <h3 className="text-xl font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
                 {post.title}
             </h3>
-            <p className="text-sm text-zinc-400 line-clamp-2 leading-relaxed">
+
+            {/* Description */}
+            <p className="text-sm text-[var(--muted)] line-clamp-2 leading-relaxed">
                 {post.description}
             </p>
-            <div className="mt-auto pt-4 flex items-center text-xs font-bold text-white uppercase tracking-wider group-hover:gap-2 transition-all">
-                Leer Artículo <MoveRight className="w-4 h-4 ml-1" />
+
+            {/* CTA */}
+            <div className="mt-auto pt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--text)]/90 group-hover:text-[var(--text)] transition">
+                Leer artículo
+                <MoveRight className="w-4 h-4" />
             </div>
+
+            {/* Subtle hover glow */}
+            <div
+                className="
+          pointer-events-none absolute inset-0 rounded-2xl opacity-0
+          group-hover:opacity-100 transition
+          [background:radial-gradient(600px_circle_at_20%_0%,rgba(225,29,72,0.10),transparent_45%)]
+        "
+            />
         </Link>
     );
 }

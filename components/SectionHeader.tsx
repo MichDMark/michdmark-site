@@ -6,11 +6,42 @@ interface SectionHeaderProps {
     className?: string;
 }
 
-export function SectionHeader({ title, description, className }: SectionHeaderProps) {
+export function SectionHeader({
+    title,
+    description,
+    className,
+}: SectionHeaderProps) {
     return (
-        <div className={cn("mb-8 flex flex-col gap-2", className)}>
-            <h2 className="text-2xl font-heading font-bold text-white">{title}</h2>
-            {description && <p className="text-zinc-400">{description}</p>}
-        </div>
+        <header
+            className={cn(
+                "flex flex-col gap-3",
+                "mb-6 md:mb-10",
+                className
+            )}
+        >
+            <h2
+                className="
+          text-2xl md:text-3xl
+          font-heading font-bold
+          text-[var(--text)]
+          tracking-tight
+        "
+            >
+                {title}
+            </h2>
+
+            {description && (
+                <p
+                    className="
+            max-w-2xl
+            text-sm md:text-base
+            leading-relaxed
+            text-[var(--muted)]
+          "
+                >
+                    {description}
+                </p>
+            )}
+        </header>
     );
 }

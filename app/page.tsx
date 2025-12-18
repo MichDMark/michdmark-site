@@ -12,27 +12,35 @@ export default function Home() {
   const latestProjects = projects.slice(0, 3);
 
   return (
-    <div className="flex flex-col gap-24 py-16">
+    <div className="flex flex-col gap-20 py-10 md:py-14">
       {/* Hero Section */}
-      <section className="py-12 sm:py-24">
+      <section className="pt-6 pb-10 sm:pt-10 sm:pb-16">
         <Container>
           <div className="max-w-2xl">
             <h1 className="text-4xl sm:text-6xl font-heading font-bold text-white mb-6 tracking-tight">
-              Desarrollador. <span className="text-brand-red">Creador de Contenido</span><br />
+              Desarrollador.{" "}
+              <span className="text-brand-red">Creador de Contenido</span>
+              <br />
               Maker.
             </h1>
-            <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
-              Soy Mich, desarrollador, creador de contenido y maker. Funciono después de 2 tazas de café.
+
+            <p className="text-lg text-zinc-400 mb-6 leading-relaxed">
+              Soy Mich, desarrollador, creador de contenido y maker. Funciono
+              después de 2 tazas de café.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-              <Link
-                href="/projects"
-                className="px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-zinc-200 transition-colors"
-              >
-                Ver Proyectos
-              </Link>
-              <SocialLinks className="px-2" />
+
+            {/* ✅ Redes primero, luego contacto */}
+            <div className="mb-8 space-y-4">
+              <SocialLinks group="social" />
+              <SocialLinks group="contact" />
             </div>
+
+            <Link
+              href="/projects"
+              className="inline-flex px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-zinc-200 transition-colors"
+            >
+              Ver Proyectos
+            </Link>
           </div>
         </Container>
       </section>
@@ -41,12 +49,18 @@ export default function Home() {
       <section>
         <Container>
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-white font-heading">Últimos artículos</h2>
-            <Link href="/blog" className="text-sm text-brand-red hover:text-white transition-colors flex items-center gap-1">
+            <h2 className="text-2xl font-bold text-white font-heading">
+              Últimos artículos
+            </h2>
+            <Link
+              href="/blog"
+              className="text-sm text-brand-red hover:text-white transition-colors flex items-center gap-1"
+            >
               Ver todos <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {latestPosts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
@@ -58,12 +72,18 @@ export default function Home() {
       <section>
         <Container>
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-white font-heading">Featured Projects</h2>
-            <Link href="/projects" className="text-sm text-brand-red hover:text-white transition-colors flex items-center gap-1">
-              All Projects <ArrowRight className="w-4 h-4" />
+            <h2 className="text-2xl font-bold text-white font-heading">
+              Proyectos destacados
+            </h2>
+            <Link
+              href="/projects"
+              className="text-sm text-brand-red hover:text-white transition-colors flex items-center gap-1"
+            >
+              Ver todos <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {latestProjects.map((project) => (
               <ProjectCard key={project.name} project={project} />
             ))}
@@ -75,16 +95,18 @@ export default function Home() {
       <section className="py-12 bg-white/5 border-y border-white/5">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4 font-heading">Stay Updated</h2>
+            <h2 className="text-3xl font-bold text-white mb-4 font-heading">
+              Mantente al día
+            </h2>
             <p className="text-zinc-400 mb-8">
-              Join the newsletter to receive updates on my latest projects and articles.
-              No spam, ever.
+              Únete al newsletter para recibir actualizaciones de mis proyectos y
+              artículos. Cero spam.
             </p>
             <Link
               href="/newsletter"
               className="inline-flex items-center gap-2 px-8 py-3 bg-brand-red text-white font-bold rounded-lg hover:bg-red-600 transition-colors"
             >
-              Subscribe
+              Suscribirme
             </Link>
           </div>
         </Container>

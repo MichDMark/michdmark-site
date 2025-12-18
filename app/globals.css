@@ -3,37 +3,84 @@
 
 :root {
   --bg: #0b0f14;
-  /* charcoal */
-  --surface: #0f1620;
-  /* card / surface */
-  --surface-2: #111b26;
+  /* background base */
+  --bg2: #0f172a;
+  /* top glow */
+  --surface: #111827;
+  /* cards */
+  --surface2: #0f1a2a;
   /* deeper surface */
-  --text: #e6eaf0;
-  /* soft white */
-  --muted: #a6b0bf;
-  /* secondary text */
   --border: rgba(255, 255, 255, 0.08);
+
+  --text: #e5e7eb;
+  /* primary text */
+  --muted: #a1a1aa;
+  /* secondary text */
+  --muted2: #71717a;
+  /* meta text */
   --accent: #e11d48;
-  /* softer red */
-  --accent-2: #fb7185;
-  /* optional hover */
+  /* brand accent */
+  --link: #38bdf8;
+  /* reading links */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-brand-red: var(--brand-red);
-  --color-brand-dark: var(--brand-dark);
-  --color-brand-gray: var(--brand-gray);
-
-  --font-sans: var(--font-inter), sans-serif;
-  --font-heading: var(--font-space), sans-serif;
+/* Base */
+html,
+body {
+  min-height: 100%;
+  background: radial-gradient(80% 55% at 50% 0%, var(--bg2) 0%, var(--bg) 60%);
+  color: var(--text);
 }
 
 body {
-  background:
-    radial-gradient(80% 50% at 50% 0%,
-      #111827 0%,
-      #0B0F14 60%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility classes (so you can use bg-background, text-muted, etc.) */
+.bg-background {
+  background-color: var(--bg);
+}
+
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.text-meta {
+  color: var(--muted2);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-link {
+  color: var(--link);
+}
+
+.border-subtle {
+  border-color: var(--border);
+}
+
+/* Blog reading: make prose feel calmer */
+.prose.prose-invert {
+  --tw-prose-body: var(--muted);
+  --tw-prose-headings: var(--text);
+  --tw-prose-links: var(--link);
+  --tw-prose-bold: var(--text);
+  --tw-prose-counters: var(--muted);
+  --tw-prose-bullets: var(--muted2);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--text);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--muted2);
+  --tw-prose-code: var(--text);
+  --tw-prose-pre-code: var(--text);
+  --tw-prose-pre-bg: rgba(255, 255, 255, 0.04);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
 }
