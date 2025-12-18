@@ -29,18 +29,25 @@ export default function Home() {
               después de 2 tazas de café.
             </p>
 
-            {/* ✅ Redes primero, luego contacto */}
-            <div className="mb-8 space-y-4">
-              <SocialLinks group="social" />
-              <SocialLinks group="contact" />
+            {/* Redes primero */}
+            <div className="mb-8 space-y-3">
+              <div className="flex items-center gap-3">
+                <SocialLinks group="social" className="gap-2" />
+              </div>
+              <div className="flex items-center gap-3">
+                <SocialLinks group="contact" className="gap-2" />
+              </div>
             </div>
 
-            <Link
-              href="/projects"
-              className="inline-flex px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-zinc-200 transition-colors"
-            >
-              Ver Proyectos
-            </Link>
+            {/* Botón después */}
+            <div className="flex items-center gap-4">
+              <Link
+                href="/projects"
+                className="inline-flex items-center justify-center px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-zinc-200 transition-colors"
+              >
+                Ver Proyectos
+              </Link>
+            </div>
           </div>
         </Container>
       </section>

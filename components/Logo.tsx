@@ -1,13 +1,31 @@
-import { LucideCommand } from "lucide-react";
 import Link from "next/link";
 
 export function Logo() {
     return (
-        <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-brand-red p-1 rounded-lg group-hover:bg-red-600 transition-colors">
-                <LucideCommand className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-heading font-bold text-lg tracking-tight">Mich</span>
+        <Link
+            href="/"
+            className="
+        group flex items-center gap-2
+        font-heading font-bold
+        tracking-tight
+      "
+        >
+            {/* Icono (si ya existe, déjalo igual) */}
+            <span className="text-white/90">
+                ⌘
+            </span>
+
+            {/* Nombre */}
+            <span
+                className="
+          text-base
+          text-white
+          group-hover:text-brand-red
+          transition-colors
+        "
+            >
+                Mich DMark
+            </span>
         </Link>
     );
 }

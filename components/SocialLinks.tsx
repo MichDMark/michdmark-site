@@ -27,7 +27,18 @@ export function SocialLinks({
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={link.name}
-                        className="text-zinc-400 hover:text-brand-red transition-colors"
+                        className="
+  inline-flex items-center justify-center
+  h-10 w-10 rounded-xl
+  text-zinc-400
+  bg-white/0
+  hover:bg-white/5 hover:text-brand-red
+  hover:scale-[1.06]
+  active:scale-[0.98]
+  transition
+  focus-visible:outline-none
+  focus-visible:ring-2 focus-visible:ring-brand-red/40
+"
                         title={link.name}
                     >
                         <Icon size={iconSize} />
