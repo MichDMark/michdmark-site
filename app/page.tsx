@@ -19,14 +19,16 @@ export default function Home() {
           <div className="max-w-2xl">
             <h1 className="text-4xl sm:text-6xl font-heading font-bold text-white mb-6 tracking-tight">
               Desarrollador.{" "}
-              <span className="text-brand-red">Creador de Contenido</span>
+              <span className="text-brand-red">Creador de Contenido.</span>
               <br />
               Maker.
             </h1>
 
-            <p className="text-lg text-zinc-400 mb-6 leading-relaxed">
-              Soy Mich, desarrollador, creador de contenido y maker. Funciono
-              después de 2 tazas de café.
+            <p className="text-base sm:text-lg text-[var(--muted)] leading-relaxed max-w-xl">
+              Soy Mich, bienvenido a mi espacio, funciono mejor después de un par de tazas de café.
+              <span className="block mt-2">
+                Aquí encontrarás mi blog, proyectos y los gadgets que uso en mi día a día.
+              </span>
             </p>
 
             {/* Redes primero */}
@@ -98,26 +100,6 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-12 bg-white/5 border-y border-white/5">
-        <Container>
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4 font-heading">
-              Mantente al día
-            </h2>
-            <p className="text-zinc-400 mb-8">
-              Únete al newsletter para recibir actualizaciones de mis proyectos y
-              artículos. Cero spam.
-            </p>
-            <Link
-              href="/newsletter"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-brand-red text-white font-bold rounded-lg hover:bg-red-600 transition-colors"
-            >
-              Suscribirme
-            </Link>
-          </div>
-        </Container>
-      </section>
     </div>
   );
 }
