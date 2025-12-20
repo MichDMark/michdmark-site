@@ -9,7 +9,7 @@ interface SocialLinksProps {
 
 export function SocialLinks({
     className,
-    iconSize = 20,
+    iconSize = 24,
     group,
 }: SocialLinksProps) {
     const links = group

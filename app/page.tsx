@@ -26,18 +26,35 @@ export default function Home() {
 
             <p className="text-base sm:text-lg text-[var(--muted)] leading-relaxed max-w-xl">
               Soy Mich, bienvenido a mi espacio, funciono mejor después de un par de tazas de café.
-              <span className="block mt-2">
+              <span className="block mt-3">
                 Aquí encontrarás mi blog, proyectos y los gadgets que uso en mi día a día.
               </span>
             </p>
 
-            {/* Redes primero */}
-            <div className="mb-8 space-y-3">
-              <div className="flex items-center gap-3">
-                <SocialLinks group="social" className="gap-2" />
-              </div>
-              <div className="flex items-center gap-3">
-                <SocialLinks group="contact" className="gap-2" />
+            {/* ✅ separación extra del texto hacia los iconos */}
+            <div className="mt-10 mb-8">
+              {/* aquí va el recuadro con labels */}
+            </div>
+
+
+
+            <div className="mt-10 mb-8 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+              <div className="grid gap-4 sm:grid-cols-2">
+                {/* Grupo 1: Creador */}
+                <div className="rounded-xl border border-white/10 bg-black/10 p-3">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[var(--muted2)]">
+                    Links a mis redes
+                  </p>
+                  <SocialLinks group="social" className="gap-2" />
+                </div>
+
+                {/* Grupo 2: Contacto */}
+                <div className="rounded-xl border border-white/10 bg-black/10 p-3">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[var(--muted2)]">
+                    Contáctame
+                  </p>
+                  <SocialLinks group="contact" className="gap-2" />
+                </div>
               </div>
             </div>
 
