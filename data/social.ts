@@ -5,7 +5,7 @@ export const socialLinks = [
     // --- Social / Audiencia ---
     {
         name: "Instagram",
-        href: "https:instagram.com/michdmark/",
+        href: "https://instagram.com/michdmark/",
         icon: Instagram,
         group: "social",
     },
