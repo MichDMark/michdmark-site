@@ -5,19 +5,19 @@ export const socialLinks = [
     // --- Social / Audiencia ---
     {
         name: "Instagram",
-        href: "https://instagram.com",
+        href: "https:instagram.com/michdmark/",
         icon: Instagram,
         group: "social",
     },
     {
         name: "TikTok",
-        href: "https://tiktok.com/@tuusuario",
+        href: "https://tiktok.com/@michdmark",
         icon: FaTiktok,
         group: "social",
     },
     {
         name: "Facebook",
-        href: "https://facebook.com",
+        href: "https://facebook.com/michdmark2",
         icon: FaFacebook,
         group: "social",
     },
@@ -25,19 +25,19 @@ export const socialLinks = [
     // --- Contacto / Profesional ---
     {
         name: "Email",
-        href: "mailto:hello@example.com",
+        href: "mailto:michdmark@gmail.com",
         icon: Mail,
         group: "contact",
     },
     {
         name: "GitHub",
-        href: "https://github.com",
+        href: "https://github.com/MichDMark",
         icon: Github,
         group: "contact",
     },
     {
         name: "LinkedIn",
-        href: "https://linkedin.com",
+        href: "https://www.linkedin.com/in/michel-mujica-02b70462/",
         icon: Linkedin,
         group: "contact",
     },
