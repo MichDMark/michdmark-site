@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
-import { MobileMenu } from "./MobileMenu"; // ✅ nuevo
+import { MobileMenu } from "./MobileMenu";
 
 const navItems = [
     { name: "Blog", href: "/blog" },
@@ -13,10 +13,9 @@ const navItems = [
 export function Navbar() {
     return (
         <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
-            <Container className="flex h-16 items-center justify-between">
-                <Logo />
+            <Container className="flex h-16 items-center justify-between py-1">
+                <Logo className="-mx-1" />
 
-                {/* Desktop nav */}
                 <nav className="hidden md:flex items-center gap-6">
                     {navItems.map((item) => (
                         <Link
@@ -29,7 +28,6 @@ export function Navbar() {
                     ))}
                 </nav>
 
-                {/* ✅ Mobile menu */}
                 <MobileMenu items={navItems} />
             </Container>
         </header>

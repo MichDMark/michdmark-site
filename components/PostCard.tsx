@@ -19,7 +19,7 @@ export function PostCard({ post }: PostCardProps) {
         border border-[var(--border)]
         bg-[var(--surface)]/70
         p-6
-        shadow-[0_0_0_1px_rgba(255,255,255,0.02)]
+        shadow-[0_10px_30px_-15px_rgba(0,0,0,0.6)]
         backdrop-blur
         hover:bg-[var(--surface)]/85
         hover:border-white/15

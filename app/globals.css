@@ -3,25 +3,16 @@
 
 :root {
   --bg: #0b0f14;
-  /* background base */
   --bg2: #0f172a;
-  /* top glow */
   --surface: #111827;
-  /* cards */
   --surface2: #0f1a2a;
-  /* deeper surface */
   --border: rgba(255, 255, 255, 0.08);
 
   --text: #e5e7eb;
-  /* primary text */
   --muted: #a1a1aa;
-  /* secondary text */
   --muted2: #71717a;
-  /* meta text */
   --accent: #e11d48;
-  /* brand accent */
   --link: #38bdf8;
-  /* reading links */
 }
 
 /* Base */
@@ -37,7 +28,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Utility classes (so you can use bg-background, text-muted, etc.) */
+/* Subtle noise for depth */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 0);
+  background-size: 24px 24px;
+  opacity: 0.15;
+}
+
+/* Utility classes */
 .bg-background {
   background-color: var(--bg);
 }
@@ -66,7 +68,7 @@ body {
   border-color: var(--border);
 }
 
-/* Blog reading: make prose feel calmer */
+/* Blog reading */
 .prose.prose-invert {
   --tw-prose-body: var(--muted);
   --tw-prose-headings: var(--text);
@@ -83,4 +85,11 @@ body {
   --tw-prose-pre-bg: rgba(255, 255, 255, 0.04);
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
+}
+
+.small-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted2);
 }

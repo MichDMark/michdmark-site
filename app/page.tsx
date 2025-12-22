@@ -24,47 +24,97 @@ export default function Home() {
               Maker.
             </h1>
 
-            <p className="text-base sm:text-lg text-[var(--muted)] leading-relaxed max-w-xl">
-              Soy Mich, bienvenido a mi espacio, funciono mejor después de un par de tazas de café.
-              <span className="block mt-3">
-                Aquí encontrarás mi blog, proyectos y los gadgets que uso en mi día a día.
-              </span>
-            </p>
+            <div
+              className="
+              mt-8
+              max-w-2xl
+              rounded-3xl
+              border border-white/12
+              bg-[linear-gradient(180deg,rgba(225,29,72,0.22),rgba(0,0,0,0.6))]
+              p-6 sm:p-8
+    backdrop-blur
+              "
+            >
+              <p className="text-lg sm:text-xl text-white leading-relaxed">
+                Soy Mich, bienvenido a mi espacio. Funciono mejor después de un par de tazas de café.
+              </p>
 
-            {/* ✅ separación extra del texto hacia los iconos */}
-            <div className="mt-10 mb-8">
-              {/* aquí va el recuadro con labels */}
+              <p className="mt-4 text-lg sm:text-xl text-white/85 leading-relaxed">
+                Aquí encontrarás mi blog, proyectos y los gadgets que uso en mi día a día.
+              </p>
             </div>
 
+            {/* Redes (con color ambiental) */}
+            <div className="mt-10 mb-8 relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+              {/* glow de marca */}
+              <div
+                className="
+                  pointer-events-none absolute inset-0 opacity-80
+                  [background:radial-gradient(650px_circle_at_50%_0%,rgba(225,29,72,0.22),transparent_60%)]
+                "
+              />
 
+              <div className="relative z-10 grid gap-4 sm:grid-cols-2">
 
-            <div className="mt-10 mb-8 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-              <div className="grid gap-4 sm:grid-cols-2">
-                {/* Grupo 1: Creador */}
-                <div className="rounded-xl border border-white/10 bg-black/10 p-3">
-                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[var(--muted2)]">
+                {/* Grupo 1: Redes */}
+                <div className="rounded-xl border border-white/15 bg-black/20 p-4 hover:border-[rgba(225,29,72,0.35)] transition">
+                  <h3 className="mb-4 text-base font-semibold tracking-wide text-white">
+                    <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                     Links a mis redes
-                  </p>
+                  </h3>
                   <SocialLinks group="social" className="gap-2" />
                 </div>
 
                 {/* Grupo 2: Contacto */}
-                <div className="rounded-xl border border-white/10 bg-black/10 p-3">
-                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[var(--muted2)]">
+                <div className="rounded-xl border border-white/15 bg-black/20 p-4 hover:border-[rgba(225,29,72,0.35)] transition">
+                  <h3 className="mb-4 text-base font-semibold tracking-wide text-white">
+                    <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                     Contáctame
-                  </p>
+                  </h3>
                   <SocialLinks group="contact" className="gap-2" />
                 </div>
+
               </div>
             </div>
 
-            {/* Botón después */}
-            <div className="flex items-center gap-4">
+            {/* Botones */}
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/projects"
-                className="inline-flex items-center justify-center px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-zinc-200 transition-colors"
+                href="/blog"
+                className="
+                  inline-flex items-center justify-center
+                  h-12 px-6
+                  rounded-xl
+                  font-bold
+                  text-white
+                  border border-white/10
+                  bg-[linear-gradient(135deg,rgba(225,29,72,0.28),rgba(255,255,255,0.06))]
+                  shadow-[0_10px_30px_-18px_rgba(225,29,72,0.55)]
+                  hover:shadow-[0_18px_40px_-18px_rgba(225,29,72,0.65)]
+                  hover:border-white/15
+                  transition
+                "
               >
-                Ver Proyectos
+                Leer el blog
+              </Link>
+
+              <Link
+                href="/setup"
+                className="
+                  inline-flex items-center justify-center
+                  h-12 px-6
+                  rounded-xl
+                  font-bold
+                  text-white
+                  border border-[rgba(225,29,72,0.28)]
+                  bg-[linear-gradient(135deg,rgba(225,29,72,0.12),rgba(255,255,255,0.04))]
+                  shadow-[0_10px_30px_-18px_rgba(225,29,72,0.25)]
+                  hover:border-[rgba(225,29,72,0.45)]
+                  hover:shadow-[0_18px_40px_-18px_rgba(225,29,72,0.35)]
+                  transition
+                "
+              >
+                Ver mi setup
               </Link>
             </div>
           </div>
@@ -116,7 +166,6 @@ export default function Home() {
           </div>
         </Container>
       </section>
-
     </div>
   );
 }
