@@ -16,17 +16,16 @@ export default function AboutPage() {
                     <AvatarPlaceholder className="w-32 h-32 md:w-40 md:h-40 bg-zinc-900" />
                 </div>
                 <div>
-                    <SectionHeader title="About Me" className="mb-6" />
+                    <SectionHeader title="Sobre mí" className="mb-6" />
                     <div className="prose prose-invert text-zinc-400">
                         <p className="mb-4">
-                            Soy Mich, un desarrollador apasionado por crear productos digitales.
-                            Escribo código, diseño interfaces y comparto lo que aprendo en el camino.
+                            Soy Mich, Ingeniero Electrónico con Maestría en Mecatrónica, pero de alguna manera la vida me ha llevado a muchos caminos diferentes que hoy comparto en este sitio.
                         </p>
                         <p className="mb-4">
-                            My goal is to create software that is not only functional but also beautiful and intuitive. I believe in the power of minimalism and clean code.
+                            Me dedico al desarrollo de software, la creación de contenido, amante de un buen café de especialidad y en mis ratos libres jugar TCG y escuchar Podcasts.
                         </p>
                         <p>
-                            When I'm not coding, you can find me testing the latest gadgets or exploring new design trends.
+                            "No se a donde nos lleva este camino, pero definitvamente es un lugar diferente."
                         </p>
                     </div>
                     <div className="mt-8">

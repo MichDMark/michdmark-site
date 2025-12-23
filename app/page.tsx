@@ -114,7 +114,7 @@ export default function Home() {
                   transition
                 "
               >
-                Ver mi setup
+                Mis Gadgets
               </Link>
             </div>
           </div>

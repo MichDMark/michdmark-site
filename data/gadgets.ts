@@ -11,45 +11,48 @@ export interface GadgetCategory {
 
 export const gadgets: GadgetCategory[] = [
     {
-        title: "Workstation",
+        title: "Equipo principal",
         items: [
             {
-                name: "MacBook Pro 16\"",
-                description: "M3 Max, 64GB Unified Memory. The powerhouse.",
+                name: "Macbook Pro 13 M2",
+                description:
+                    "Mi equipo principal para desarrollo, redacción y edición de video, uso de Agentes de IA. Aunque ya tiene unos años puede sacar el trabajo sin problemas.",
             },
             {
-                name: "Apple Studio Display",
-                description: "27-inch 5K Retina display. Crystal clear text.",
-            },
-            {
-                name: "Keychron Q1 Pro",
-                description: "Custom mechanical keyboard with Gateron Oil King switches.",
+                name: "iPad Pro 12.9 M2",
+                description:
+                    "Es un gran complemento para el trabajo, especialmente cuando necesito algo ligero, puedo realizar todo excepto proyectos de desarrollo mas complejos.",
             },
         ],
     },
     {
-        title: "Audio & Video",
+        title: "Periféricos",
         items: [
             {
-                name: "Shure SM7B",
-                description: "Legendary vocal microphone for streaming and recording.",
+                name: "Teclado: Logitech POP KEY / Mouse: Logitech Lift",
+                description:
+                    "Usar un mouse vertical es muy cómodo para jornadas largas y un teclado mecánico básico mejora la escritura.",
             },
             {
-                name: "Sony A7IV",
-                description: "Main camera for YouTube and photography.",
+                name: "Airpods Max",
+                description:
+                    "Mis audífonos de diadema, siempre en mi escritorio, aunque ya tienen algo de tiempo, el sonido es bueno y la cancelación de ruido junto con la integración de todo el ecosistema Apple me da mucha velocidad.",
+            },
+            {
+                name: "Beats Fit Pro",
+                description:
+                    "Mis audífonos siempre en mi bolsillo, tienen mucho tiempo en el mercado pero la sujeción al oído te da ese plus para ir al gym y no estar cuidando que se caigan",
             },
         ],
     },
+
     {
-        title: "Software",
+        title: "Extras",
         items: [
             {
-                name: "VS Code",
-                description: "My editor of choice with the GitHub Dark theme.",
-            },
-            {
-                name: "Raycast",
-                description: "Productivity booster on macOS.",
+                name: "Café",
+                description:
+                    "Un buen café en el escritorio hace toda la diferencia.",
             },
         ],
     },

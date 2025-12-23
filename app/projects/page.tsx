@@ -12,8 +12,8 @@ export default function ProjectsPage() {
     return (
         <Container className="py-24">
             <SectionHeader
-                title="Projects"
-                description="A selection of things I've built."
+                title="Proyectos"
+                description="Proyectos que he realizado."
                 className="mb-12"
             />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

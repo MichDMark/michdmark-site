@@ -11,8 +11,8 @@ export default function SetupPage() {
     return (
         <Container className="py-24">
             <SectionHeader
-                title="My Setup"
-                description="Tools, hardware, and software I use to get work done."
+                title="Mis Gadgets"
+                description="Las herramientas que uso en mi día a día y los que uso para trabajar."
                 className="mb-12"
             />
             <div className="space-y-16">
