@@ -5,9 +5,9 @@ import { MobileMenu } from "./MobileMenu";
 
 const navItems = [
     { name: "Blog", href: "/blog" },
-    { name: "Projects", href: "/projects" },
-    { name: "Setup", href: "/setup" },
-    { name: "About", href: "/about" },
+    { name: "Proyectos", href: "/projects" },
+    { name: "Mis Gadgets", href: "/setup" },
+    { name: "Sobre Mi", href: "/about" },
 ];
 
 export function Navbar() {

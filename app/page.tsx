@@ -32,7 +32,7 @@ export default function Home() {
               border border-white/12
               bg-[linear-gradient(180deg,rgba(225,29,72,0.22),rgba(0,0,0,0.6))]
               p-6 sm:p-8
-    backdrop-blur
+              backdrop-blur
               "
             >
               <p className="text-lg sm:text-xl text-white leading-relaxed">
@@ -121,51 +121,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Latest Posts */}
-      <section>
-        <Container>
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-white font-heading">
-              Últimos artículos
-            </h2>
-            <Link
-              href="/blog"
-              className="text-sm text-brand-red hover:text-white transition-colors flex items-center gap-1"
-            >
-              Ver todos <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {latestPosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Projects Preview */}
-      <section>
-        <Container>
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-white font-heading">
-              Proyectos destacados
-            </h2>
-            <Link
-              href="/projects"
-              className="text-sm text-brand-red hover:text-white transition-colors flex items-center gap-1"
-            >
-              Ver todos <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {latestProjects.map((project) => (
-              <ProjectCard key={project.name} project={project} />
-            ))}
-          </div>
-        </Container>
-      </section>
     </div>
   );
 }
