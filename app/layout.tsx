@@ -1,27 +1,41 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space",
-  subsets: ["latin"],
-});
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: "Mich — Desarrollador & Creador",
     template: "%s | Mich",
   },
-  description:
-    "Blog personal de Mich creador de contenido, desarrollo web, gadgets y electrónica.",
+  description: siteConfig.description,
+  authors: [{ name: siteConfig.author, url: siteConfig.url }],
+  creator: siteConfig.author,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: "Mich — Desarrollador & Creador",
+    description: siteConfig.description,
+  },
+  twitter: {
+    card: "summary",
+    title: "Mich — Desarrollador & Creador",
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: absoluteUrl("/favicon.ico"),
+  },
 };
 
 export default function RootLayout({
@@ -32,11 +46,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark">
       <body
-        className={cn(
-          inter.variable,
-          spaceGrotesk.variable,
-          "antialiased min-h-screen bg-background text-foreground font-sans selection:bg-brand-red selection:text-white flex flex-col"
-        )}
+        className="antialiased min-h-screen bg-background text-foreground font-sans selection:bg-brand-red selection:text-white flex flex-col"
       >
         <Navbar />
         <main className="flex-1">{children}</main>

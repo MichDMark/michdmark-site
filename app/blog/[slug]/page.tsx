@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { es } from "date-fns/locale";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
@@ -30,6 +31,25 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     return {
         title: `${post.title} | Mich`,
         description: post.description,
+        alternates: {
+            canonical: `/blog/${post.slug}/`,
+        },
+        openGraph: {
+            type: "article",
+            locale: siteConfig.locale,
+            url: absoluteUrl(`/blog/${post.slug}/`),
+            siteName: siteConfig.name,
+            title: post.title,
+            description: post.description,
+            publishedTime: post.date,
+            authors: [siteConfig.author],
+            tags: post.tags,
+        },
+        twitter: {
+            card: "summary",
+            title: post.title,
+            description: post.description,
+        },
     };
 }
 
@@ -52,7 +72,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     ))}
                 </div>
                 <h1 className="text-3xl font-bold text-white md:text-5xl mb-4">{post.title}</h1>
-                <time className="text-zinc-500 font-mono capitalize">
+                <time dateTime={post.date} className="text-zinc-500 font-mono capitalize">
                     {format(parseISO(post.date), "d 'de' MMMM, yyyy", { locale: es })}
                 </time>
             </div>

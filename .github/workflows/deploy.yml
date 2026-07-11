@@ -30,8 +30,11 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Audit
+        run: npm audit --audit-level=high
+
+      - name: Check
+        run: npm run check
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

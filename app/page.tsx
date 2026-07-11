@@ -1,16 +1,8 @@
 import { Container } from "@/components/Container";
-import { PostCard } from "@/components/PostCard";
-import { ProjectCard } from "@/components/ProjectCard";
 import { SocialLinks } from "@/components/SocialLinks";
-import { projects } from "@/data/projects";
-import { getAllPosts } from "@/lib/posts";
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
-  const latestPosts = getAllPosts().slice(0, 3);
-  const latestProjects = projects.slice(0, 3);
-
   return (
     <div className="flex flex-col gap-20 py-10 md:py-14">
       {/* Hero Section */}

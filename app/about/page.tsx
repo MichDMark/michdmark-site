@@ -4,8 +4,11 @@ import { AvatarPlaceholder } from "@/components/AvatarPlaceholder";
 import { SocialLinks } from "@/components/SocialLinks";
 
 export const metadata = {
-    title: "About | Mich",
-    description: "More about me.",
+    title: "Sobre mí | Mich",
+    description: "Más sobre Mich.",
+    alternates: {
+        canonical: "/about/",
+    },
 };
 
 export default function AboutPage() {
@@ -25,11 +28,11 @@ export default function AboutPage() {
                             Me dedico al desarrollo de software, la creación de contenido, amante de un buen café de especialidad y en mis ratos libres jugar TCG y escuchar Podcasts.
                         </p>
                         <p>
-                            "No se a donde nos lleva este camino, pero definitvamente es un lugar diferente."
+                            &ldquo;No sé a dónde nos lleva este camino, pero definitivamente es un lugar diferente.&rdquo;
                         </p>
                     </div>
                     <div className="mt-8">
-                        <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Connect</h3>
+                        <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Contacto</h3>
                         <SocialLinks />
                     </div>
                 </div>

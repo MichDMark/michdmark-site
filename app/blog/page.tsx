@@ -6,6 +6,9 @@ import { getAllPosts } from "@/lib/posts";
 export const metadata = {
     title: "Artículos | Mich",
     description: "Artículos sobre desarrollo web, diseño, tecnología y productividad.",
+    alternates: {
+        canonical: "/blog/",
+    },
 };
 
 export default function BlogPage() {

@@ -3,8 +3,11 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { gadgets } from "@/data/gadgets";
 
 export const metadata = {
-    title: "Setup | Mich",
-    description: "The gear and software I use daily.",
+    title: "Mis Gadgets | Mich",
+    description: "El equipo y software que uso en mi día a día.",
+    alternates: {
+        canonical: "/setup/",
+    },
 };
 
 export default function SetupPage() {

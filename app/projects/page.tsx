@@ -4,8 +4,11 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/data/projects";
 
 export const metadata = {
-    title: "Projects | Mich",
-    description: "A collection of my work.",
+    title: "Proyectos | Mich",
+    description: "Una colección de mis proyectos.",
+    alternates: {
+        canonical: "/projects/",
+    },
 };
 
 export default function ProjectsPage() {

@@ -1,52 +1,64 @@
-# Mich's Portfolio & Blog
+# Mich DMark
 
-A modern, minimal portfolio and blog template built with Next.js 14+, Tailwind CSS, and TypeScript.
+Blog personal y portafolio estático construido con Next.js, TypeScript y Tailwind CSS.
 
-## Features
+El sitio está pensado para mostrar redes sociales, artículos, proyectos personales y gadgets/setup. No usa backend, base de datos ni CMS; el contenido vive en archivos Markdown y datos locales de TypeScript.
 
-- **Tech Stack**: Next.js App Router, TypeScript, Tailwind CSS.
-- **Design**: Minimalist dark-themed aesthetic with red accents.
-- **Blog**: Markdown-based blog with static generation (`/content/posts`).
-- **Data Management**: Simple TypeScript data files for Gadgets and Projects (`/data`).
-- **Performance**: Optimized with Next.js features (Font optimization, Image optimization).
+## Stack
 
-## Getting Started
+- Next.js App Router con export estático.
+- TypeScript.
+- Tailwind CSS 4.
+- Markdown para posts del blog.
+- GitHub Pages para despliegue.
 
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+## Desarrollo local
 
-2. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
+```bash
+npm install
+npm run dev
+```
 
-3. **Open** [http://localhost:3000](http://localhost:3000) with your browser.
+Abre `http://localhost:3000`.
 
-## Customization
+## Scripts
 
-### Adding a Blog Post
-1. Create a new `.md` file in `content/posts/`.
-2. Add the required frontmatter:
-   ```yaml
-   ---
-   title: "Your Title"
-   date: "YYYY-MM-DD"
-   description: "Short description"
-   tags: ["Tag1", "Tag2"]
-   ---
-   ```
-3. Write your content in Markdown.
+```bash
+npm audit
+npm run lint
+npm run test
+npx tsc --noEmit
+npm run build
+npm run check
+```
 
-### Managing Projects & Gadgets
-- **Projects**: Edit `data/projects.ts` to add or remove projects.
-- **Gadgets / Setup**: Edit `data/gadgets.ts`.
-- **Social Links**: Edit `data/social.ts`.
+## Contenido
 
-### Newsletter
-The newsletter form in `app/newsletter/page.tsx` is currently a mock. Integration with providers like Mailchimp or ConvertKit can be added in the `handleSubmit` function.
+### Posts
 
-## Deployment
+Crea un archivo `.md` en `content/posts/` con este frontmatter:
 
-The easiest way to deploy this app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```yaml
+---
+title: "Título"
+description: "Descripción corta"
+date: "YYYY-MM-DD"
+tags: ["Blog", "Tech"]
+---
+```
+
+El slug se genera a partir del nombre del archivo.
+
+### Datos editables
+
+- Proyectos: `data/projects.ts`
+- Gadgets/setup: `data/gadgets.ts`
+- Redes sociales y contacto: `data/social.ts`
+
+## Despliegue
+
+El workflow `.github/workflows/deploy.yml` ejecuta `npm ci`, `npm audit --audit-level=high`, `npm run check` y publica la carpeta `out/` en GitHub Pages.
+
+La configuración de Next usa `output: "export"` y `trailingSlash: true` para mantener el sitio compatible con Pages.
+
+La URL pública para metadata, sitemap y robots se configura con `NEXT_PUBLIC_SITE_URL`. Si no existe, el fallback es `https://michdmark.github.io/michdmark-site`.

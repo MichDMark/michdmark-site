@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 type NavItem = { name: string; href: string };
 
 export function MobileMenu({ items }: { items: NavItem[] }) {
     const [open, setOpen] = useState(false);
+    const menuId = useId();
+    const closeButtonRef = useRef<HTMLButtonElement>(null);
 
     // Close on ESC + lock scroll when open
     useEffect(() => {
@@ -18,6 +20,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
 
         if (open) {
             document.body.style.overflow = "hidden";
+            closeButtonRef.current?.focus();
         } else {
             document.body.style.overflow = "";
         }
@@ -35,6 +38,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
                 type="button"
                 aria-label={open ? "Cerrar menú" : "Abrir menú"}
                 aria-expanded={open}
+                aria-controls={menuId}
                 onClick={() => setOpen((v) => !v)}
                 className="
           md:hidden inline-flex items-center justify-center
@@ -59,6 +63,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
                 <div className="md:hidden fixed inset-0 z-[60] flex justify-end">
                     {/* Overlay */}
                     <button
+                        type="button"
                         aria-label="Cerrar menú"
                         className="absolute inset-0 bg-black/85 backdrop-blur-sm"
                         onClick={() => setOpen(false)}
@@ -67,6 +72,10 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
                     {/* Panel wrapper aligned right */}
                     <div className="relative z-10 mt-16 mr-4 w-72 max-w-[calc(100vw-2rem)]">
                         <div
+                            id={menuId}
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label="Menú principal"
                             className="
                 relative
                 rounded-2xl border border-white/10
@@ -121,6 +130,8 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
 
                             <div className="relative z-10 border-t border-white/10 p-3">
                                 <button
+                                    ref={closeButtonRef}
+                                    type="button"
                                     onClick={() => setOpen(false)}
                                     className="
                     w-full rounded-xl

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -9,9 +8,6 @@ interface LogoProps {
 }
 
 export function Logo({ className }: LogoProps) {
-    const pathname = usePathname();
-    const isHome = pathname === "/";
-
     return (
         <Link
             href="/"
