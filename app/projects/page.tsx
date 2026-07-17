@@ -1,3 +1,4 @@
+import { SimpleGrid } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -13,17 +14,17 @@ export const metadata = {
 
 export default function ProjectsPage() {
     return (
-        <Container className="py-24">
+        <Container py={{ base: "xl", md: 96 }}>
             <SectionHeader
                 title="Proyectos"
                 description="Proyectos que he realizado."
-                className="mb-12"
+                mb="xl"
             />
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
                 {projects.map((project) => (
                     <ProjectCard key={project.name} project={project} />
                 ))}
-            </div>
+            </SimpleGrid>
         </Container>
     );
 }

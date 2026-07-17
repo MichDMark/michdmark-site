@@ -1,17 +1,18 @@
+import { Box, Group, Text } from "@mantine/core";
 import { Container } from "./Container";
 import { SocialLinks } from "./SocialLinks";
 
 export function Footer() {
     return (
-        <footer className="border-t border-white/5 bg-black py-12">
-            <Container className="flex flex-col items-center justify-between gap-6 md:flex-row">
-                <div className="flex flex-col gap-2">
-                    <span className="text-sm text-zinc-400">
+        <Box component="footer" py="xl" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", background: "rgba(0,0,0,0.35)" }}>
+            <Container>
+                <Group justify="space-between" gap="lg">
+                    <Text size="sm" c="gray.5">
                         © {new Date().getFullYear()} Mich. Todos los derechos reservados.
-                    </span>
-                </div>
-                <SocialLinks />
+                    </Text>
+                    <SocialLinks />
+                </Group>
             </Container>
-        </footer>
+        </Box>
     );
 }

@@ -1,3 +1,4 @@
+import { Card, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
 import { gadgets } from "@/data/gadgets";
@@ -12,27 +13,29 @@ export const metadata = {
 
 export default function SetupPage() {
     return (
-        <Container className="py-24">
+        <Container py={{ base: "xl", md: 96 }}>
             <SectionHeader
                 title="Mis Gadgets"
                 description="Las herramientas que uso en mi día a día y los que uso para trabajar."
-                className="mb-12"
+                mb="xl"
             />
-            <div className="space-y-16">
+            <Stack gap={56}>
                 {gadgets.map((category) => (
-                    <div key={category.title}>
-                        <h3 className="text-xl font-bold text-white mb-6 border-l-2 border-brand-red pl-4">{category.title}</h3>
-                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <Stack key={category.title} gap="lg">
+                        <Title order={3} size="h3" c="white" pl="md" style={{ borderLeft: "2px solid var(--mantine-color-brand-6)" }}>
+                            {category.title}
+                        </Title>
+                        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
                             {category.items.map((item) => (
-                                <div key={item.name} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                                    <h4 className="font-bold text-zinc-100 mb-1">{item.name}</h4>
-                                    <p className="text-sm text-zinc-400">{item.description}</p>
-                                </div>
+                                <Card key={item.name} padding="md" radius="lg" withBorder style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.08)" }}>
+                                    <Text fw={700} c="gray.0" mb={4}>{item.name}</Text>
+                                    <Text size="sm" c="gray.5" lh={1.7}>{item.description}</Text>
+                                </Card>
                             ))}
-                        </div>
-                    </div>
+                        </SimpleGrid>
+                    </Stack>
                 ))}
-            </div>
+            </Stack>
         </Container>
     );
 }

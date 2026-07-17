@@ -1,19 +1,18 @@
-import { User } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Avatar, type AvatarProps } from "@mantine/core";
+import { IconUserCircle } from "@tabler/icons-react";
 
-interface AvatarPlaceholderProps {
-    className?: string;
-}
+type AvatarPlaceholderProps = AvatarProps;
 
-export function AvatarPlaceholder({ className }: AvatarPlaceholderProps) {
+export function AvatarPlaceholder(props: AvatarPlaceholderProps) {
     return (
-        <div
-            className={cn(
-                "flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-zinc-500",
-                className
-            )}
+        <Avatar
+            size={160}
+            radius={999}
+            color="brand"
+            variant="light"
+            {...props}
         >
-            <User className="w-1/2 h-1/2" />
-        </div>
+            <IconUserCircle size={72} stroke={1.4} />
+        </Avatar>
     );
 }

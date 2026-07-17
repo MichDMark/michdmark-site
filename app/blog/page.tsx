@@ -1,3 +1,4 @@
+import { Divider, SimpleGrid } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
 import { PostCard } from "@/components/PostCard";
@@ -15,21 +16,20 @@ export default function BlogPage() {
     const posts = getAllPosts();
 
     return (
-        <Container className="py-16 md:py-24">
+        <Container py={{ base: "xl", md: 96 }}>
             <SectionHeader
                 title="Artículos"
                 description="Reflexiones sobre desarrollo web, diseño y tecnología."
-                className="mb-8 md:mb-12"
+                mb="xl"
             />
 
-            {/* subtle divider */}
-            <div className="mb-8 h-px w-full bg-white/10" />
+            <Divider mb="xl" color="rgba(255,255,255,0.1)" />
 
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
                 {posts.map((post) => (
                     <PostCard key={post.slug} post={post} />
                 ))}
-            </div>
+            </SimpleGrid>
         </Container>
     );
 }

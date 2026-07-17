@@ -1,15 +1,14 @@
-import { cn } from "@/lib/utils";
+import { Container as MantineContainer, type ContainerProps as MantineContainerProps } from "@mantine/core";
 import { ReactNode } from "react";
 
-interface ContainerProps {
+interface ContainerProps extends MantineContainerProps {
     children: ReactNode;
-    className?: string;
 }
 
-export function Container({ children, className }: ContainerProps) {
+export function Container({ children, size = "lg", px = "md", ...props }: ContainerProps) {
     return (
-        <div className={cn("mx-auto w-full max-w-6xl px-6 sm:px-6 lg:px-8", className)}>
+        <MantineContainer size={size} px={px} {...props}>
             {children}
-        </div>
+        </MantineContainer>
     );
 }

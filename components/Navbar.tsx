@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Box, Group, Anchor } from "@mantine/core";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
@@ -12,24 +12,39 @@ const navItems = [
 
 export function Navbar() {
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
-            <Container className="flex h-16 items-center justify-between py-1">
-                <Logo className="-mx-1" />
+        <Box
+            component="header"
+            pos="sticky"
+            top={0}
+            style={{
+                zIndex: 50,
+                borderBottom: "1px solid rgba(255,255,255,0.05)",
+                background: "rgba(11,15,20,0.82)",
+                backdropFilter: "blur(12px)",
+            }}
+        >
+            <Container>
+                <Group h={64} justify="space-between">
+                    <Logo />
 
-                <nav className="hidden md:flex items-center gap-6">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
-                </nav>
+                    <Group component="nav" visibleFrom="md" gap="lg">
+                        {navItems.map((item) => (
+                            <Anchor
+                                key={item.href}
+                                href={item.href}
+                                c="gray.5"
+                                fw={500}
+                                size="sm"
+                                underline="never"
+                            >
+                                {item.name}
+                            </Anchor>
+                        ))}
+                    </Group>
 
-                <MobileMenu items={navItems} />
+                    <MobileMenu items={navItems} />
+                </Group>
             </Container>
-        </header>
+        </Box>
     );
 }

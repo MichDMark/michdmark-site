@@ -1,8 +1,8 @@
-import Link from "next/link";
+import { Badge, Card, Group, Stack, Text, Title } from "@mantine/core";
+import { IconArrowRight } from "@tabler/icons-react";
 import { format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import { Post } from "@/lib/posts";
-import { MoveRight } from "lucide-react";
 
 interface PostCardProps {
     post: Post;
@@ -12,73 +12,52 @@ export function PostCard({ post }: PostCardProps) {
     const formattedDate = format(parseISO(post.date), "d MMM yyyy", { locale: es }); // ej: 20 mar 2024
 
     return (
-        <Link
+        <Card
+            component="a"
             href={`/blog/${post.slug}`}
-            className="
-        group relative flex flex-col gap-3 rounded-2xl
-        border border-[var(--border)]
-        bg-[var(--surface)]/70
-        p-6
-        shadow-[0_10px_30px_-15px_rgba(0,0,0,0.6)]
-        backdrop-blur
-        hover:bg-[var(--surface)]/85
-        hover:border-white/15
-        transition
-      "
+            padding="lg"
+            radius="lg"
+            withBorder
+            style={{
+                minHeight: "100%",
+                background: "rgba(17,24,39,0.7)",
+                borderColor: "rgba(255,255,255,0.08)",
+                textDecoration: "none",
+            }}
         >
-            {/* Top row */}
-            <div className="flex items-start justify-between gap-4">
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+            <Stack gap="md" h="100%">
+                <Group justify="space-between" align="flex-start" gap="md">
+                    <Group gap={6}>
                     {post.tags.map((tag) => (
-                        <span
+                        <Badge
                             key={tag}
-                            className="
-                rounded-full border border-white/10 bg-white/5
-                px-2.5 py-1
-                text-[11px] font-medium
-                text-[var(--accent)]
-                font-mono
-              "
+                            variant="light"
+                            color="brand"
+                            radius="xl"
+                            size="sm"
                         >
                             #{tag}
-                        </span>
+                        </Badge>
                     ))}
-                </div>
+                    </Group>
 
-                {/* Date */}
-                <time
-                    dateTime={post.date}
-                    className="shrink-0 text-[11px] text-[var(--muted2)] font-mono capitalize"
-                >
-                    {formattedDate}
-                </time>
-            </div>
+                    <Text component="time" dateTime={post.date} c="dimmed" size="xs" tt="capitalize">
+                        {formattedDate}
+                    </Text>
+                </Group>
 
-            {/* Title */}
-            <h3 className="text-xl font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
-                {post.title}
-            </h3>
+                <Title order={3} size="h3" c="gray.0">
+                    {post.title}
+                </Title>
 
-            {/* Description */}
-            <p className="text-sm text-[var(--muted)] line-clamp-2 leading-relaxed">
-                {post.description}
-            </p>
+                <Text c="gray.5" size="sm" lineClamp={2} lh={1.7}>
+                    {post.description}
+                </Text>
 
-            {/* CTA */}
-            <div className="mt-auto pt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--text)]/90 group-hover:text-[var(--text)] transition">
-                Leer artículo
-                <MoveRight className="w-4 h-4" />
-            </div>
-
-            {/* Subtle hover glow */}
-            <div
-                className="
-          pointer-events-none absolute inset-0 rounded-2xl opacity-0
-          group-hover:opacity-100 transition
-          [background:radial-gradient(600px_circle_at_20%_0%,rgba(225,29,72,0.10),transparent_45%)]
-        "
-            />
-        </Link>
+                <Text mt="auto" pt="sm" c="gray.2" size="xs" fw={700} tt="uppercase">
+                    Leer artículo <IconArrowRight size={14} stroke={2} style={{ verticalAlign: "middle" }} />
+                </Text>
+            </Stack>
+        </Card>
     );
 }

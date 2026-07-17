@@ -1,4 +1,5 @@
 
+import { Badge, Card, Group, Stack, Text, Title, Anchor } from "@mantine/core";
 import { Project } from "@/data/projects";
 
 interface ProjectCardProps {
@@ -7,34 +8,39 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
     return (
-        <div className="flex flex-col gap-4 rounded-2xl border border-white/5 bg-white/5 p-6 hover:border-brand-red/50 hover:bg-white/10 transition-colors">
-            <div className="flex flex-col gap-1">
-                <h3 className="text-lg font-bold text-white">{project.name}</h3>
+        <Card padding="lg" radius="lg" withBorder h="100%" style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.08)" }}>
+            <Stack gap="md" h="100%">
+                <Stack gap={4}>
+                    <Title order={3} size="h4" c="gray.0">{project.name}</Title>
 
-                {project.url && (
-                    <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block text-sm text-brand-red hover:text-white transition-colors"
-                    >
-                        Visitar sitio →
-                    </a>
-                )}
-            </div>
-            <p className="text-sm text-zinc-400 flex-1">{project.description}</p>
-            {project.stack?.length ? (
-                <div className="flex flex-wrap gap-2 mt-2">
+                    {project.url && (
+                        <Anchor
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            size="sm"
+                            c="brand.5"
+                        >
+                            Visitar sitio →
+                        </Anchor>
+                    )}
+                </Stack>
+                <Text c="gray.5" size="sm" lh={1.7}>{project.description}</Text>
+                {project.stack?.length ? (
+                    <Group gap={6} mt="auto">
                     {project.stack.map((tech) => (
-                        <span
+                        <Badge
                             key={tech}
-                            className="px-2 py-1 bg-white/5 rounded text-xs text-zinc-300 border border-white/10"
+                            variant="outline"
+                            color="gray"
+                            radius="sm"
                         >
                             {tech}
-                        </span>
+                        </Badge>
                     ))}
-                </div>
-            ) : null}
-        </div>
+                    </Group>
+                ) : null}
+            </Stack>
+        </Card>
     );
 }

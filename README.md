@@ -1,6 +1,6 @@
 # Mich DMark
 
-Blog personal y portafolio estático construido con Next.js, TypeScript y Tailwind CSS.
+Blog personal y portafolio estático construido con Next.js, TypeScript, Mantine y Tabler Icons.
 
 El sitio está pensado para mostrar redes sociales, artículos, proyectos personales y gadgets/setup. No usa backend, base de datos ni CMS; el contenido vive en archivos Markdown y datos locales de TypeScript.
 
@@ -8,7 +8,8 @@ El sitio está pensado para mostrar redes sociales, artículos, proyectos person
 
 - Next.js App Router con export estático.
 - TypeScript.
-- Tailwind CSS 4.
+- Mantine como librería de UI.
+- Tabler Icons como librería de iconos.
 - Markdown para posts del blog.
 - GitHub Pages para despliegue.
 

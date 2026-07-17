@@ -1,47 +1,27 @@
-import { cn } from "@/lib/utils";
+import { Stack, Text, Title, type MantineSpacing } from "@mantine/core";
 
 interface SectionHeaderProps {
     title: string;
     description?: string;
-    className?: string;
+    mb?: MantineSpacing;
 }
 
 export function SectionHeader({
     title,
     description,
-    className,
+    mb = "xl",
 }: SectionHeaderProps) {
     return (
-        <header
-            className={cn(
-                "flex flex-col gap-3",
-                "mb-6 md:mb-10",
-                className
-            )}
-        >
-            <h2
-                className="
-          text-2xl md:text-3xl
-          font-heading font-bold
-          text-[var(--text)]
-          tracking-tight
-        "
-            >
+        <Stack component="header" gap="xs" mb={mb}>
+            <Title order={2} c="gray.0">
                 {title}
-            </h2>
+            </Title>
 
             {description && (
-                <p
-                    className="
-            max-w-2xl
-            text-sm md:text-base
-            leading-relaxed
-            text-[var(--muted)]
-          "
-                >
+                <Text c="gray.5" maw={720} lh={1.7}>
                     {description}
-                </p>
+                </Text>
             )}
-        </header>
+        </Stack>
     );
 }

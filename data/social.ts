@@ -1,44 +1,58 @@
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
-import { FaTiktok, FaFacebook } from "react-icons/fa";
+import {
+    IconBrandFacebook,
+    IconBrandGithub,
+    IconBrandInstagram,
+    IconBrandLinkedin,
+    IconBrandTiktok,
+    IconMail,
+    type Icon,
+} from "@tabler/icons-react";
 
-export const socialLinks = [
+export interface SocialLink {
+    name: string;
+    href: string;
+    group: "social" | "contact";
+    icon: Icon;
+}
+
+export const socialLinks: SocialLink[] = [
     // --- Social / Audiencia ---
     {
         name: "Instagram",
         href: "https://instagram.com/michdmark/",
-        icon: Instagram,
         group: "social",
+        icon: IconBrandInstagram,
     },
     {
         name: "TikTok",
         href: "https://tiktok.com/@michdmark",
-        icon: FaTiktok,
         group: "social",
+        icon: IconBrandTiktok,
     },
     {
         name: "Facebook",
         href: "https://facebook.com/michdmark2",
-        icon: FaFacebook,
         group: "social",
+        icon: IconBrandFacebook,
     },
 
     // --- Contacto / Profesional ---
     {
         name: "Email",
         href: "mailto:michdmark@gmail.com",
-        icon: Mail,
         group: "contact",
+        icon: IconMail,
     },
     {
         name: "GitHub",
         href: "https://github.com/MichDMark",
-        icon: Github,
         group: "contact",
+        icon: IconBrandGithub,
     },
     {
         name: "LinkedIn",
         href: "https://www.linkedin.com/in/michel-mujica-02b70462/",
-        icon: Linkedin,
         group: "contact",
+        icon: IconBrandLinkedin,
     },
 ];

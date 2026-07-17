@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import "@mantine/core/styles.css";
 import "./globals.css";
+import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from "@mantine/core";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { absoluteUrl, siteConfig } from "@/lib/site";
+import { theme } from "@/lib/theme";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -44,13 +47,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
-      <body
-        className="antialiased min-h-screen bg-background text-foreground font-sans selection:bg-brand-red selection:text-white flex flex-col"
-      >
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+    <html lang="es" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript defaultColorScheme="dark" />
+      </head>
+      <body>
+        <MantineProvider theme={theme} defaultColorScheme="dark">
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </MantineProvider>
       </body>
     </html>
   );

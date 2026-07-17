@@ -1,119 +1,103 @@
+import { Box, Button, Group, Paper, SimpleGrid, Stack, Text, ThemeIcon, Title } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SocialLinks } from "@/components/SocialLinks";
-import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-20 py-10 md:py-14">
-      {/* Hero Section */}
-      <section className="pt-6 pb-10 sm:pt-10 sm:pb-16">
-        <Container>
-          <div className="max-w-2xl">
-            <h1 className="text-4xl sm:text-6xl font-heading font-bold text-white mb-6 tracking-tight">
-              Desarrollador.{" "}
-              <span className="text-brand-red">Creador de Contenido.</span>
-              <br />
-              Maker.
-            </h1>
+    <Box py={{ base: 40, sm: 56 }}>
+      <Container>
+        <Stack maw={760} gap="xl">
+          <Title order={1} c="white" size="clamp(2.5rem, 7vw, 4rem)" lh={1.05}>
+            Desarrollador.{" "}
+            <Text component="span" inherit c="brand.6">
+              Creador de Contenido.
+            </Text>
+            <br />
+            Maker.
+          </Title>
 
-            <div
-              className="
-              mt-8
-              max-w-2xl
-              rounded-3xl
-              border border-white/12
-              bg-[linear-gradient(180deg,rgba(225,29,72,0.22),rgba(0,0,0,0.6))]
-              p-6 sm:p-8
-              backdrop-blur
-              "
-            >
-              <p className="text-lg sm:text-xl text-white leading-relaxed">
+          <Paper
+            p={{ base: "lg", sm: "xl" }}
+            radius="xl"
+            withBorder
+            style={{
+              borderColor: "rgba(255,255,255,0.12)",
+              background: "linear-gradient(180deg, rgba(225,29,72,0.22), rgba(0,0,0,0.6))",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <Stack gap="md">
+              <Text size="xl" c="white" lh={1.65}>
                 Soy Mich, bienvenido a mi espacio. Funciono mejor después de un par de tazas de café.
-              </p>
+              </Text>
 
-              <p className="mt-4 text-lg sm:text-xl text-white/85 leading-relaxed">
+              <Text size="xl" c="gray.3" lh={1.65}>
                 Aquí encontrarás mi blog, proyectos y los gadgets que uso en mi día a día.
-              </p>
-            </div>
+              </Text>
+            </Stack>
+          </Paper>
 
-            {/* Redes (con color ambiental) */}
-            <div className="mt-10 mb-8 relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-              {/* glow de marca */}
-              <div
-                className="
-                  pointer-events-none absolute inset-0 opacity-80
-                  [background:radial-gradient(650px_circle_at_50%_0%,rgba(225,29,72,0.22),transparent_60%)]
-                "
-              />
-
-              <div className="relative z-10 grid gap-4 sm:grid-cols-2">
-
-                {/* Grupo 1: Redes */}
-                <div className="rounded-xl border border-white/15 bg-black/20 p-4 hover:border-[rgba(225,29,72,0.35)] transition">
-                  <h3 className="mb-4 text-base font-semibold tracking-wide text-white">
-                    <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+          <Paper
+            p="md"
+            radius="lg"
+            withBorder
+            style={{
+              borderColor: "rgba(255,255,255,0.1)",
+              background: "rgba(255,255,255,0.05)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+              <Paper p="md" radius="md" withBorder style={{ background: "rgba(0,0,0,0.2)", borderColor: "rgba(255,255,255,0.12)" }}>
+                <Stack gap="md">
+                  <Group gap="xs">
+                    <ThemeIcon size={8} radius="xl" color="brand" />
+                    <Text fw={600} c="white">
                     Links a mis redes
-                  </h3>
-                  <SocialLinks group="social" className="gap-2" />
-                </div>
+                    </Text>
+                  </Group>
+                  <SocialLinks group="social" />
+                </Stack>
+              </Paper>
 
-                {/* Grupo 2: Contacto */}
-                <div className="rounded-xl border border-white/15 bg-black/20 p-4 hover:border-[rgba(225,29,72,0.35)] transition">
-                  <h3 className="mb-4 text-base font-semibold tracking-wide text-white">
-                    <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+              <Paper p="md" radius="md" withBorder style={{ background: "rgba(0,0,0,0.2)", borderColor: "rgba(255,255,255,0.12)" }}>
+                <Stack gap="md">
+                  <Group gap="xs">
+                    <ThemeIcon size={8} radius="xl" color="brand" />
+                    <Text fw={600} c="white">
                     Contáctame
-                  </h3>
-                  <SocialLinks group="contact" className="gap-2" />
-                </div>
+                    </Text>
+                  </Group>
+                  <SocialLinks group="contact" />
+                </Stack>
+              </Paper>
+            </SimpleGrid>
+          </Paper>
 
-              </div>
-            </div>
-
-            {/* Botones */}
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
+          <Group gap="sm">
+            <Button
+              component="a"
                 href="/blog"
-                className="
-                  inline-flex items-center justify-center
-                  h-12 px-6
-                  rounded-xl
-                  font-bold
-                  text-white
-                  border border-white/10
-                  bg-[linear-gradient(135deg,rgba(225,29,72,0.28),rgba(255,255,255,0.06))]
-                  shadow-[0_10px_30px_-18px_rgba(225,29,72,0.55)]
-                  hover:shadow-[0_18px_40px_-18px_rgba(225,29,72,0.65)]
-                  hover:border-white/15
-                  transition
-                "
+              size="md"
+              radius="md"
+              color="brand"
               >
                 Leer el blog
-              </Link>
+            </Button>
 
-              <Link
+            <Button
+              component="a"
                 href="/setup"
-                className="
-                  inline-flex items-center justify-center
-                  h-12 px-6
-                  rounded-xl
-                  font-bold
-                  text-white
-                  border border-[rgba(225,29,72,0.28)]
-                  bg-[linear-gradient(135deg,rgba(225,29,72,0.12),rgba(255,255,255,0.04))]
-                  shadow-[0_10px_30px_-18px_rgba(225,29,72,0.25)]
-                  hover:border-[rgba(225,29,72,0.45)]
-                  hover:shadow-[0_18px_40px_-18px_rgba(225,29,72,0.35)]
-                  transition
-                "
+              size="md"
+              radius="md"
+              variant="outline"
+              color="brand"
               >
                 Mis Gadgets
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-
-    </div>
+            </Button>
+          </Group>
+        </Stack>
+      </Container>
+    </Box>
   );
 }

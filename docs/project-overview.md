@@ -8,7 +8,8 @@ Sitio personal para centralizar redes sociales, artículos, proyectos personales
 
 - Next.js App Router.
 - TypeScript.
-- Tailwind CSS.
+- Mantine como librería de UI.
+- Tabler Icons como librería de iconos.
 - Markdown para posts.
 - GitHub Pages como hosting estático.
 
