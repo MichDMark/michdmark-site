@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "implementationStatus": "launcher-validated",
+  "project": {
+    "name": "proyecto_mich",
+    "root": ".."
+  },
+  "session": {
+    "name": "default"
+  },
+  "defaultPreset": "balanced",
+  "coordination": {
+    "singleApplicationWriterRole": "dev",
+    "configurationCustodianRole": "afinador",
+    "reviewPolicy": "on-demand"
+  },
+  "presets": {
+    "balanced": {
+      "description": "Codex afina y conserva contexto, Codex coordina, OpenCode implementa y Agy revisa bajo demanda.",
+      "roles": {
+        "afinador": {
+          "paneLabel": "afinador",
+          "kind": "codex",
+          "contract": ".herdr/prompts/tuner.md",
+          "adapter": "~/.codex/personal-tuner.config.toml",
+          "adapterScope": "global",
+          "accessIntent": "configuration-write",
+          "launch": {
+            "args": [
+              "--profile",
+              "personal-tuner"
+            ]
+          }
+        },
+        "orquestador": {
+          "paneLabel": "orquestador",
+          "kind": "codex",
+          "contract": ".herdr/prompts/orchestrator.md",
+          "adapter": "~/.codex/personal-orchestrator.config.toml",
+          "adapterScope": "global",
+          "accessIntent": "coordinate",
+          "launch": {
+            "args": [
+              "--profile",
+              "personal-orchestrator"
+            ]
+          }
+        },
+        "dev": {
+          "paneLabel": "dev",
+          "kind": "opencode",
+          "contract": ".herdr/prompts/developer.md",
+          "adapter": ".opencode/agents/project-dev.md",
+          "adapterScope": "project",
+          "accessIntent": "workspace-write",
+          "launch": {
+            "args": [
+              "--agent",
+              "project-dev",
+              "--model",
+              "openai/gpt-5.6-terra-fast"
+            ]
+          }
+        },
+        "revisor": {
+          "paneLabel": "revisor",
+          "kind": "agy",
+          "contract": ".herdr/prompts/reviewer.md",
+          "adapter": ".agents/agents/project-reviewer/agent.md",
+          "adapterScope": "project",
+          "accessIntent": "read-only",
+          "launch": {
+            "args": [
+              "--agent",
+              "project-reviewer",
+              "--model",
+              "gemini-3.8-flash-low",
+              "--sandbox",
+              "--mode=plan"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

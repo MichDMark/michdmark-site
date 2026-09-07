@@ -1,0 +1,507 @@
+#!/usr/bin/env bash
+
+set -uo pipefail
+
+PROGRAM="${0##*/}"
+PRESET=""
+DRY_RUN=false
+COMMAND=""
+POSITIONAL=()
+PROJECT_ROOT=""
+MANIFEST=""
+MANIFEST_DIR=""
+AGENTS_JSON=""
+PANES_JSON=""
+START_COMMAND=()
+
+usage() {
+  cat <<'EOF'
+Uso:
+  herdr-project [--preset NOMBRE] validate
+  herdr-project [--preset NOMBRE] status
+  herdr-project [--preset NOMBRE] start [--dry-run]
+  herdr-project attach [SESION] [--dry-run]
+  herdr-project recover [SESION] [--dry-run]
+
+Comandos:
+  validate  Valida manifiesto, adaptadores y precondiciones de la sesión.
+  status    Muestra el estado de cada rol sin modificar procesos.
+  start     Inicia solo roles ausentes en paneles vacíos ya etiquetados.
+  attach    Adjunta la terminal a una sesión Herdr existente.
+  recover   Adjunta solo si la sesión sigue viva; nunca la recrea solo.
+
+Opciones:
+  --preset NOMBRE  Preset del manifiesto; usa defaultPreset si se omite.
+  --dry-run        Imprime acciones mutantes sin ejecutarlas.
+  -h, --help       Muestra esta ayuda.
+EOF
+}
+
+fail() {
+  printf '%s: %s\n' "$PROGRAM" "$*" >&2
+  exit 1
+}
+
+require_command() {
+  command -v "$1" >/dev/null 2>&1 || fail "falta el comando requerido: $1"
+}
+
+shell_quote_command() {
+  local item
+  printf '  '
+  for item in "$@"; do
+    printf '%q ' "$item"
+  done
+  printf '\n'
+}
+
+parse_arguments() {
+  while (($#)); do
+    case "$1" in
+      --preset)
+        (($# >= 2)) || fail "--preset requiere un nombre"
+        PRESET="$2"
+        shift 2
+        ;;
+      --dry-run)
+        DRY_RUN=true
+        shift
+        ;;
+      -h|--help)
+        COMMAND="help"
+        shift
+        ;;
+      validate|status|start|attach|recover|help)
+        [[ -z "$COMMAND" ]] || fail "solo se permite un comando"
+        COMMAND="$1"
+        shift
+        ;;
+      --*)
+        fail "opción desconocida: $1"
+        ;;
+      *)
+        POSITIONAL+=("$1")
+        shift
+        ;;
+    esac
+  done
+
+  [[ -n "$COMMAND" ]] || COMMAND="help"
+}
+
+discover_project() {
+  require_command git
+  require_command jq
+  require_command herdr
+
+  PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" ||
+    fail "debe ejecutarse dentro de un repositorio Git"
+  PROJECT_ROOT="$(cd "$PROJECT_ROOT" && pwd -P)"
+
+  local current_dir
+  current_dir="$(pwd -P)"
+  [[ "$current_dir" == "$PROJECT_ROOT" ]] ||
+    fail "debe ejecutarse desde la raíz del proyecto: $PROJECT_ROOT"
+
+  MANIFEST="$PROJECT_ROOT/.herdr/session.json"
+  MANIFEST_DIR="$PROJECT_ROOT/.herdr"
+  [[ -f "$MANIFEST" ]] || fail "no existe $MANIFEST"
+}
+
+resolve_preset() {
+  if [[ -z "$PRESET" ]]; then
+    PRESET="$(jq -er '.defaultPreset' "$MANIFEST")" ||
+      fail "defaultPreset no es válido"
+  fi
+
+  jq -e --arg preset "$PRESET" '.presets[$preset] | type == "object"' "$MANIFEST" >/dev/null ||
+    fail "el preset no existe: $PRESET"
+}
+
+resolve_adapter_path() {
+  local adapter="$1"
+  case "$adapter" in
+    '~/'*) printf '%s/%s\n' "$HOME" "${adapter#\~/}" ;;
+    /*) printf '%s\n' "$adapter" ;;
+    *) printf '%s/%s\n' "$PROJECT_ROOT" "$adapter" ;;
+  esac
+}
+
+validate_manifest() {
+  jq empty "$MANIFEST" || fail "el manifiesto no contiene JSON válido"
+
+  jq -e '
+    .schemaVersion == 1 and
+    (.project.name | type == "string" and length > 0) and
+    (.project.root | type == "string" and length > 0) and
+    (.session.name | type == "string" and test("^[A-Za-z0-9._-]+$")) and
+    (.defaultPreset | type == "string" and length > 0) and
+    (.presets | type == "object" and length > 0)
+  ' "$MANIFEST" >/dev/null || fail "cabecera del manifiesto inválida"
+
+  local declared_root
+  declared_root="$(cd "$MANIFEST_DIR/$(jq -er '.project.root' "$MANIFEST")" 2>/dev/null && pwd -P)" ||
+    fail "project.root no se puede resolver"
+  [[ "$declared_root" == "$PROJECT_ROOT" ]] ||
+    fail "project.root resuelve a $declared_root, no a $PROJECT_ROOT"
+
+  resolve_preset
+
+  jq -e --arg preset "$PRESET" '
+    .presets[$preset].roles as $roles |
+    ($roles | type == "object" and length > 0) and
+    ([$roles[].paneLabel] | length == (unique | length)) and
+    all($roles | to_entries[];
+      (.key | test("^[a-z][a-z0-9_-]{0,31}$")) and
+      (.value.paneLabel | type == "string" and test("^[a-z][a-z0-9_-]{0,31}$")) and
+      (.value.kind | type == "string" and length > 0) and
+      (.value.contract | type == "string" and length > 0) and
+      (.value.adapter | type == "string" and length > 0) and
+      (.value.adapterScope == "global" or .value.adapterScope == "project") and
+      (.value.launch.args | type == "array") and
+      all(.value.launch.args[]; type == "string" and (contains("\n") | not))
+    )
+  ' "$MANIFEST" >/dev/null || fail "roles inválidos o paneLabel duplicado en el preset $PRESET"
+
+  local role contract adapter adapter_scope adapter_path
+  while IFS= read -r role; do
+    contract="$(jq -r --arg preset "$PRESET" --arg role "$role" '.presets[$preset].roles[$role].contract' "$MANIFEST")"
+    [[ "$contract" != /* && "$contract" != '~/'* ]] ||
+      fail "el contrato de $role debe ser relativo al proyecto"
+    [[ -f "$PROJECT_ROOT/$contract" ]] || fail "falta el contrato de $role: $contract"
+
+    adapter="$(jq -r --arg preset "$PRESET" --arg role "$role" '.presets[$preset].roles[$role].adapter' "$MANIFEST")"
+    adapter_scope="$(jq -r --arg preset "$PRESET" --arg role "$role" '.presets[$preset].roles[$role].adapterScope' "$MANIFEST")"
+    if [[ "$adapter_scope" == "project" && ( "$adapter" == /* || "$adapter" == '~/'* ) ]]; then
+      fail "el adaptador local de $role debe usar una ruta relativa"
+    fi
+    if [[ "$adapter_scope" == "global" && "$adapter" != /* && "$adapter" != '~/'* ]]; then
+      fail "el adaptador global de $role debe usar una ruta absoluta o ~/"
+    fi
+    adapter_path="$(resolve_adapter_path "$adapter")"
+    [[ -f "$adapter_path" ]] || fail "falta el adaptador de $role: $adapter"
+  done < <(jq -r --arg preset "$PRESET" '.presets[$preset].roles | keys[]' "$MANIFEST")
+}
+
+require_inside_herdr() {
+  [[ "${HERDR_ENV:-}" == "1" ]] ||
+    fail "este comando debe ejecutarse dentro de un panel administrado por Herdr"
+  [[ -n "${HERDR_WORKSPACE_ID:-}" && -n "${HERDR_PANE_ID:-}" ]] ||
+    fail "Herdr no proporcionó el contexto del workspace y panel actuales"
+}
+
+load_runtime() {
+  AGENTS_JSON="$(herdr agent list)" || fail "no se pudo consultar la lista de agentes"
+  PANES_JSON="$(herdr pane list --workspace "$HERDR_WORKSPACE_ID")" ||
+    fail "no se pudo consultar la lista de paneles"
+
+  jq -e '.result.agents | type == "array"' <<<"$AGENTS_JSON" >/dev/null ||
+    fail "respuesta inesperada de herdr agent list"
+  jq -e '.result.panes | type == "array"' <<<"$PANES_JSON" >/dev/null ||
+    fail "respuesta inesperada de herdr pane list"
+}
+
+role_value() {
+  local role="$1"
+  local field="$2"
+  jq -r --arg preset "$PRESET" --arg role "$role" --arg field "$field" \
+    '.presets[$preset].roles[$role][$field]' "$MANIFEST"
+}
+
+live_agent_count() {
+  local role="$1"
+  jq -r --arg role "$role" '[.result.agents[] | select(.name == $role)] | length' <<<"$AGENTS_JSON"
+}
+
+matching_pane_count() {
+  local label="$1"
+  jq -r --arg label "$label" '[.result.panes[] | select(.label? == $label)] | length' <<<"$PANES_JSON"
+}
+
+check_live_agent() {
+  local role="$1"
+  local expected_kind="$2"
+  local kind cwd
+  kind="$(jq -r --arg role "$role" '.result.agents[] | select(.name == $role) | .agent' <<<"$AGENTS_JSON")"
+  cwd="$(jq -r --arg role "$role" '.result.agents[] | select(.name == $role) | (.foreground_cwd // .cwd)' <<<"$AGENTS_JSON")"
+  [[ "$kind" == "$expected_kind" ]] || {
+    printf '%s: el rol %s usa kind=%s; se esperaba %s\n' "$PROGRAM" "$role" "$kind" "$expected_kind" >&2
+    return 1
+  }
+  [[ "$cwd" == "$PROJECT_ROOT" ]] || {
+    printf '%s: el rol %s está en CWD %s; se esperaba %s\n' "$PROGRAM" "$role" "$cwd" "$PROJECT_ROOT" >&2
+    return 1
+  }
+}
+
+check_live_binding() {
+  local role="$1"
+  local expected_kind="$2"
+  local label pane_count labeled_pane live_pane
+  check_live_agent "$role" "$expected_kind" || return 1
+
+  label="$(role_value "$role" paneLabel)"
+  pane_count="$(matching_pane_count "$label")"
+  if ((pane_count != 1)); then
+    printf '%s: el rol vivo %s requiere exactamente un panel etiquetado %s; hay %s\n' \
+      "$PROGRAM" "$role" "$label" "$pane_count" >&2
+    return 1
+  fi
+  labeled_pane="$(candidate_pane_id "$label")"
+  live_pane="$(jq -r --arg role "$role" '.result.agents[] | select(.name == $role) | .pane_id' <<<"$AGENTS_JSON")"
+  [[ "$labeled_pane" == "$live_pane" ]] || {
+    printf '%s: la etiqueta %s no pertenece al panel que ejecuta el rol %s\n' "$PROGRAM" "$label" "$role" >&2
+    return 1
+  }
+}
+
+candidate_pane_id() {
+  local label="$1"
+  jq -r --arg label "$label" '.result.panes[] | select(.label? == $label) | .pane_id' <<<"$PANES_JSON"
+}
+
+check_empty_shell_pane() {
+  local pane_id="$1"
+  local role="$2"
+  local pane_cwd process_json
+  pane_cwd="$(jq -r --arg pane "$pane_id" '.result.panes[] | select(.pane_id == $pane) | (.foreground_cwd // .cwd)' <<<"$PANES_JSON")"
+  [[ "$pane_cwd" == "$PROJECT_ROOT" ]] || {
+    printf '%s: el panel de %s está en CWD %s; se esperaba %s\n' "$PROGRAM" "$role" "$pane_cwd" "$PROJECT_ROOT" >&2
+    return 1
+  }
+  [[ "$pane_id" != "${HERDR_PANE_ID:-}" ]] || {
+    printf '%s: el panel de %s es el panel que ejecuta el launcher; no se usará\n' "$PROGRAM" "$role" >&2
+    return 1
+  }
+
+  process_json="$(herdr pane process-info --pane "$pane_id")" || {
+    printf '%s: no se pudo inspeccionar el panel de %s\n' "$PROGRAM" "$role" >&2
+    return 1
+  }
+  jq -e '
+    .result.process_info as $info |
+    ($info.foreground_processes | length) == 1 and
+    $info.foreground_processes[0].pid == $info.shell_pid
+  ' <<<"$process_json" >/dev/null || {
+    printf '%s: el panel de %s no está en un prompt de shell disponible\n' "$PROGRAM" "$role" >&2
+    return 1
+  }
+}
+
+preflight_runtime() {
+  local role live_count label pane_count pane_id kind
+  local errors=0
+
+  while IFS= read -r role; do
+    kind="$(role_value "$role" kind)"
+    live_count="$(live_agent_count "$role")"
+    if ((live_count > 1)); then
+      printf '%s: hay más de un agente vivo con el nombre %s\n' "$PROGRAM" "$role" >&2
+      errors=$((errors + 1))
+      continue
+    fi
+    if ((live_count == 1)); then
+      check_live_binding "$role" "$kind" || errors=$((errors + 1))
+      continue
+    fi
+
+    label="$(role_value "$role" paneLabel)"
+    pane_count="$(matching_pane_count "$label")"
+    if ((pane_count == 0)); then
+      printf '%s: falta un agente %s y no existe un panel etiquetado %s\n' "$PROGRAM" "$role" "$label" >&2
+      errors=$((errors + 1))
+      continue
+    fi
+    if ((pane_count > 1)); then
+      printf '%s: hay %s paneles etiquetados %s\n' "$PROGRAM" "$pane_count" "$label" >&2
+      errors=$((errors + 1))
+      continue
+    fi
+    pane_id="$(candidate_pane_id "$label")"
+    check_empty_shell_pane "$pane_id" "$role" || errors=$((errors + 1))
+  done < <(jq -r --arg preset "$PRESET" '.presets[$preset].roles | keys[]' "$MANIFEST")
+
+  ((errors == 0))
+}
+
+print_status() {
+  local role kind state cwd live_count label pane_count pane_id condition
+  local unhealthy=0
+  printf '%-14s %-10s %-14s %s\n' "ROL" "HARNESS" "ESTADO" "DETALLE"
+
+  while IFS= read -r role; do
+    kind="$(role_value "$role" kind)"
+    live_count="$(live_agent_count "$role")"
+    if ((live_count == 1)); then
+      state="$(jq -r --arg role "$role" '.result.agents[] | select(.name == $role) | .agent_status' <<<"$AGENTS_JSON")"
+      cwd="$(jq -r --arg role "$role" '.result.agents[] | select(.name == $role) | (.foreground_cwd // .cwd)' <<<"$AGENTS_JSON")"
+      condition="vivo"
+      if ! check_live_binding "$role" "$kind" 2>/dev/null; then
+        condition="conflicto"
+        unhealthy=1
+      fi
+      printf '%-14s %-10s %-14s %s; %s\n' "$role" "$kind" "$state" "$condition" "$cwd"
+      continue
+    fi
+    if ((live_count > 1)); then
+      printf '%-14s %-10s %-14s %s\n' "$role" "$kind" "conflicto" "nombre de agente duplicado"
+      unhealthy=1
+      continue
+    fi
+
+    label="$(role_value "$role" paneLabel)"
+    pane_count="$(matching_pane_count "$label")"
+    if ((pane_count == 0)); then
+      printf '%-14s %-10s %-14s %s\n' "$role" "$kind" "ausente" "falta panel $label"
+      unhealthy=1
+    elif ((pane_count > 1)); then
+      printf '%-14s %-10s %-14s %s\n' "$role" "$kind" "conflicto" "$pane_count paneles llamados $label"
+      unhealthy=1
+    else
+      pane_id="$(candidate_pane_id "$label")"
+      if check_empty_shell_pane "$pane_id" "$role" 2>/dev/null; then
+        printf '%-14s %-10s %-14s %s\n' "$role" "$kind" "preparado" "shell vacío etiquetado $label"
+      else
+        printf '%-14s %-10s %-14s %s\n' "$role" "$kind" "ocupado" "panel $label no disponible"
+        unhealthy=1
+      fi
+    fi
+  done < <(jq -r --arg preset "$PRESET" '.presets[$preset].roles | keys[]' "$MANIFEST")
+
+  return "$unhealthy"
+}
+
+build_start_command() {
+  local role="$1"
+  local pane_id="$2"
+  local kind arg
+  local launch_args=()
+  kind="$(role_value "$role" kind)"
+  START_COMMAND=(herdr agent start "$role" --kind "$kind" --pane "$pane_id")
+  while IFS= read -r arg; do
+    launch_args+=("$arg")
+  done < <(jq -r --arg preset "$PRESET" --arg role "$role" '.presets[$preset].roles[$role].launch.args[]' "$MANIFEST")
+  if ((${#launch_args[@]} > 0)); then
+    START_COMMAND+=(-- "${launch_args[@]}")
+  fi
+}
+
+start_missing_agents() {
+  preflight_runtime || fail "preflight falló; no se inició ningún agente"
+
+  local role label pane_id
+  local started=0
+  while IFS= read -r role; do
+    if (( $(live_agent_count "$role") == 1 )); then
+      printf 'skip %s: ya está vivo\n' "$role"
+      continue
+    fi
+    label="$(role_value "$role" paneLabel)"
+    pane_id="$(candidate_pane_id "$label")"
+    build_start_command "$role" "$pane_id"
+    if [[ "$DRY_RUN" == true ]]; then
+      printf 'dry-run %s:\n' "$role"
+      shell_quote_command "${START_COMMAND[@]}"
+    else
+      printf 'iniciando %s...\n' "$role"
+      "${START_COMMAND[@]}" || fail "no se pudo iniciar $role; los roles anteriores no se reemplazaron"
+    fi
+    started=$((started + 1))
+  done < <(jq -r --arg preset "$PRESET" '.presets[$preset].roles | keys[]' "$MANIFEST")
+
+  if ((started == 0)); then
+    printf 'Los cuatro roles ya están vivos; no se realizaron cambios.\n'
+  elif [[ "$DRY_RUN" == true ]]; then
+    printf 'Dry-run completo; no se realizaron cambios.\n'
+  else
+    printf 'Arranque completo: %s rol(es) iniciado(s).\n' "$started"
+  fi
+}
+
+manifest_session_name() {
+  jq -er '.session.name' "$MANIFEST" || fail "session.name no es válido"
+}
+
+build_attach_command() {
+  local session_name="$1"
+  if [[ "$session_name" == "default" ]]; then
+    START_COMMAND=(herdr)
+  else
+    START_COMMAND=(herdr session attach "$session_name")
+  fi
+}
+
+attach_session() {
+  local session_name="$1"
+  [[ "${HERDR_ENV:-}" != "1" ]] || fail "ya está dentro de Herdr; no se abrirá una sesión anidada"
+  build_attach_command "$session_name"
+  if [[ "$DRY_RUN" == true ]]; then
+    printf 'dry-run attach:\n'
+    shell_quote_command "${START_COMMAND[@]}"
+    return
+  fi
+  exec "${START_COMMAND[@]}"
+}
+
+recover_session() {
+  local session_name="$1"
+  [[ "${HERDR_ENV:-}" != "1" ]] || fail "la sesión actual ya está conectada; use status desde este panel"
+
+  local running=false sessions_json
+  if [[ "$session_name" == "default" ]]; then
+    if herdr status server >/dev/null 2>&1; then
+      running=true
+    fi
+  else
+    sessions_json="$(herdr session list --json)" || fail "no se pudo consultar las sesiones Herdr"
+    if jq -e --arg name "$session_name" '.sessions[]? | select(.name == $name and .running == true)' <<<"$sessions_json" >/dev/null; then
+      running=true
+    fi
+  fi
+
+  [[ "$running" == true ]] || fail "la sesión $session_name no está activa; recover no crea una sesión nueva ni sustituye agentes"
+  printf 'La sesión %s sigue activa; se volverá a adjuntar.\n' "$session_name"
+  attach_session "$session_name"
+}
+
+main() {
+  parse_arguments "$@"
+  if [[ "$COMMAND" == "help" ]]; then
+    usage
+    return
+  fi
+
+  discover_project
+  validate_manifest
+
+  case "$COMMAND" in
+    attach|recover)
+      ((${#POSITIONAL[@]} <= 1)) || fail "$COMMAND acepta como máximo un nombre de sesión"
+      local session_name="${POSITIONAL[0]:-$(manifest_session_name)}"
+      if [[ "$COMMAND" == "attach" ]]; then
+        attach_session "$session_name"
+      else
+        recover_session "$session_name"
+      fi
+      ;;
+    validate|status|start)
+      ((${#POSITIONAL[@]} == 0)) || fail "$COMMAND no acepta argumentos posicionales"
+      require_inside_herdr
+      load_runtime
+      case "$COMMAND" in
+        validate)
+          preflight_runtime || fail "la configuración estática es válida, pero falló el preflight de la sesión"
+          printf 'Configuración válida: preset %s y runtime listos.\n' "$PRESET"
+          ;;
+        status)
+          print_status
+          ;;
+        start)
+          start_missing_agents
+          ;;
+      esac
+      ;;
+  esac
+}
+
+main "$@"
