@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "implementationStatus": "launcher-validated",
+  "implementationStatus": "workflow-validated",
   "project": {
     "name": "proyecto_mich",
     "root": ".."
@@ -17,6 +17,12 @@
   "presets": {
     "balanced": {
       "description": "Codex afina y conserva contexto, Codex coordina, OpenCode implementa y Agy revisa bajo demanda.",
+      "launchOrder": [
+        "afinador",
+        "orquestador",
+        "dev",
+        "revisor"
+      ],
       "roles": {
         "afinador": {
           "paneLabel": "afinador",

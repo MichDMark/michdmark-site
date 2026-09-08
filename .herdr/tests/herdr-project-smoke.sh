@@ -62,6 +62,7 @@ cat >"$FIXTURE_ROOT/.herdr/session.json" <<'JSON'
   "defaultPreset": "test",
   "presets": {
     "test": {
+      "launchOrder": ["dev"],
       "roles": {
         "dev": {
           "paneLabel": "dev",
@@ -88,7 +89,17 @@ set -u
 
 case "${1:-} ${2:-}" in
   "agent list")
-    printf '{"result":{"agents":[]}}\n'
+    case "${FAKE_SCENARIO:-ready}" in
+      duplicate-agent)
+        printf '{"result":{"agents":[{"name":"dev","agent":"opencode","pane_id":"w9:p2","cwd":"%s"},{"name":"dev","agent":"opencode","pane_id":"w9:p3","cwd":"%s"}]}}\n' "$FAKE_ROOT" "$FAKE_ROOT"
+        ;;
+      wrong-kind)
+        printf '{"result":{"agents":[{"name":"dev","agent":"codex","agent_status":"idle","pane_id":"w9:p2","cwd":"%s"}]}}\n' "$FAKE_ROOT"
+        ;;
+      *)
+        printf '{"result":{"agents":[]}}\n'
+        ;;
+    esac
     ;;
   "pane list")
     case "${FAKE_SCENARIO:-ready}" in
@@ -156,6 +167,12 @@ FAKE_SCENARIO=duplicate expect_failure_containing \
   "rechaza etiquetas duplicadas" "hay 2 paneles etiquetados dev" run_launcher start
 FAKE_SCENARIO=occupied expect_failure_containing \
   "rechaza un panel ocupado" "no está en un prompt de shell disponible" run_launcher start
+FAKE_SCENARIO=duplicate-agent expect_failure_containing \
+  "rechaza agentes duplicados" "más de un agente vivo con el nombre dev" run_launcher validate
+FAKE_SCENARIO=wrong-kind expect_failure_containing \
+  "rechaza un harness vivo incorrecto" "usa kind=codex; se esperaba opencode" run_launcher validate
+FAKE_SCENARIO=wrong-kind expect_failure_containing \
+  "status devuelve conflicto por harness incorrecto" "conflicto" run_launcher status
 
 expect_failure_containing \
   "rechaza control fuera de Herdr" "debe ejecutarse dentro de un panel administrado por Herdr" \
@@ -168,6 +185,19 @@ expect_success \
   env -u HERDR_ENV -u HERDR_WORKSPACE_ID -u HERDR_PANE_ID \
     PATH="$FAKE_BIN:$PATH" FAKE_ROOT="$FIXTURE_ROOT" FAKE_LOG="$LOG_FILE" \
     "$FIXTURE_ROOT/.herdr/bin/herdr-project" attach --dry-run
+
+expect_failure_containing \
+  "attach rechaza una sesión anidada" "ya está dentro de Herdr" run_launcher attach --dry-run
+
+expect_failure_containing \
+  "recover rechaza una sesión anidada" "la sesión actual ya está conectada" run_launcher recover --dry-run
+
+FAKE_SCENARIO=stopped expect_failure_containing \
+  "recover no recrea una sesión detenida" "no está activa" \
+  env -u HERDR_ENV -u HERDR_WORKSPACE_ID -u HERDR_PANE_ID \
+    PATH="$FAKE_BIN:$PATH" FAKE_ROOT="$FIXTURE_ROOT" FAKE_LOG="$LOG_FILE" \
+    FAKE_SCENARIO=stopped \
+    "$FIXTURE_ROOT/.herdr/bin/herdr-project" recover --dry-run
 
 FAKE_SCENARIO=server-running expect_success \
   "recover detecta una sesión viva sin recrearla" \

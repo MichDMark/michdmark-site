@@ -148,8 +148,14 @@ validate_manifest() {
   resolve_preset
 
   jq -e --arg preset "$PRESET" '
-    .presets[$preset].roles as $roles |
+    .presets[$preset] as $config |
+    $config.roles as $roles |
+    $config.launchOrder as $order |
     ($roles | type == "object" and length > 0) and
+    ($order | type == "array") and
+    (($order | length) == ($roles | length)) and
+    (($order | unique | length) == ($order | length)) and
+    (($order | sort) == ($roles | keys)) and
     ([$roles[].paneLabel] | length == (unique | length)) and
     all($roles | to_entries[];
       (.key | test("^[a-z][a-z0-9_-]{0,31}$")) and
@@ -180,7 +186,7 @@ validate_manifest() {
     fi
     adapter_path="$(resolve_adapter_path "$adapter")"
     [[ -f "$adapter_path" ]] || fail "falta el adaptador de $role: $adapter"
-  done < <(jq -r --arg preset "$PRESET" '.presets[$preset].roles | keys[]' "$MANIFEST")
+  done < <(role_names)
 }
 
 require_inside_herdr() {
@@ -206,6 +212,10 @@ role_value() {
   local field="$2"
   jq -r --arg preset "$PRESET" --arg role "$role" --arg field "$field" \
     '.presets[$preset].roles[$role][$field]' "$MANIFEST"
+}
+
+role_names() {
+  jq -r --arg preset "$PRESET" '.presets[$preset].launchOrder[]' "$MANIFEST"
 }
 
 live_agent_count() {
@@ -319,7 +329,7 @@ preflight_runtime() {
     fi
     pane_id="$(candidate_pane_id "$label")"
     check_empty_shell_pane "$pane_id" "$role" || errors=$((errors + 1))
-  done < <(jq -r --arg preset "$PRESET" '.presets[$preset].roles | keys[]' "$MANIFEST")
+  done < <(role_names)
 
   ((errors == 0))
 }
@@ -366,7 +376,7 @@ print_status() {
         unhealthy=1
       fi
     fi
-  done < <(jq -r --arg preset "$PRESET" '.presets[$preset].roles | keys[]' "$MANIFEST")
+  done < <(role_names)
 
   return "$unhealthy"
 }
@@ -407,10 +417,12 @@ start_missing_agents() {
       "${START_COMMAND[@]}" || fail "no se pudo iniciar $role; los roles anteriores no se reemplazaron"
     fi
     started=$((started + 1))
-  done < <(jq -r --arg preset "$PRESET" '.presets[$preset].roles | keys[]' "$MANIFEST")
+  done < <(role_names)
 
   if ((started == 0)); then
-    printf 'Los cuatro roles ya están vivos; no se realizaron cambios.\n'
+    local total_roles
+    total_roles="$(jq -r --arg preset "$PRESET" '.presets[$preset].launchOrder | length' "$MANIFEST")"
+    printf 'Todos los roles (%s) ya están vivos; no se realizaron cambios.\n' "$total_roles"
   elif [[ "$DRY_RUN" == true ]]; then
     printf 'Dry-run completo; no se realizaron cambios.\n'
   else

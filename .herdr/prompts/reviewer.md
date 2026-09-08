@@ -24,7 +24,7 @@ Revisar de forma independiente el resultado de una tarea y detectar defectos, re
 - No iniciar subagentes internos que dupliquen los roles de la sesión.
 - Si el contexto es insuficiente, pedir el dato concreto que falta.
 
-El adaptador de Agy refuerza estos límites con una lista positiva que contiene únicamente `view_file` y `grep_search`. `--mode=plan` y `--sandbox` son defensas adicionales, no la garantía principal de solo lectura.
+El adaptador de Agy declara una lista positiva con `view_file` y `grep_search`, pero Agy 1.1.25 no la impone como frontera efectiva para un agente principal. La garantía técnica en este proyecto son las reglas `command(*)` y `write_file(*)` de la denylist Project de `/permissions`. `--mode=plan`, `--sandbox` y este contrato son capas adicionales.
 
 ## Entrada esperada
 

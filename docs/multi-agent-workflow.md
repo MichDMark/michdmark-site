@@ -2,9 +2,9 @@
 
 ## Estado
 
-El piloto tiene cuatro roles configurados. `orquestador`, `dev` y `revisor` viven en la pestaña `agentes`; `afinador` conserva el contexto y mantiene el plano de control desde una pestaña separada. El launcher `herdr-project` ya valida, inspecciona e inicia roles desde paneles preparados.
+El piloto tiene cuatro roles configurados. `orquestador`, `dev` y `revisor` viven en la pestaña `agentes`; `afinador` conserva el contexto y mantiene el plano de control desde una pestaña separada. El launcher `herdr-project` ya valida, inspecciona e inicia roles desde paneles preparados, y el flujo extremo a extremo de fase 4 quedó validado.
 
-El archivo `.herdr/session.json` mantiene `implementationStatus: "launcher-validated"`: los adaptadores y el launcher pasaron pruebas reales e independientes. La creación del layout sigue siendo explícita porque `herdr agent start` ocupa paneles existentes y no crea ni divide paneles.
+El archivo `.herdr/session.json` mantiene `implementationStatus: "workflow-validated"`: los adaptadores, el launcher, los handoffs y los permisos críticos pasaron pruebas reales e independientes. La creación del layout sigue siendo explícita porque `herdr agent start` ocupa paneles existentes y no crea ni divide paneles.
 
 ## Objetivo
 
@@ -44,12 +44,13 @@ Los contratos de `.herdr/prompts/` no se cargan automáticamente en una sesión 
 - `implementationStatus`: nivel real de implementación del piloto.
 - `session.name`: sesión persistente usada por `attach` y `recover`.
 - `defaultPreset`: combinación que se usará si no se elige otra.
+- `launchOrder`: orden explícito de validación, reporte y arranque; debe ser una permutación exacta de las claves de `roles`.
 - `coordination.singleApplicationWriterRole`: rol con autoridad para editar código, producto y configuración de la aplicación.
 - `coordination.configurationCustodianRole`: rol que mantiene contratos, adaptadores, métricas y continuidad.
 - `coordination.reviewPolicy`: momento en que interviene el revisor.
 - `roles`: nombre semántico, etiqueta esperada del panel, harness, contrato, intención de acceso y argumentos objetivo.
 
-El manifiesto no concede permisos. `accessIntent` documenta la intención y cada adaptador la impone con las capacidades reales de su harness.
+El manifiesto no concede permisos. `accessIntent` documenta la intención; los controles efectivos deben configurarse y probarse con las capacidades reales de cada harness.
 
 ## Adaptadores validados
 
@@ -89,7 +90,18 @@ opencode --agent project-dev --model openai/gpt-5.6-terra-fast
 
 ### Agy: `project-reviewer`
 
-El agente local solo declara `view_file` y `grep_search`. No contiene `run_command`, herramientas de edición ni capacidad de subagentes. El modelo de arranque es `gemini-3.8-flash-low`; el nivel de esfuerzo forma parte del identificador y no debe combinarse con `--effort`.
+El agente local declara únicamente `view_file` y `grep_search`, pero una prueba adversarial demostró que Agy 1.1.25 expone herramientas adicionales cuando este adaptador se usa como agente principal. La lista del frontmatter expresa intención y no constituye por sí sola una frontera de seguridad.
+
+La protección efectiva se configuró en `/permissions` → `Project` → `denylist` con estas reglas:
+
+```text
+command(*)
+write_file(*)
+```
+
+Después de aplicarlas, Agy negó `command(pwd)` y la creación de un archivo marcador sin mostrar una solicitud de aprobación. Estas reglas son estado local de Agy, no quedan versionadas en el repositorio y deben verificarse al replicar o restaurar la configuración. Además afectan a todas las sesiones Agy de este proyecto; si en el futuro Agy debe actuar como desarrollador, será necesario revisar la separación de ámbitos antes de cambiar la denylist.
+
+El modelo de arranque es `gemini-3.8-flash-low`; el nivel de esfuerzo forma parte del identificador y no debe combinarse con `--effort`.
 
 Arranque directo:
 
@@ -209,7 +221,7 @@ chmod +x ~/.local/bin/herdr-project
 .herdr/tests/herdr-project-smoke.sh
 ```
 
-El smoke test crea un repositorio temporal y una CLI Herdr simulada. No toca los paneles reales. Cubre arranque, dry-run, panel ausente, etiqueta duplicada, panel ocupado, ejecución externa, attach y recover.
+El smoke test crea un repositorio temporal y una CLI Herdr simulada. No toca los paneles reales. Sus 17 casos cubren arranque, dry-run, panel ausente, etiquetas y agentes duplicados, harness incorrecto, estados conflictivos, ejecución externa y fallos defensivos de attach/recover.
 
 ## Validación de adaptadores
 
@@ -217,7 +229,7 @@ Se comprobó:
 
 - Carga del perfil Codex y construcción del contexto local.
 - Resolución del agente OpenCode y sus permisos efectivos.
-- Parseo inequívoco del frontmatter Agy y lista positiva de herramientas.
+- Parseo inequívoco del frontmatter Agy y, por separado, denylist Project efectiva para comandos y escritura.
 - Smoke test real de cada adaptador con una respuesta exacta y sin herramientas.
 
 Los smoke tests mostraron que crear conversaciones desechables tiene un costo de contexto considerable: aproximadamente 10.9k tokens para Codex, 4.3k para OpenCode y 15.2k para Agy, aunque cada respuesta fuera de una sola línea. La operación normal debe reutilizar sesiones persistentes de rol.
@@ -228,11 +240,13 @@ RTK podría evaluarse en el futuro como una optimización para reducir o filtrar
 
 Antes de considerarlo, requiere una auditoría de compatibilidad en macOS. Su eficacia deberá medirse contra una línea base observable —tokens o volumen de salida, latencia y preservación de errores y señales útiles— para confirmar que el filtrado no oculte información relevante.
 
-## Validación manual adelantada — fase 4 parcial
+## Fase 4 completada
 
-Se creó la pestaña `agentes` con los roles persistentes `orquestador`, `dev` y `revisor`. Se completaron dos handoffs y la revisión devolvió `clean`; el `dev` tardó 35.5 s y la revisión aproximadamente 15.3 s.
+Se creó la pestaña `agentes` con los roles persistentes `orquestador`, `dev` y `revisor`. En las pruebas iniciales se completaron dos handoffs: una revisión devolvió `clean` y otra se omitió correctamente por política `on-demand`; el `dev` tardó 35.5 s y aquella revisión aproximadamente 15.3 s.
 
-No se instalaron dependencias, no se crearon commits ni se reiniciaron paneles. Se omitió una segunda revisión por la política on-demand, al tratarse de documentación aislada y de bajo riesgo.
+La auditoría rigurosa posterior tardó 3 min 14 s y produjo tres hallazgos reales: un mensaje dependiente de cuatro roles, pérdida del orden intencional y cobertura negativa insuficiente. El `afinador` corrigió el plano de control, la suite pasó de 11 a 17 casos y la revisión final devolvió `clean`.
+
+La primera prueba de permisos reveló que el contrato y el frontmatter no impedían técnicamente ejecutar comandos. Después de agregar la denylist Project, las pruebas reales de `pwd` y escritura fueron denegadas sin prompt y no se creó el marcador. No se instalaron dependencias, no se crearon commits ni se reiniciaron paneles.
 
 ## Fase 3 completada
 
@@ -240,12 +254,13 @@ El launcher mínimo implementa `validate`, `status`, `start`, `attach`, `recover
 
 La construcción de `herdr agent start` está centralizada y toma `kind` y argumentos directamente del preset. Ninguna ruta del proyecto está codificada en el launcher.
 
-## Después del launcher
+## Después de la fase 4
 
-1. Completar la matriz de fase 4: hallazgo real y pruebas negativas de permisos. El agente ausente ya fue cubierto en aislamiento por el launcher.
-2. Establecer una línea base de costo, latencia y volumen de salida.
-3. Auditar e instalar RTK en macOS solo si preserva señales útiles.
-4. Crear un segundo preset y validar portabilidad en otro proyecto.
+1. Entrar a la fase 5 creando un segundo preset con al menos dos cambios de harness o modelo.
+2. Establecer una línea base de costo, latencia y volumen de salida antes de evaluar RTK.
+3. Replicar la configuración en un segundo proyecto y registrar qué elementos son realmente portables.
+4. Auditar e instalar RTK en macOS solo si preserva señales útiles.
+5. Crear el documento final `START-HERE-replicar-sesion-herdr.md` con la evidencia de ambos proyectos.
 
 ## Validación de esta fase
 
@@ -267,3 +282,6 @@ La validación de Agy requiere cargar el agente mediante el CLI porque no expone
 - [Configuración de Codex](https://developers.openai.com/codex/config-reference/)
 - [Agentes de OpenCode](https://opencode.ai/docs/agents)
 - [Agentes personalizados de Agy](https://www.antigravity.google/docs/subagents/)
+- [Permisos de Agy](https://www.antigravity.google/docs/cli/permissions/)
+- [Modos de ejecución de Agy](https://antigravity.google/docs/cli/modes/)
+- [Sandbox de Agy](https://antigravity.google/docs/cli/sandbox/)
