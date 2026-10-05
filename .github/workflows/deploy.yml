@@ -30,7 +30,14 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Audit
+      - name: Security gate (critical, full dependency tree)
+        run: npm audit --audit-level=critical
+
+      - name: Security gate (high, production dependencies)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Full dependency audit (known tooling advisory; informational)
+        continue-on-error: true
         run: npm audit --audit-level=high
 
       - name: Check

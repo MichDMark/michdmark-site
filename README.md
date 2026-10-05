@@ -25,7 +25,9 @@ Abre `http://localhost:3000`.
 ## Scripts
 
 ```bash
-npm audit
+npm audit --audit-level=critical
+npm audit --omit=dev --audit-level=high
+npm audit --audit-level=high # reporte completo; revisar manualmente hallazgos high de desarrollo
 npm run lint
 npm run test
 npx tsc --noEmit
@@ -60,7 +62,7 @@ El alcance editorial actual y el criterio para relacionar contenido en el futuro
 
 ## Despliegue
 
-El workflow `.github/workflows/deploy.yml` ejecuta `npm ci`, `npm audit --audit-level=high`, `npm run check` y publica la carpeta `out/` en GitHub Pages.
+El workflow `.github/workflows/deploy.yml` bloquea hallazgos críticos en todo el árbol y high/críticos en dependencias de producción. También ejecuta `npm audit --audit-level=high` como reporte informativo en logs para revisar manualmente vulnerabilidades high de desarrollo. Después ejecuta `npm run check` y publica la carpeta `out/` en GitHub Pages. La política y el hallazgo high conocido están documentados en [`docs/maintenance.md`](docs/maintenance.md).
 
 La configuración de Next usa `output: "export"` y `trailingSlash: true` para mantener el sitio compatible con Pages.
 
