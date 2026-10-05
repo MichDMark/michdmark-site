@@ -16,6 +16,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
                 onClick={() => setOpen((value) => !value)}
                 aria-label={open ? "Cerrar menú" : "Abrir menú"}
                 color="white"
+                className="mobile-nav-trigger"
             />
 
             <Drawer
@@ -25,6 +26,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
                 title="Menú"
                 hiddenFrom="md"
                 overlayProps={{ backgroundOpacity: 0.75, blur: 3 }}
+                aria-label="Navegación móvil"
             >
                 <Stack gap="xs">
                     {items.map((item) => (
@@ -37,6 +39,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
                             color="gray"
                             justify="flex-start"
                             size="md"
+                            className="mobile-menu-link"
                         >
                             {item.name}
                         </Button>

@@ -1,98 +1,50 @@
-import { Box, Button, Group, Paper, SimpleGrid, Stack, Text, ThemeIcon, Title } from "@mantine/core";
+import { Anchor, Box, Button, Group, Stack, Text, Title } from "@mantine/core";
 import { Container } from "@/components/Container";
+import { DisciplineMap } from "@/components/DisciplineMap";
 import { SocialLinks } from "@/components/SocialLinks";
 
 export default function Home() {
-  return (
-    <Box py={{ base: 40, sm: 56 }}>
-      <Container>
-        <Stack maw={760} gap="xl">
-          <Title order={1} c="white" size="clamp(2.5rem, 7vw, 4rem)" lh={1.05}>
-            Mich DMark
-          </Title>
+    return (
+        <Box component="section" className="home-hero" aria-labelledby="home-title">
+            <Container>
+                <div className="home-layout">
+                    <Stack className="home-copy" gap="xl">
+                        <Text className="eyebrow">Tecnología accesible</Text>
+                        <Title id="home-title" order={1} className="home-title">
+                            Mich <span>DMark</span>
+                        </Title>
+                        <Text className="home-lede">
+                            Tecnología e inteligencia artificial aplicada a software y hardware.
+                        </Text>
 
-          <Paper
-            p={{ base: "lg", sm: "xl" }}
-            radius="xl"
-            withBorder
-            style={{
-              borderColor: "rgba(255,255,255,0.12)",
-              background: "linear-gradient(180deg, rgba(225,29,72,0.22), rgba(0,0,0,0.6))",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <Stack gap="md">
-              <Text size="xl" c="white" lh={1.65}>
-                Exploro cómo acercar la tecnología a más personas, con interés en la inteligencia artificial aplicada al software y al hardware.
-              </Text>
+                        <Group className="home-actions">
+                            <Button component="a" href="/blog" className="home-action home-action-primary">
+                                Explorar el blog
+                            </Button>
+                            <Button component="a" href="/about" className="home-action home-action-secondary">
+                                About me
+                            </Button>
+                        </Group>
 
-              <Text size="xl" c="gray.3" lh={1.65}>
-                Este sitio reúne ideas, proyectos y gadgets. El contenido está en construcción y el blog crecerá con nuevas explicaciones y aprendizajes.
-              </Text>
-            </Stack>
-          </Paper>
+                        <nav className="home-links" aria-label="Secciones del sitio">
+                            <Anchor className="text-link" href="/projects">Proyectos</Anchor>
+                            <Anchor className="text-link" href="/setup">Gadgets</Anchor>
+                        </nav>
 
-          <Paper
-            p="md"
-            radius="lg"
-            withBorder
-            style={{
-              borderColor: "rgba(255,255,255,0.1)",
-              background: "rgba(255,255,255,0.05)",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-              <Paper p="md" radius="md" withBorder style={{ background: "rgba(0,0,0,0.2)", borderColor: "rgba(255,255,255,0.12)" }}>
-                <Stack gap="md">
-                  <Group gap="xs">
-                    <ThemeIcon size={8} radius="xl" color="brand" />
-                    <Text fw={600} c="white">
-                    Mis redes
-                    </Text>
-                  </Group>
-                  <SocialLinks group="social" />
-                </Stack>
-              </Paper>
-
-              <Paper p="md" radius="md" withBorder style={{ background: "rgba(0,0,0,0.2)", borderColor: "rgba(255,255,255,0.12)" }}>
-                <Stack gap="md">
-                  <Group gap="xs">
-                    <ThemeIcon size={8} radius="xl" color="brand" />
-                    <Text fw={600} c="white">
-                    Contáctame
-                    </Text>
-                  </Group>
-                  <SocialLinks group="contact" />
-                </Stack>
-              </Paper>
-            </SimpleGrid>
-          </Paper>
-
-          <Group gap="sm">
-            <Button
-              component="a"
-              href="/blog"
-              size="md"
-              radius="md"
-              color="brand"
-            >
-              Explorar el blog
-            </Button>
-
-            <Button
-              component="a"
-              href="/setup"
-              size="md"
-              radius="md"
-              variant="outline"
-              color="brand"
-            >
-              Gadgets
-            </Button>
-          </Group>
-        </Stack>
-      </Container>
-    </Box>
-  );
+                        <section className="home-social" aria-label="Redes y contacto">
+                            <div>
+                                <Text component="h2" className="link-group-title">Redes</Text>
+                                <SocialLinks group="social" />
+                            </div>
+                            <div>
+                                <Text component="h2" className="link-group-title">Contacto</Text>
+                                <SocialLinks group="contact" />
+                            </div>
+                        </section>
+                    </Stack>
+                    <DisciplineMap />
+                </div>
+            </Container>
+        </Box>
+    );
 }

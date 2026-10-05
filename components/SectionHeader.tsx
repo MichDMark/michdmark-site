@@ -3,22 +3,25 @@ import { Stack, Text, Title, type MantineSpacing } from "@mantine/core";
 interface SectionHeaderProps {
     title: string;
     description?: string;
+    eyebrow?: string;
     mb?: MantineSpacing;
 }
 
 export function SectionHeader({
     title,
     description,
+    eyebrow,
     mb = "xl",
 }: SectionHeaderProps) {
     return (
-        <Stack component="header" gap="xs" mb={mb}>
-            <Title order={2} c="gray.0">
+        <Stack component="header" gap="xs" mb={mb} className="section-heading">
+            {eyebrow && <Text className="section-kicker">{eyebrow}</Text>}
+            <Title order={1} className="section-title">
                 {title}
             </Title>
 
             {description && (
-                <Text c="gray.5" maw={720} lh={1.7}>
+                <Text className="section-description">
                     {description}
                 </Text>
             )}

@@ -18,12 +18,8 @@ export function PostCard({ post }: PostCardProps) {
             padding="lg"
             radius="lg"
             withBorder
-            style={{
-                minHeight: "100%",
-                background: "rgba(17,24,39,0.7)",
-                borderColor: "rgba(255,255,255,0.08)",
-                textDecoration: "none",
-            }}
+            className="content-card post-card"
+            style={{ textDecoration: "none" }}
         >
             <Stack gap="md" h="100%">
                 <Group justify="space-between" align="flex-start" gap="md">

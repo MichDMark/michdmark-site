@@ -53,8 +53,9 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
+          <a className="skip-link" href="#main-content">Saltar al contenido</a>
           <Navbar />
-          <main>{children}</main>
+          <main id="main-content" className="site-main">{children}</main>
           <Footer />
         </MantineProvider>
       </body>

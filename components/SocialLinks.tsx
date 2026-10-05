@@ -8,6 +8,7 @@ interface SocialLinksProps extends Omit<GroupProps, "children"> {
 export function SocialLinks({
     group,
     gap = "sm",
+    className,
     ...props
 }: SocialLinksProps) {
     const links = group
@@ -15,7 +16,7 @@ export function SocialLinks({
         : socialLinks;
 
     return (
-        <Group gap={gap} {...props}>
+        <Group gap={gap} className={`social-links ${className ?? ""}`} {...props}>
             {links.map((link) => (
                 <Button
                     key={link.name}
@@ -23,11 +24,12 @@ export function SocialLinks({
                     href={link.href}
                     target={link.href.startsWith("mailto:") ? undefined : "_blank"}
                     rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                    variant="light"
-                    color={group === "contact" ? "gray" : "brand"}
-                    size="xs"
-                    radius="md"
+                    variant="default"
+                    size="sm"
+                    radius="sm"
                     leftSection={<link.icon size={16} stroke={1.8} />}
+                    className="social-link"
+                    data-kind={link.group}
                 >
                     {link.name}
                 </Button>

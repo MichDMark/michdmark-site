@@ -12,30 +12,17 @@ const navItems = [
 
 export function Navbar() {
     return (
-        <Box
-            component="header"
-            pos="sticky"
-            top={0}
-            style={{
-                zIndex: 50,
-                borderBottom: "1px solid rgba(255,255,255,0.05)",
-                background: "rgba(11,15,20,0.82)",
-                backdropFilter: "blur(12px)",
-            }}
-        >
+        <Box component="header" className="site-nav">
             <Container>
-                <Group h={64} justify="space-between">
+                <Group h={72} justify="space-between" wrap="nowrap">
                     <Logo />
 
-                    <Group component="nav" visibleFrom="md" gap="lg">
+                    <Group component="nav" aria-label="Navegación principal" visibleFrom="md" className="nav-links">
                         {navItems.map((item) => (
                             <Anchor
                                 key={item.href}
                                 href={item.href}
-                                c="gray.5"
-                                fw={500}
-                                size="sm"
-                                underline="never"
+                                className="nav-link"
                             >
                                 {item.name}
                             </Anchor>

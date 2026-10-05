@@ -1,17 +1,20 @@
-import { Box, Group, Text } from "@mantine/core";
+import { Box, Stack, Text } from "@mantine/core";
 import { Container } from "./Container";
 import { SocialLinks } from "./SocialLinks";
 
 export function Footer() {
     return (
-        <Box component="footer" py="xl" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", background: "rgba(0,0,0,0.35)" }}>
+        <Box component="footer" className="site-footer">
             <Container>
-                <Group justify="space-between" gap="lg">
-                    <Text size="sm" c="gray.5">
-                        © {new Date().getFullYear()} Mich. Todos los derechos reservados.
-                    </Text>
-                    <SocialLinks />
-                </Group>
+                <div className="footer-inner">
+                    <Stack gap={4}>
+                        <Text className="footer-copy">© {new Date().getFullYear()} Mich DMark</Text>
+                        <Text className="footer-copy">Tecnología accesible, software, IA y hardware.</Text>
+                    </Stack>
+                    <Box component="nav" aria-label="Contacto" className="footer-links">
+                        <SocialLinks group="contact" />
+                    </Box>
+                </div>
             </Container>
         </Box>
     );

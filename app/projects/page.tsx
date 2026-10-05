@@ -14,11 +14,11 @@ export const metadata = {
 
 export default function ProjectsPage() {
     return (
-        <Container py={{ base: "xl", md: 96 }}>
+        <Container className="page-shell">
             <SectionHeader
                 title="Proyectos"
+                eyebrow="SOFTWARE / HARDWARE"
                 description="Un espacio para compartir proyectos y explicar cómo se construyen."
-                mb="xl"
             />
             {projects.length > 0 ? (
                 <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
@@ -27,10 +27,13 @@ export default function ProjectsPage() {
                     ))}
                 </SimpleGrid>
             ) : (
-                <Paper p="xl" radius="lg" withBorder style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.1)" }}>
+                <Paper component="section" aria-label="Estado de proyectos" className="empty-state">
                     <Stack gap="xs">
-                        <Text fw={600} c="white">Contenido en preparación</Text>
-                        <Text c="gray.4">Aquí compartiré proyectos de software y hardware, junto con el proceso para hacerlos.</Text>
+                        <Text className="section-kicker">PROYECTOS / ARCHIVO</Text>
+                        <Text className="empty-state-title">Contenido en preparación</Text>
+                        <Text className="empty-state-description">
+                            Aquí compartiré proyectos de software y hardware, junto con el proceso para hacerlos.
+                        </Text>
                     </Stack>
                 </Paper>
             )}
