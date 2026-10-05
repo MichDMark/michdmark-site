@@ -1,8 +1,8 @@
 # Mich DMark
 
-Blog personal y portafolio estático construido con Next.js, TypeScript, Mantine y Tabler Icons.
+Sitio personal estático de Mich DMark, construido con Next.js, TypeScript, Mantine y Tabler Icons.
 
-El sitio está pensado para mostrar redes sociales, artículos, proyectos personales y gadgets/setup. No usa backend, base de datos ni CMS; el contenido vive en archivos Markdown y datos locales de TypeScript.
+El sitio explora tecnología accesible e inteligencia artificial aplicada a software y hardware. Mantiene cinco secciones: Inicio, About me, Blog, Proyectos y Gadgets. El contenido está en construcción y las colecciones pueden permanecer vacías. No usa backend, base de datos ni CMS; el contenido vive en Markdown y datos locales de TypeScript.
 
 ## Stack
 
@@ -55,6 +55,8 @@ El slug se genera a partir del nombre del archivo.
 - Proyectos: `data/projects.ts`
 - Gadgets/setup: `data/gadgets.ts`
 - Redes sociales y contacto: `data/social.ts`
+
+El alcance editorial actual y el criterio para relacionar contenido en el futuro están descritos en [`docs/editorial-scope.md`](docs/editorial-scope.md).
 
 ## Despliegue
 

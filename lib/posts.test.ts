@@ -1,50 +1,65 @@
-import { describe, expect, it } from "vitest";
+import { mkdtempSync, rmSync, writeFileSync } from "fs";
+import { tmpdir } from "os";
+import path from "path";
+import { afterEach, describe, expect, it } from "vitest";
 import { getAllPosts, getPostBySlug } from "./posts";
 
-function isIsoDate(value: string) {
-  return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value));
+const fixtureDirectories: string[] = [];
+
+function createPostsFixture() {
+  const directory = mkdtempSync(path.join(tmpdir(), "mich-posts-test-"));
+  fixtureDirectories.push(directory);
+
+  writeFileSync(
+    path.join(directory, "post-anterior.md"),
+    `---
+title: "Post anterior"
+description: "Descripción anterior"
+date: "2024-01-10"
+tags: ["Software"]
+---
+Contenido del post anterior.
+`,
+  );
+  writeFileSync(
+    path.join(directory, "post-reciente.md"),
+    `---
+title: "Post reciente"
+description: "Descripción reciente"
+date: "2024-02-15"
+tags: ["IA", "Hardware"]
+---
+Contenido del post reciente.
+`,
+  );
+
+  return directory;
 }
 
+afterEach(() => {
+  for (const directory of fixtureDirectories.splice(0)) {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
 describe("posts", () => {
-  it("loads markdown posts with required frontmatter", () => {
-    const posts = getAllPosts();
+  it("loads fixture markdown, sorts by date, and gets a post by slug", () => {
+    const directory = createPostsFixture();
+    const posts = getAllPosts(directory);
 
-    expect(posts.length).toBeGreaterThan(0);
-
-    for (const post of posts) {
-      expect(post.slug).toMatch(/^[^/]+$/);
-      expect(post.slug).toBe(post.slug.toLowerCase());
-      expect(post.slug).not.toContain(" ");
-      expect(post.title.trim()).not.toHaveLength(0);
-      expect(post.description.trim()).not.toHaveLength(0);
-      expect(isIsoDate(post.date)).toBe(true);
-      expect(Array.isArray(post.tags)).toBe(true);
-      expect(post.tags.length).toBeGreaterThan(0);
-      expect(post.content.trim()).not.toHaveLength(0);
-    }
-  });
-
-  it("sorts posts by date from newest to oldest", () => {
-    const posts = getAllPosts();
-    const dates = posts.map((post) => post.date);
-    const sortedDates = [...dates].sort((a, b) => b.localeCompare(a));
-
-    expect(dates).toEqual(sortedDates);
-  });
-
-  it("gets a post by slug", () => {
-    const [post] = getAllPosts();
-
-    expect(post).toBeDefined();
-    expect(getPostBySlug(post.slug)).toMatchObject({
-      slug: post.slug,
-      title: post.title,
-      date: post.date,
-      description: post.description,
+    expect(posts.map((post) => post.slug)).toEqual(["post-reciente", "post-anterior"]);
+    expect(posts[0]).toMatchObject({
+      title: "Post reciente",
+      date: "2024-02-15",
+      description: "Descripción reciente",
+      tags: ["IA", "Hardware"],
+      content: "Contenido del post reciente.\n",
     });
-  });
-
-  it("returns null for a missing post", () => {
-    expect(getPostBySlug("post-inexistente")).toBeNull();
+    expect(getPostBySlug("post-anterior", directory)).toMatchObject({
+      slug: "post-anterior",
+      title: "Post anterior",
+      date: "2024-01-10",
+    });
+    expect(getPostBySlug("post-inexistente", directory)).toBeNull();
   });
 });

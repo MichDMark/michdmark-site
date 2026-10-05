@@ -13,16 +13,16 @@ export interface Post {
     content: string;
 }
 
-export function getAllPosts(): Post[] {
+export function getAllPosts(directory = postsDirectory): Post[] {
     // Ensure directory exists
-    if (!fs.existsSync(postsDirectory)) {
+    if (!fs.existsSync(directory)) {
         return [];
     }
 
-    const fileNames = fs.readdirSync(postsDirectory);
+    const fileNames = fs.readdirSync(directory).filter((fileName) => fileName.endsWith(".md"));
     const allPostsData = fileNames.map((fileName) => {
         const slug = fileName.replace(/\.md$/, "");
-        const fullPath = path.join(postsDirectory, fileName);
+        const fullPath = path.join(directory, fileName);
         const fileContents = fs.readFileSync(fullPath, "utf8");
         const { data, content } = matter(fileContents);
 
@@ -46,8 +46,8 @@ export function getAllPosts(): Post[] {
     });
 }
 
-export function getPostBySlug(slug: string): Post | null {
-    const fullPath = path.join(postsDirectory, `${slug}.md`);
+export function getPostBySlug(slug: string, directory = postsDirectory): Post | null {
+    const fullPath = path.join(directory, `${slug}.md`);
     if (!fs.existsSync(fullPath)) {
         return null;
     }

@@ -10,7 +10,7 @@ import { theme } from "@/lib/theme";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Mich — Desarrollador & Creador",
+    default: "Mich DMark — Tecnología accesible",
     template: "%s | Mich",
   },
   description: siteConfig.description,
@@ -24,12 +24,12 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: "Mich — Desarrollador & Creador",
+    title: "Mich DMark — Tecnología accesible",
     description: siteConfig.description,
   },
   twitter: {
     card: "summary",
-    title: "Mich — Desarrollador & Creador",
+    title: "Mich DMark — Tecnología accesible",
     description: siteConfig.description,
   },
   robots: {

@@ -8,12 +8,7 @@ export default function Home() {
       <Container>
         <Stack maw={760} gap="xl">
           <Title order={1} c="white" size="clamp(2.5rem, 7vw, 4rem)" lh={1.05}>
-            Desarrollador.{" "}
-            <Text component="span" inherit c="brand.6">
-              Creador de Contenido.
-            </Text>
-            <br />
-            Maker.
+            Mich DMark
           </Title>
 
           <Paper
@@ -28,11 +23,11 @@ export default function Home() {
           >
             <Stack gap="md">
               <Text size="xl" c="white" lh={1.65}>
-                Soy Mich, bienvenido a mi espacio. Funciono mejor después de un par de tazas de café.
+                Exploro cómo acercar la tecnología a más personas, con interés en la inteligencia artificial aplicada al software y al hardware.
               </Text>
 
               <Text size="xl" c="gray.3" lh={1.65}>
-                Aquí encontrarás mi blog, proyectos y los gadgets que uso en mi día a día.
+                Este sitio reúne ideas, proyectos y gadgets. El contenido está en construcción y el blog crecerá con nuevas explicaciones y aprendizajes.
               </Text>
             </Stack>
           </Paper>
@@ -53,7 +48,7 @@ export default function Home() {
                   <Group gap="xs">
                     <ThemeIcon size={8} radius="xl" color="brand" />
                     <Text fw={600} c="white">
-                    Links a mis redes
+                    Mis redes
                     </Text>
                   </Group>
                   <SocialLinks group="social" />
@@ -77,23 +72,23 @@ export default function Home() {
           <Group gap="sm">
             <Button
               component="a"
-                href="/blog"
+              href="/blog"
               size="md"
               radius="md"
               color="brand"
-              >
-                Leer el blog
+            >
+              Explorar el blog
             </Button>
 
             <Button
               component="a"
-                href="/setup"
+              href="/setup"
               size="md"
               radius="md"
               variant="outline"
               color="brand"
-              >
-                Mis Gadgets
+            >
+              Gadgets
             </Button>
           </Group>
         </Stack>

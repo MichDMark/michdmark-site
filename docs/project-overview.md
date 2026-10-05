@@ -2,7 +2,7 @@
 
 ## Propósito
 
-Sitio personal para centralizar redes sociales, artículos, proyectos personales, gadgets y contenido tech de Mich DMark.
+Sitio personal de Mich DMark sobre tecnología accesible e inteligencia artificial aplicada a software y hardware. Las secciones de blog, proyectos y gadgets están preparadas para crecer con contenido nuevo.
 
 ## Stack
 
@@ -27,6 +27,8 @@ Sitio personal para centralizar redes sociales, artículos, proyectos personales
 - Proyectos: `data/projects.ts`
 - Gadgets/setup: `data/gadgets.ts`
 - Redes/contacto: `data/social.ts`
+
+La navegación pública consta de Inicio (`/`), About me (`/about`), Blog (`/blog`), Proyectos (`/projects`) y Gadgets (`/setup`). El alcance editorial y las convenciones para conectar contenido se documentan en `editorial-scope.md`.
 
 ## Despliegue
 

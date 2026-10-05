@@ -23,7 +23,7 @@ describe("site data", () => {
   });
 
   it("has valid projects", () => {
-    expect(projects.length).toBeGreaterThan(0);
+    expect(Array.isArray(projects)).toBe(true);
 
     for (const project of projects) {
       expect(project.name.trim()).not.toHaveLength(0);
@@ -34,7 +34,7 @@ describe("site data", () => {
   });
 
   it("has valid gadget categories and items", () => {
-    expect(gadgets.length).toBeGreaterThan(0);
+    expect(Array.isArray(gadgets)).toBe(true);
 
     for (const category of gadgets) {
       expect(category.title.trim()).not.toHaveLength(0);

@@ -14,7 +14,7 @@ export function PostCard({ post }: PostCardProps) {
     return (
         <Card
             component="a"
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.slug}/`}
             padding="lg"
             radius="lg"
             withBorder

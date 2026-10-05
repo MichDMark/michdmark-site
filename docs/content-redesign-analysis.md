@@ -1,5 +1,7 @@
 # Análisis de contenido y propuesta de rediseño
 
+> Nota: este análisis corresponde a una propuesta previa. La dirección vigente es el reinicio editorial descrito en [`editorial-scope.md`](editorial-scope.md); las recomendaciones de rediseño visual amplio y las propuestas de contenido de este documento no representan el alcance actual.
+
 El problema principal no es que falten páginas: el sitio todavía funciona como un directorio de enlaces con algunas tarjetas, no como una carta de presentación que conecte el perfil profesional, la faceta maker y la voz personal de Mich.
 
 No hace falta cambiar el stack ni incorporar backend. El rediseño puede seguir siendo completamente estático y vivir en Markdown y TypeScript.

@@ -17,6 +17,7 @@ npm run check
 - Mantener dependencias mínimas y eliminar paquetes que ya no se usen.
 - Verificar que los posts tengan frontmatter completo.
 - Mantener slugs de posts en minúsculas y sin espacios.
+- Las colecciones de posts, proyectos y gadgets pueden estar vacías; las páginas deben mostrar su estado vacío editorial.
 - Mantener los tests enfocados en estructura, datos y comportamiento estable.
 - Revisar que los links externos en `data/social.ts` y `data/projects.ts` sigan activos.
 - Confirmar que el build siga generando rutas estáticas compatibles con GitHub Pages.

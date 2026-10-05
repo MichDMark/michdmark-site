@@ -1,12 +1,11 @@
-import { Box, Group, Stack, Title } from "@mantine/core";
+import { Box, Stack, Title } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
-import { AvatarPlaceholder } from "@/components/AvatarPlaceholder";
 import { SocialLinks } from "@/components/SocialLinks";
 
 export const metadata = {
-    title: "Sobre mí | Mich",
-    description: "Más sobre Mich.",
+    title: "About me",
+    description: "Conoce el enfoque de Mich DMark en tecnología accesible e inteligencia artificial aplicada a software y hardware.",
     alternates: {
         canonical: "/about/",
     },
@@ -15,29 +14,23 @@ export const metadata = {
 export default function AboutPage() {
     return (
         <Container py={{ base: "xl", md: 96 }} size="sm">
-            <Group align="flex-start" gap="xl">
-                <AvatarPlaceholder />
-                <Stack gap="md" flex={1}>
-                    <SectionHeader title="Sobre mí" mb="sm" />
-                    <Box className="markdown-body">
-                        <div>
+            <Stack gap="md">
+                <SectionHeader title="About me" mb="sm" />
+                <Box className="markdown-body">
+                    <div>
                         <p>
-                            Soy Mich, Ingeniero Electrónico con Maestría en Mecatrónica, pero de alguna manera la vida me ha llevado a muchos caminos diferentes que hoy comparto en este sitio.
+                            Soy Mich DMark. Este espacio reúne mi interés por la tecnología accesible y por la inteligencia artificial aplicada al software y al hardware.
                         </p>
                         <p>
-                            Me dedico al desarrollo de software, la creación de contenido, amante de un buen café de especialidad y en mis ratos libres jugar TCG y escuchar Podcasts.
+                            Aquí compartiré ideas, proyectos y gadgets, además de explicaciones sobre cómo funciona la tecnología y cómo la llevo a la práctica. El sitio y sus contenidos están en construcción.
                         </p>
-                        <p>
-                            &ldquo;No sé a dónde nos lleva este camino, pero definitivamente es un lugar diferente.&rdquo;
-                        </p>
-                        </div>
-                    </Box>
-                    <Stack gap="sm" mt="lg">
-                        <Title order={3} size="h6" c="white" tt="uppercase">Contacto</Title>
-                        <SocialLinks />
-                    </Stack>
+                    </div>
+                </Box>
+                <Stack gap="sm" mt="lg">
+                    <Title order={3} size="h6" c="white" tt="uppercase">Redes y contacto</Title>
+                    <SocialLinks />
                 </Stack>
-            </Group>
+            </Stack>
         </Container>
     );
 }
