@@ -11,10 +11,11 @@ No se usan Tailwind CSS, shadcn/ui, Aceternity UI, Chakra UI, lucide-react ni re
 - Usar componentes de `@mantine/core` para layout, navegación, botones, cards, badges, textos y superficies.
 - Usar iconos de `@tabler/icons-react` para iconografía de UI y marcas sociales.
 - Mantener el tema en `lib/theme.ts`.
-- Mantener estilos globales mínimos en `app/globals.css`.
-- Evitar clases utilitarias para layout o color; preferir props de Mantine y `style` solo para efectos puntuales.
+- Mantener tokens, tipografía, composición responsive y accesibilidad global en `app/globals.css`; usar clases semánticas para composiciones y efectos compartidos.
+- Evitar clases utilitarias. Usar props de Mantine para layout sencillo y clases semánticas cuando una composición necesite estilos responsive o pseudoestados.
 - Usar el color `brand` del theme para el acento rojo.
 - Mantener el sitio en dark mode por defecto.
+- Respetar foco visible y `prefers-reduced-motion`; los detalles cian son decorativos y el rojo conserva la identidad de marca.
 
 ## Componentes de dominio
 
