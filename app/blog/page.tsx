@@ -2,6 +2,7 @@ import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { ConnectionNetwork } from "@/components/ConnectionNetwork";
 import { SectionHeader } from "@/components/SectionHeader";
+import { CircuitDetails } from "@/components/CircuitDetails";
 import { PostCard } from "@/components/PostCard";
 import { getAllPosts } from "@/lib/posts";
 import { createPageMetadata } from "@/lib/site";
@@ -17,35 +18,41 @@ export default function BlogPage() {
 
     return (
         <Container className="page-shell">
-            <ConnectionNetwork className="page-composition single-target-composition">
-                <section className="connected-origin page-origin">
-                    <SectionHeader
-                        title="Blog"
-                        eyebrow="IDEAS Y EXPLICACIONES"
-                        description="Tecnología explicada de forma accesible y el uso de agentes en software y hardware."
-                        connectionSource
-                    />
+            <ConnectionNetwork className="page-composition circuit-composition single-target-composition">
+                <section className="connected-origin page-origin circuit-module circuit-module-origin">
+                    <CircuitDetails tone="red" />
+                    <div className="circuit-content">
+                        <SectionHeader
+                            title="Blog"
+                            eyebrow="IDEAS Y EXPLICACIONES"
+                            description="Tecnología explicada de forma accesible y el uso de agentes en software y hardware."
+                            connectionSource
+                        />
+                    </div>
                 </section>
 
-                <section className="connected-target page-content-target" data-connection-target="contenido" aria-label="Contenido del blog">
+                <section className="connected-target page-content-target circuit-module circuit-module-content" data-connection-target="contenido" aria-label="Contenido del blog">
+                    <CircuitDetails tone="red" />
                     <span className="connection-target-port" data-connection-target-port aria-hidden="true" />
-                    {posts.length > 0 ? (
-                        <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
-                            {posts.map((post) => (
-                                <PostCard key={post.slug} post={post} />
-                            ))}
-                        </SimpleGrid>
-                    ) : (
-                        <Paper component="section" aria-label="Estado del blog" className="empty-state">
-                            <Stack gap="xs">
-                                <Text className="section-kicker">BLOG / ARCHIVO</Text>
-                                <Text className="empty-state-title">Contenido en preparación</Text>
-                                <Text className="empty-state-description">
-                                    Aquí encontrarás ideas sobre tecnología y el uso de agentes en software y hardware.
-                                </Text>
-                            </Stack>
-                        </Paper>
-                    )}
+                    <div className="circuit-content">
+                        {posts.length > 0 ? (
+                            <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
+                                {posts.map((post) => (
+                                    <PostCard key={post.slug} post={post} />
+                                ))}
+                            </SimpleGrid>
+                        ) : (
+                            <Paper component="section" aria-label="Estado del blog" className="empty-state">
+                                <Stack gap="xs">
+                                    <Text className="section-kicker">BLOG / ARCHIVO</Text>
+                                    <Text className="empty-state-title">Contenido en preparación</Text>
+                                    <Text className="empty-state-description">
+                                        Aquí encontrarás ideas sobre tecnología y el uso de agentes en software y hardware.
+                                    </Text>
+                                </Stack>
+                            </Paper>
+                        )}
+                    </div>
                 </section>
             </ConnectionNetwork>
         </Container>

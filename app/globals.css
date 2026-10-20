@@ -108,54 +108,84 @@ button:focus-visible {
   position: sticky;
   z-index: 50;
   top: 0;
-  border-bottom: 1px solid var(--site-border);
-  background: rgba(5, 10, 15, 0.9);
+  border-bottom: 1px solid rgba(67, 217, 255, 0.2);
+  background: rgba(5, 10, 15, 0.94);
   backdrop-filter: blur(14px);
 }
 
 .site-nav::after {
   position: absolute;
-  right: 8%;
+  right: max(1rem, calc((100% - 72rem) / 2));
   bottom: -1px;
-  left: 8%;
+  left: max(1rem, calc((100% - 72rem) / 2));
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(67, 217, 255, 0.22), transparent);
+  background: linear-gradient(90deg, var(--site-accent), rgba(67, 217, 255, 0.42) 22%, transparent 68%);
   content: "";
   pointer-events: none;
 }
 
+.header-bar { min-height: 72px; }
+
 .brand-link {
+  position: relative;
   display: inline-flex;
-  min-height: 44px;
+  min-height: 48px;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.3rem 0.65rem 0.3rem 0.15rem;
-  border: 1px solid transparent;
+  padding: 0.3rem 0.75rem 0.3rem 0.25rem;
+  border: 1px solid rgba(67, 217, 255, 0.14);
+  background: linear-gradient(110deg, rgba(242, 22, 72, 0.07), rgba(5, 10, 15, 0.28) 56%);
   text-decoration: none;
-  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.brand-link::before,
+.brand-link::after {
+  position: absolute;
+  right: 6px;
+  width: 8px;
+  height: 1px;
+  background: rgba(67, 217, 255, 0.62);
+  content: "";
+  pointer-events: none;
+}
+
+.brand-link::before { top: 5px; }
+.brand-link::after { bottom: 5px; right: 11px; width: 5px; background: var(--site-accent); }
+
+.brand-link:hover,
+.brand-link:focus-visible {
+  border-color: rgba(67, 217, 255, 0.56);
+  background-color: rgba(67, 217, 255, 0.06);
+  box-shadow: 0 0 18px rgba(67, 217, 255, 0.1), inset 0 0 14px rgba(67, 217, 255, 0.04);
 }
 
 .brand-link:active {
-  transform: scale(0.98);
-}
-
-.brand-link:focus-visible {
-  border-color: var(--site-cyan);
-  background: rgba(67, 217, 255, 0.06);
+  border-color: rgba(242, 22, 72, 0.74);
+  box-shadow: 0 0 16px rgba(242, 22, 72, 0.14);
 }
 
 .brand-mark {
+  position: relative;
   display: grid;
   width: 34px;
   height: 34px;
+  flex: 0 0 34px;
   place-items: center;
-  border: 1px solid rgba(242, 22, 72, 0.55);
-  background: rgba(242, 22, 72, 0.1);
+  border: 1px solid rgba(242, 22, 72, 0.66);
+  background: linear-gradient(145deg, rgba(242, 22, 72, 0.19), rgba(7, 13, 19, 0.95));
   color: #ff5276;
+  clip-path: polygon(0 6px, 6px 0, 28px 0, 100% 6px, 100% 28px, 28px 100%, 6px 100%, 0 28px);
   font-family: var(--site-mono);
   font-size: 0.76rem;
   font-weight: 700;
 }
+
+.brand-mark-label { position: relative; z-index: 2; }
+.brand-mark-contact { position: absolute; z-index: 1; width: 4px; height: 4px; border: 1px solid var(--site-cyan); border-radius: 50%; background: var(--site-bg); }
+.brand-mark-contact-top { top: 3px; right: 4px; }
+.brand-mark-contact-bottom { bottom: 3px; left: 4px; border-color: var(--site-accent); }
+.brand-mark-trace { position: absolute; right: 5px; bottom: 7px; width: 8px; height: 1px; transform: rotate(-45deg); background: rgba(67, 217, 255, 0.72); }
 
 .brand-name {
   color: var(--site-text);
@@ -170,39 +200,83 @@ button:focus-visible {
 }
 
 .nav-links {
-  gap: clamp(0.75rem, 2vw, 1.8rem);
+  --nav-terminal-rail-y: 1.556rem;
+  position: relative;
+  align-self: stretch;
+  gap: clamp(0.55rem, 1.5vw, 1.35rem);
+  padding-top: 0.45rem;
+}
+
+.nav-links::before {
+  position: absolute;
+  top: var(--nav-terminal-rail-y);
+  right: 0.65rem;
+  left: 0.65rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(67, 217, 255, 0.12), rgba(67, 217, 255, 0.52), rgba(67, 217, 255, 0.12));
+  content: "";
+  pointer-events: none;
 }
 
 .nav-link {
   position: relative;
   display: inline-flex;
-  min-height: 44px;
+  min-height: 54px;
   align-items: center;
+  justify-content: center;
+  padding: 0.85rem 0.65rem 0.15rem;
   color: #b2c0cb;
   font-size: 0.9rem;
   text-decoration: none;
-  transition: color 180ms ease;
+  transition: color 180ms ease, filter 180ms ease;
+}
+
+.nav-link::before {
+  position: absolute;
+  top: 0.55rem;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(67, 217, 255, 0.64);
+  border-radius: 50%;
+  background: #071119;
+  box-shadow: 0 0 0 3px rgba(5, 10, 15, 0.86);
+  content: "";
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .nav-link::after {
   position: absolute;
-  right: 0;
-  bottom: 0.55rem;
-  left: 0;
-  height: 1px;
+  right: 0.4rem;
+  bottom: 0.25rem;
+  left: 0.4rem;
+  height: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  background: var(--site-cyan);
+  background: linear-gradient(90deg, transparent, var(--site-cyan), transparent);
+  background-size: 200% 100%;
   content: "";
-  transition: transform 180ms ease;
+  transition: transform 180ms ease, filter 180ms ease;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus-visible {
   color: white;
+  filter: drop-shadow(0 0 7px rgba(67, 217, 255, 0.3));
 }
 
-.nav-link:hover::after {
+.nav-link:hover::before,
+.nav-link:focus-visible::before {
+  border-color: white;
+  background: var(--site-cyan);
+  box-shadow: 0 0 0 3px rgba(5, 10, 15, 0.86), 0 0 12px rgba(67, 217, 255, 0.7);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
   transform: scaleX(1);
+  animation: nav-signal-sweep 480ms ease-out both;
 }
 
 .nav-link:active,
@@ -213,22 +287,138 @@ button:focus-visible {
   transform: translateY(1px);
 }
 
+.nav-link:active,
+.mobile-menu-link:active { transform: none; }
+
 .nav-link[aria-current="page"] {
   color: white;
+}
+
+.nav-link[aria-current="page"]::before {
+  border-color: #ff809c;
+  background: var(--site-accent);
+  box-shadow: 0 0 0 3px rgba(5, 10, 15, 0.86), 0 0 10px rgba(242, 22, 72, 0.62);
 }
 
 .nav-link[aria-current="page"]::after {
   transform: scaleX(1);
   background: var(--site-accent);
+  background-size: 100% 100%;
 }
 
 .mobile-nav-trigger {
+  position: relative;
+  --burger-color: var(--site-text);
   min-width: 44px;
   min-height: 44px;
+  border: 1px solid rgba(67, 217, 255, 0.38);
+  background: linear-gradient(145deg, rgba(67, 217, 255, 0.08), rgba(5, 10, 15, 0.85));
+  box-shadow: inset 0 0 0 3px rgba(67, 217, 255, 0.035);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.mobile-nav-trigger::before,
+.mobile-nav-trigger::after {
+  position: absolute;
+  right: 3px;
+  width: 5px;
+  height: 1px;
+  background: var(--site-accent);
+  content: "";
+  pointer-events: none;
+}
+
+.mobile-nav-trigger::before { top: 3px; }
+.mobile-nav-trigger::after { bottom: 3px; }
+.mobile-nav-trigger:hover,
+.mobile-nav-trigger:focus-visible,
+.mobile-nav-trigger[aria-expanded="true"] {
+  border-color: var(--site-cyan);
+  box-shadow: 0 0 14px rgba(67, 217, 255, 0.16), inset 0 0 0 3px rgba(67, 217, 255, 0.06);
 }
 
 .mobile-menu-link {
-  min-height: 44px;
+  position: relative;
+  min-height: 52px;
+  justify-content: flex-start;
+  padding-inline: var(--mobile-menu-content-inset);
+  border: 1px solid rgba(67, 217, 255, 0.2);
+  background: linear-gradient(110deg, rgba(67, 217, 255, 0.045), rgba(5, 10, 15, 0.2));
+  color: #c5d2da;
+  text-align: left;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.mobile-menu-label { display: flex; width: 100%; align-items: center; gap: 0.75rem; }
+.mobile-menu-terminal { position: relative; display: block; width: var(--mobile-menu-terminal-column); height: 12px; flex: 0 0 var(--mobile-menu-terminal-column); }
+.mobile-menu-terminal::before { position: absolute; top: 2px; left: 50%; width: 8px; height: 8px; transform: translateX(-50%); border: 1px solid rgba(67, 217, 255, 0.65); border-radius: 50%; background: var(--site-bg); box-shadow: 0 0 0 3px rgba(5, 10, 15, 0.6); content: ""; transition: background-color 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+
+.mobile-menu-link:hover,
+.mobile-menu-link:focus-visible {
+  border-color: rgba(67, 217, 255, 0.72);
+  background: rgba(67, 217, 255, 0.08);
+  color: white;
+  box-shadow: 0 0 18px rgba(67, 217, 255, 0.1);
+}
+
+.mobile-menu-link:hover .mobile-menu-terminal::before,
+.mobile-menu-link:focus-visible .mobile-menu-terminal::before {
+  border-color: white;
+  background: var(--site-cyan);
+  box-shadow: 0 0 0 3px rgba(5, 10, 15, 0.6), 0 0 12px rgba(67, 217, 255, 0.7);
+}
+
+.mobile-menu-link[aria-current="page"] {
+  border-color: rgba(242, 22, 72, 0.7);
+  background: rgba(242, 22, 72, 0.09);
+  color: white;
+}
+
+.mobile-menu-link[aria-current="page"] .mobile-menu-terminal::before {
+  border-color: #ff829c;
+  background: var(--site-accent);
+  box-shadow: 0 0 0 3px rgba(5, 10, 15, 0.6), 0 0 10px rgba(242, 22, 72, 0.65);
+}
+
+.mobile-menu-link:active {
+  border-color: var(--site-accent);
+  background: rgba(242, 22, 72, 0.16);
+  box-shadow: 0 0 15px rgba(242, 22, 72, 0.14);
+}
+
+.mobile-drawer-content {
+  position: relative;
+  border: 1px solid rgba(67, 217, 255, 0.32);
+  border-left: 2px solid rgba(242, 22, 72, 0.72);
+  background: linear-gradient(145deg, #0b1721, #050a0f 78%);
+  box-shadow: -18px 0 50px rgba(0, 0, 0, 0.45), inset 0 0 0 4px rgba(67, 217, 255, 0.035);
+}
+
+.mobile-drawer-content::before {
+  position: absolute;
+  z-index: 0;
+  inset: 10px;
+  border: 1px solid rgba(67, 217, 255, 0.12);
+  clip-path: polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px));
+  content: "";
+  pointer-events: none;
+}
+
+.mobile-drawer-header,
+.mobile-drawer-body { position: relative; z-index: 1; }
+.mobile-drawer-header { min-height: 64px; border-bottom: 1px solid rgba(67, 217, 255, 0.17); background: #0b1721; }
+.mobile-drawer-title { color: var(--site-text); font-size: 1.1rem; font-weight: 700; }
+.mobile-drawer-close { color: var(--site-text); }
+.mobile-drawer-close:hover,
+.mobile-drawer-close:focus-visible { border-color: var(--site-cyan); background: rgba(67, 217, 255, 0.08); color: white; }
+.mobile-drawer-body { padding: 1rem; }
+.mobile-drawer-nav { --mobile-menu-content-inset: 0.75rem; --mobile-menu-terminal-column: 1rem; position: relative; }
+.mobile-drawer-nav::before { position: absolute; top: 0.5rem; bottom: 0.5rem; left: calc(var(--mobile-menu-content-inset) + var(--mobile-menu-terminal-column) / 2); width: 1px; background: linear-gradient(rgba(67, 217, 255, 0.35), rgba(67, 217, 255, 0.08)); content: ""; pointer-events: none; }
+
+@keyframes nav-signal-sweep {
+  from { background-position: 100% 0; filter: drop-shadow(0 0 0 rgba(67, 217, 255, 0)); }
+  55% { filter: drop-shadow(0 0 5px rgba(67, 217, 255, 0.9)); }
+  to { background-position: 0 0; filter: drop-shadow(0 0 0 rgba(67, 217, 255, 0)); }
 }
 
 .home-hero {
@@ -246,6 +436,10 @@ button:focus-visible {
   position: relative;
   display: block;
   isolation: isolate;
+}
+
+.home-sequenced-composition {
+  padding-right: 1.5rem;
 }
 
 .connection-lines {
@@ -277,6 +471,12 @@ button:focus-visible {
   stroke-dashoffset: 0;
   filter: drop-shadow(0 0 4px rgba(67, 217, 255, 0.82));
   animation: connection-signal 6.8s linear infinite;
+}
+
+.home-sequenced-composition .connection-signal {
+  opacity: 0;
+  animation: home-connection-sequence 5.4s linear infinite;
+  animation-delay: var(--sequence-delay);
 }
 
 .connection-port {
@@ -348,10 +548,33 @@ button:focus-visible {
   margin-top: clamp(3.5rem, 6vw, 5.25rem);
 }
 
+.home-destinations {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 7vw, 5.5rem);
+  margin-top: clamp(4rem, 7vw, 5rem);
+}
+
+.home-destination-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
 .connected-target {
   animation: home-item-enter 520ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
   transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
+
+.home-sequenced-composition .home-destination {
+  --sequence-delay: 0s;
+}
+
+.home-sequenced-composition [data-sequence-index="1"] { --sequence-delay: 0.9s; }
+.home-sequenced-composition [data-sequence-index="2"] { --sequence-delay: 1.8s; }
+.home-sequenced-composition [data-sequence-index="3"] { --sequence-delay: 2.7s; }
+.home-sequenced-composition [data-sequence-index="4"] { --sequence-delay: 3.6s; }
+.home-sequenced-composition [data-sequence-index="5"] { --sequence-delay: 4.5s; }
 
 .connected-target:nth-child(2) { animation-delay: 70ms; }
 .connected-target:nth-child(3) { animation-delay: 140ms; }
@@ -412,6 +635,66 @@ button:focus-visible {
   text-decoration: none;
 }
 
+.home-destination {
+  position: relative;
+  display: flex;
+  min-height: 10.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.45rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-destination:focus-visible {
+  outline: 2px solid var(--site-cyan);
+  outline-offset: 3px;
+}
+
+.home-destination-kicker {
+  color: var(--site-cyan);
+  font-family: var(--site-mono);
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+}
+
+.home-featured-destination {
+  min-height: 12rem;
+  border-color: rgba(242, 22, 72, 0.52);
+  background: linear-gradient(145deg, rgba(89, 13, 35, 0.84), rgba(17, 13, 22, 0.96));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04), 0 20px 54px rgba(242, 22, 72, 0.13);
+}
+
+.home-featured-destination .home-target-title {
+  color: white;
+  font-size: 1.75rem;
+}
+
+.home-feature-destination .home-target-title {
+  font-size: 1.35rem;
+}
+
+.home-destination-arrow {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  color: var(--site-cyan);
+  font-size: 1.2rem;
+  transition: transform 180ms ease;
+}
+
+.home-destination:hover:not(:active) .home-destination-arrow,
+.home-destination:focus-visible .home-destination-arrow {
+  transform: translate(2px, -2px);
+}
+
+.home-featured-destination .home-destination-arrow {
+  color: #ff8ba4;
+}
+
 .home-target-title {
   margin: 0;
   color: var(--site-text);
@@ -442,30 +725,6 @@ button:focus-visible {
 .home-link-group .social-links {
   display: flex;
   flex-wrap: wrap;
-}
-
-.home-next-steps {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem;
-  padding-top: 0.5rem;
-}
-
-.home-blog-link {
-  min-height: 52px;
-  gap: 0.8rem;
-  padding-inline: 1.25rem;
-  box-shadow: 0 8px 28px rgba(242, 22, 72, 0.18);
-}
-
-.home-blog-link span {
-  font-size: 1.1rem;
-  transition: transform 180ms ease;
-}
-
-.home-blog-link:hover:not(:active) span {
-  transform: translate(2px, -2px);
 }
 
 .page-composition {
@@ -515,15 +774,27 @@ button:focus-visible {
   animation-delay: 240ms;
 }
 
-.home-composition:has([data-connection-target="about"]:hover) .connection-route[data-target="about"],
-.home-composition:has([data-connection-target="about"]:focus-within) .connection-route[data-target="about"],
-.home-composition:has([data-connection-target="redes"]:hover) .connection-route[data-target="redes"],
-.home-composition:has([data-connection-target="redes"]:focus-within) .connection-route[data-target="redes"],
-.home-composition:has([data-connection-target="contacto"]:hover) .connection-route[data-target="contacto"],
-.home-composition:has([data-connection-target="contacto"]:focus-within) .connection-route[data-target="contacto"],
+.home-sequenced-composition:has([data-connection-target="blog"]:is(:hover, :active)) .connection-route[data-target="blog"],
+.home-sequenced-composition:has([data-connection-target="proyectos"]:is(:hover, :active)) .connection-route[data-target="proyectos"],
+.home-sequenced-composition:has([data-connection-target="gadgets"]:is(:hover, :active)) .connection-route[data-target="gadgets"],
+.home-sequenced-composition:has([data-connection-target="about"]:is(:hover, :active)) .connection-route[data-target="about"],
+.home-sequenced-composition:has([data-connection-target="redes"]:is(:hover, :active)) .connection-route[data-target="redes"],
+.home-sequenced-composition:has([data-connection-target="contacto"]:is(:hover, :active)) .connection-route[data-target="contacto"],
+.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="blog"]:focus-within) .connection-route[data-target="blog"],
+.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="proyectos"]:focus-within) .connection-route[data-target="proyectos"],
+.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="gadgets"]:focus-within) .connection-route[data-target="gadgets"],
+.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="about"]:focus-within) .connection-route[data-target="about"],
+.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="redes"]:focus-within) .connection-route[data-target="redes"],
+.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="contacto"]:focus-within) .connection-route[data-target="contacto"],
 .single-target-composition:has([data-connection-target]:hover) .connection-route,
 .single-target-composition:has([data-connection-target]:focus-within) .connection-route {
   filter: drop-shadow(0 0 5px rgba(67, 217, 255, 0.7));
+}
+
+.home-sequenced-composition:has([data-connection-target]:hover) .connection-signal,
+.home-sequenced-composition:has([data-connection-target]:focus-within) .connection-signal,
+.home-sequenced-composition:has([data-connection-target]:active) .connection-signal {
+  visibility: hidden;
 }
 
 .connected-target:active {
@@ -556,6 +827,13 @@ button:focus-visible {
 
 @keyframes connection-signal {
   to { stroke-dashoffset: -100; }
+}
+
+@keyframes home-connection-sequence {
+  0%, 1% { opacity: 0; stroke-dashoffset: 0; }
+  2% { opacity: 1; }
+  15% { opacity: 1; stroke-dashoffset: -100; }
+  16.67%, 100% { opacity: 0; stroke-dashoffset: -100; }
 }
 
 @keyframes home-item-enter {
@@ -604,53 +882,8 @@ button:focus-visible {
   line-height: 1.65;
 }
 
-.home-actions,
-.home-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-}
-
-.home-action {
-  display: inline-flex;
-  min-height: 46px;
-  align-items: center;
-  justify-content: center;
-  padding-inline: 1rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.home-action-primary {
-  border: 1px solid #ff315d;
-  background: #d91243;
-  color: white;
-}
-
-.home-action-primary:hover {
-  background: #f21648;
-}
-
-.home-action:active,
 .social-link:active {
   transform: translateY(1px) scale(0.985);
-}
-
-.home-action-secondary {
-  border: 1px solid rgba(67, 217, 255, 0.28);
-  background: rgba(8, 19, 28, 0.68);
-  color: #e3f8fc;
-}
-
-.home-action-secondary:hover {
-  border-color: rgba(67, 217, 255, 0.62);
-  background: rgba(67, 217, 255, 0.08);
-}
-
-.home-links {
-  gap: 0.35rem 1.2rem;
 }
 
 .text-link {
@@ -869,8 +1102,13 @@ button:focus-visible {
     padding-left: 1rem;
   }
 
+  .home-sequenced-composition {
+    padding-right: 0;
+  }
+
   .connected-destinations,
-  .about-destinations {
+  .about-destinations,
+  .home-destination-row {
     grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
   }
@@ -903,6 +1141,11 @@ button:focus-visible {
   .connected-destinations {
     margin-top: 3.5rem;
   }
+
+  .home-destinations {
+    gap: 3rem;
+    margin-top: 3.5rem;
+  }
 }
 
 @media (max-width: 700px) {
@@ -913,12 +1156,6 @@ button:focus-visible {
   .home-title {
     max-width: 8ch;
     font-size: clamp(3.35rem, 15vw, 5.4rem);
-  }
-
-  .home-next-steps {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.5rem;
   }
 
   .home-target,
@@ -936,11 +1173,11 @@ button:focus-visible {
 
 @media (hover: hover) {
   .brand-link:hover {
-    border-color: rgba(67, 217, 255, 0.2);
-    background: rgba(67, 217, 255, 0.035);
+    border-color: rgba(67, 217, 255, 0.56);
+    background: linear-gradient(110deg, rgba(242, 22, 72, 0.07), rgba(67, 217, 255, 0.06) 56%);
+    box-shadow: 0 0 18px rgba(67, 217, 255, 0.1), inset 0 0 14px rgba(67, 217, 255, 0.04);
   }
 
-  .home-action,
   .social-link,
   .text-link,
   .footer-link,
@@ -948,7 +1185,6 @@ button:focus-visible {
     transition: transform 180ms ease, color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
   }
 
-  .home-action:hover:not(:active),
   .social-link:hover:not(:active) {
     transform: translateY(-2px);
     box-shadow: 0 6px 24px rgba(67, 217, 255, 0.08);
@@ -972,4 +1208,249 @@ button:focus-visible {
   .connection-signal {
     animation: none !important;
   }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after { animation: none !important; }
+
+}
+
+/* UI-006: PCB modules and synchronized transit signal. */
+.connection-support,
+.connection-glow,
+.connection-trail {
+  fill: none;
+  stroke: var(--connection-signal);
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
+  vector-effect: non-scaling-stroke;
+}
+.connection-support { stroke-width: 0.7; opacity: 0.1; transform: translateY(4px); }
+.connection-glow { stroke-width: 10; stroke-dasharray: 16 84; opacity: 0; filter: blur(3px); animation: connection-signal 6.8s linear infinite; }
+.connection-trail { stroke-width: 4; stroke-dasharray: 9 91; opacity: 0; filter: drop-shadow(0 0 5px rgba(67, 217, 255, 0.9)); animation: connection-signal 6.8s linear infinite; }
+.home-sequenced-composition .connection-glow,
+.home-sequenced-composition .connection-trail { opacity: 0; animation: home-connection-sequence 5.4s linear infinite; animation-delay: var(--sequence-delay); }
+.home-sequenced-composition .connection-glow { stroke: #baf6ff; stroke-width: 12; filter: blur(4px); }
+.home-sequenced-composition .connection-trail { stroke: #e7fbff; stroke-width: 5; filter: drop-shadow(0 0 7px #43d9ff); }
+.home-sequenced-composition .connection-signal { stroke: #fff; stroke-width: 2.7; filter: drop-shadow(0 0 4px white); }
+
+.circuit-composition { --circuit-accent: var(--site-cyan); --circuit-glow: rgba(67, 217, 255, 0.82); }
+.circuit-composition[data-connection-sequence] { --connection-signal: #f4fcff; }
+.circuit-module { --circuit-accent: var(--site-cyan); position: relative; isolation: isolate; overflow: visible; border-color: transparent !important; background: transparent !important; box-shadow: none !important; }
+.circuit-module-red { --circuit-accent: var(--site-accent); --circuit-glow: rgba(242, 22, 72, 0.9); }
+.circuit-module-origin { --circuit-accent: var(--site-accent); padding: clamp(1.2rem, 3vw, 2rem) !important; }
+.page-origin.circuit-module-origin { padding: clamp(1.2rem, 3vw, 2rem) !important; }
+.home-target.circuit-module { min-height: 12rem; padding: clamp(1.25rem, 2.7vw, 2rem) !important; }
+.home-secondary-destination.circuit-module { min-height: 11rem; }
+.home-link-group.circuit-module { justify-content: flex-start; }
+.page-content-target.circuit-module { min-height: 12rem; margin-top: clamp(3.25rem, 6vw, 4.75rem); padding: clamp(1.25rem, 3vw, 2rem) !important; }
+.page-target.circuit-module { min-height: 9rem; padding: clamp(1.25rem, 3vw, 2rem) !important; }
+.circuit-content { position: relative; z-index: 2; }
+.circuit-details { position: absolute; z-index: 0; inset: 0; overflow: visible; color: var(--circuit-accent); pointer-events: none; }
+.circuit-frame-outer, .circuit-surface-outer, .circuit-frame-inner, .circuit-surface-inner { position: absolute; inset: 0; clip-path: polygon(0 13px, 13px 0, calc(100% - 13px) 0, 100% 13px, 100% calc(100% - 13px), calc(100% - 13px) 100%, 13px 100%, 0 calc(100% - 13px)); }
+.circuit-frame-outer { background: color-mix(in srgb, var(--circuit-accent) 62%, transparent); }
+.circuit-surface-outer { inset: 1px; background: linear-gradient(145deg, rgba(12, 26, 36, 0.98), rgba(5, 11, 17, 0.98)); clip-path: polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px)); }
+.circuit-frame-inner { inset: 5px; background: color-mix(in srgb, var(--circuit-accent) 24%, transparent); clip-path: polygon(0 9px, 9px 0, calc(100% - 9px) 0, 100% 9px, 100% calc(100% - 9px), calc(100% - 9px) 100%, 9px 100%, 0 calc(100% - 9px)); }
+.circuit-surface-inner { inset: 6px; background: linear-gradient(140deg, rgba(9, 19, 27, 0.48), rgba(5, 10, 15, 0.72)); clip-path: polygon(0 8px, 8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px)); }
+.circuit-trace { position: absolute; height: 1px; background: color-mix(in srgb, var(--circuit-accent) 48%, transparent); box-shadow: 0 0 6px color-mix(in srgb, var(--circuit-accent) 30%, transparent); }
+.circuit-trace-top { top: 16px; right: 30px; width: 22%; }
+.circuit-trace-bottom { bottom: 16px; left: 28px; width: 19%; }
+.circuit-pin { position: absolute; width: 7px; height: 7px; border: 1px solid color-mix(in srgb, var(--circuit-accent) 66%, transparent); border-radius: 50%; background: var(--site-bg); box-shadow: 0 0 0 2px rgba(5, 10, 15, 0.92), 0 0 7px color-mix(in srgb, var(--circuit-accent) 34%, transparent); }
+.circuit-pin-top { top: 12px; right: 16px; }
+.circuit-pin-bottom { bottom: 12px; left: 16px; }
+.circuit-arrival-wash, .circuit-arrival-trace, .circuit-arrival-contact { position: absolute; opacity: 0; pointer-events: none; }
+.circuit-arrival-wash { inset: 1px; background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--circuit-accent) 20%, transparent), transparent 72%); }
+.circuit-arrival-trace { top: 16px; right: 30px; width: 34%; height: 2px; background: var(--circuit-accent); box-shadow: 0 0 12px var(--circuit-glow); }
+.circuit-arrival-contact { top: 10px; right: 13px; width: 12px; height: 12px; border: 2px solid var(--circuit-accent); border-radius: 50%; box-shadow: 0 0 12px var(--circuit-glow), inset 0 0 5px var(--circuit-glow); }
+.connection-output-port { position: absolute; z-index: 4; top: 80%; right: 0; width: 12px; height: 12px; transform: translate(50%, -50%); border: 2px solid var(--site-bg); border-radius: 50%; background: var(--circuit-accent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--circuit-accent) 68%, transparent), 0 0 11px color-mix(in srgb, var(--circuit-accent) 45%, transparent); pointer-events: none; }
+.circuit-module .connection-target-port { z-index: 4; top: 80%; left: 0; width: 12px; height: 12px; transform: translate(-50%, -50%); background: var(--circuit-accent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--circuit-accent) 72%, transparent), 0 0 11px color-mix(in srgb, var(--circuit-accent) 42%, transparent); }
+.home-sequenced-composition .home-origin.circuit-module { max-width: 800px; margin-bottom: 1rem; }
+.home-sequenced-composition .home-title-source .connection-origin-port { top: 50%; right: -1rem; }
+.home-sequenced-composition .home-destination-row { gap: clamp(1rem, 2vw, 1.5rem); }
+.home-sequenced-composition .home-destinations { gap: clamp(5rem, 8vw, 6.5rem); }
+.home-sequenced-composition .home-destination { transition: filter 180ms ease, color 180ms ease; }
+.home-sequenced-composition .home-featured-destination .circuit-surface-outer { background: linear-gradient(145deg, rgba(62, 12, 29, 0.98), rgba(17, 11, 18, 0.98)); }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer { background: color-mix(in srgb, var(--circuit-accent) 84%, white); filter: drop-shadow(0 0 9px var(--circuit-glow)); }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner { background: color-mix(in srgb, var(--circuit-accent) 58%, transparent); }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-trace,
+.circuit-module:is(:hover, :focus-within, :active) .circuit-pin { background-color: var(--circuit-accent); box-shadow: 0 0 10px var(--circuit-glow); }
+.circuit-module:focus-visible { outline: 2px solid var(--circuit-accent); outline-offset: 5px; }
+.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-arrival-wash,
+.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-arrival-trace,
+.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-arrival-contact { visibility: hidden; }
+.home-sequenced-composition .circuit-arrival-wash,
+.home-sequenced-composition .circuit-arrival-trace,
+.home-sequenced-composition .circuit-arrival-contact { animation: circuit-arrival 5.4s linear infinite; animation-delay: var(--sequence-delay); }
+.page-composition .circuit-arrival-wash,
+.page-composition .circuit-arrival-trace,
+.page-composition .circuit-arrival-contact { animation: circuit-arrival 6.8s linear infinite; }
+.page-composition .connection-glow, .page-composition .connection-trail { animation: connection-signal 6.8s linear infinite; }
+.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-glow,
+.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-trail,
+.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-signal,
+.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-wash,
+.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-trace,
+.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-contact { visibility: hidden; }
+@keyframes circuit-arrival { 0%, 14% { opacity: 0; } 16% { opacity: 1; } 22%, 100% { opacity: 0; } }
+@media (max-width: 800px) {
+  .home-sequenced-composition .home-origin.circuit-module { margin-bottom: 0; }
+  .home-sequenced-composition .home-destinations { gap: 3.25rem; }
+  .home-sequenced-composition .home-destination-row { gap: 1rem; }
+  .home-sequenced-composition .circuit-module .connection-target-port,
+  .circuit-module .connection-target-port { top: 40%; left: 0; }
+  .home-sequenced-composition .connection-output-port,
+  .connection-output-port { top: 80%; right: auto; left: 0; transform: translate(-50%, -50%); }
+  .home-sequenced-composition .home-title-source .connection-origin-port { right: auto; left: -1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .circuit-composition .connection-glow,
+  .circuit-composition .connection-trail,
+  .circuit-composition .connection-signal,
+  .circuit-composition .circuit-arrival-wash,
+  .circuit-composition .circuit-arrival-trace,
+  .circuit-composition .circuit-arrival-contact { animation: none !important; opacity: 0 !important; }
+}
+
+/* UI-006-R1 refinements: visible signal layers, routed gutters and layered module detail. */
+.connection-lines { z-index: 1; }
+.home-composition.circuit-composition,
+.page-composition.circuit-composition { padding-right: 1.75rem; }
+.circuit-composition .circuit-module { z-index: auto; isolation: auto; animation: none; }
+.circuit-composition .connected-origin,
+.circuit-composition .connected-target { z-index: auto; animation: none; }
+.circuit-composition .circuit-details { z-index: 0; }
+.circuit-composition .circuit-content { z-index: 2; animation: home-item-enter 520ms cubic-bezier(0.2, 0.7, 0.25, 1) both; }
+.circuit-composition .connection-origin-port,
+.circuit-composition .connection-target-port,
+.circuit-composition .connection-output-port { z-index: 4; }
+.home-sequenced-composition .home-destination > .circuit-content { display: flex; flex-direction: column; align-items: flex-start; gap: 0.55rem; max-width: calc(100% - 5.25rem); }
+.home-sequenced-composition .home-link-group > .circuit-content { max-width: 100%; }
+.home-sequenced-composition .home-destination-kicker { margin: 0; }
+.home-sequenced-composition .home-destination-arrow { z-index: 3; }
+
+/* The right rail lives in reserved padding; page targets enter from their top edge. */
+.page-composition.circuit-composition { padding-right: 1.75rem; }
+.page-composition .connected-destinations,
+.page-composition .page-content-target { margin-right: 0; }
+.page-composition .connection-target-port { top: 0; left: 1.5rem; transform: translate(-50%, -50%); }
+.page-composition .connection-route { color: var(--site-cyan); }
+.home-sequenced-composition .connection-route { color: var(--site-cyan); }
+.home-sequenced-composition .connection-route[data-target="blog"] { color: var(--site-accent); }
+.home-sequenced-composition .connection-route .connection-port { fill: currentColor; }
+.home-sequenced-composition .connection-route[data-target="blog"] .connection-glow { stroke: #ff5479; }
+.home-sequenced-composition .connection-route[data-target="blog"] .connection-trail { stroke: #ffabc0; filter: drop-shadow(0 0 7px rgba(242, 22, 72, 0.95)); }
+.page-composition .connection-route .connection-port { fill: var(--site-cyan); }
+
+/* Raised inner traces sit between the panel shell and readable content. */
+.circuit-motif { position: absolute; z-index: 0; top: 11px; right: 12px; width: 76px; height: 76px; overflow: visible; fill: none; color: var(--circuit-accent); opacity: 0.46; pointer-events: none; }
+.circuit-motif-ring { stroke: currentColor; stroke-width: 1; stroke-dasharray: 69 18; transform: rotate(-24deg); transform-origin: 56px 36px; }
+.circuit-motif-ring-inner { stroke-width: 1.2; stroke-dasharray: 44 12; }
+.circuit-motif-route { stroke: currentColor; stroke-width: 1; stroke-linecap: square; stroke-linejoin: bevel; }
+.circuit-motif-pad { fill: var(--site-bg); stroke: currentColor; stroke-width: 1.5; }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-motif { opacity: 0.9; filter: drop-shadow(0 0 5px var(--circuit-glow)); }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-motif-ring,
+.circuit-module:is(:hover, :focus-within, :active) .circuit-motif-route { stroke: color-mix(in srgb, var(--circuit-accent) 80%, white); }
+.circuit-motif { transition: opacity 180ms ease, filter 180ms ease; }
+.circuit-arrival-wash { z-index: 0; }
+.circuit-arrival-trace,
+.circuit-arrival-contact { z-index: 1; }
+.circuit-composition .circuit-frame-outer,
+.circuit-composition .circuit-frame-inner { animation: circuit-frame-arrival 5.4s linear infinite; animation-delay: var(--sequence-delay, 0s); }
+.page-composition .circuit-frame-outer,
+.page-composition .circuit-frame-inner { animation-duration: 6.8s; }
+
+/* Default-route signal is visible and arrives with the same phase as the module lighting. */
+.page-composition .connection-signal,
+.page-composition .connection-glow,
+.page-composition .connection-trail { opacity: 0; animation: routed-signal 6.8s linear infinite; }
+.page-composition .connection-signal { --signal-end-offset: -98; stroke: #fff; stroke-width: 2.5; filter: drop-shadow(0 0 4px white); }
+.page-composition .connection-trail { --signal-end-offset: -91; stroke: #e7fbff; stroke-width: 5; filter: drop-shadow(0 0 7px #43d9ff); }
+.page-composition .connection-glow { --signal-end-offset: -84; stroke: #baf6ff; stroke-width: 12; filter: blur(4px); }
+.page-composition .circuit-arrival-wash,
+.page-composition .circuit-arrival-trace,
+.page-composition .circuit-arrival-contact { animation: routed-arrival 6.8s linear infinite; }
+.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-glow,
+.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-trail,
+.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-signal,
+.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-wash,
+.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-trace,
+.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-contact { visibility: hidden; }
+.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-module:not(:is(:hover, :focus-within, :active)) .circuit-frame-outer,
+.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-module:not(:is(:hover, :focus-within, :active)) .circuit-frame-inner,
+.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-module:not(:is(:hover, :focus-within, :active)) .circuit-frame-outer,
+.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-module:not(:is(:hover, :focus-within, :active)) .circuit-frame-inner { filter: none !important; }
+.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer,
+.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner,
+.page-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer,
+.page-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner { filter: drop-shadow(0 0 10px var(--circuit-glow)) brightness(1.4) !important; }
+.home-sequenced-composition .circuit-frame-outer,
+.home-sequenced-composition .circuit-frame-inner { animation-delay: var(--sequence-delay, 0s); }
+.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer,
+.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner { animation-play-state: running; }
+.home-sequenced-composition .connection-target-port[data-circuit-port-side="top"] { top: 0; left: 50%; transform: translate(-50%, -50%); }
+.page-composition .circuit-frame-outer,
+.page-composition .circuit-frame-inner { animation: routed-frame-arrival 6.8s linear infinite; }
+
+@keyframes routed-signal {
+  0%, 2% { opacity: 0; stroke-dashoffset: 0; }
+  7% { opacity: 1; stroke-dashoffset: 0; }
+  84% { opacity: 1; stroke-dashoffset: var(--signal-end-offset); }
+  90%, 100% { opacity: 0; stroke-dashoffset: var(--signal-end-offset); }
+}
+@keyframes routed-arrival {
+  0%, 80% { opacity: 0; }
+  82% { opacity: 0.3; }
+  84% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+@keyframes routed-frame-arrival {
+  0%, 80% { filter: none; }
+  84% { filter: drop-shadow(0 0 10px var(--circuit-glow)) brightness(1.65); }
+  90%, 100% { filter: none; }
+}
+@keyframes circuit-frame-arrival {
+  0%, 14% { filter: none; }
+  16% { filter: drop-shadow(0 0 10px var(--circuit-glow)) brightness(1.65); }
+  22%, 100% { filter: none; }
+}
+
+@media (min-width: 801px) and (max-width: 840px) {
+  .home-sequenced-composition { padding-left: 1rem; }
+  .home-sequenced-composition .home-destination-row { grid-template-columns: minmax(0, 1fr); }
+  .home-sequenced-composition .home-destinations { gap: 3.25rem; margin-top: 3.5rem; }
+  .home-sequenced-composition .home-destination { min-height: 10.5rem; }
+  .home-sequenced-composition .connection-target-port { top: 40%; left: 0; transform: translate(-50%, -50%); }
+  .home-sequenced-composition .connection-target-port[data-circuit-port-side="top"] { top: 40%; left: 0; }
+  .home-sequenced-composition .connection-output-port { top: 80%; right: auto; left: 0; transform: translate(-50%, -50%); }
+  .home-sequenced-composition .home-title-source .connection-origin-port { right: auto; left: -1.2rem; }
+}
+@media (max-width: 800px) {
+  .home-composition.circuit-composition,
+  .page-composition.circuit-composition { padding-right: 1.5rem; }
+  .page-composition .connection-target-port { top: 40%; left: 0; }
+  .home-sequenced-composition .connection-target-port[data-circuit-port-side="top"] {
+    top: 40%;
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+  .circuit-motif { top: 10px; right: 10px; width: 62px; height: 62px; opacity: 0.34; }
+  .home-sequenced-composition .home-destination > .circuit-content,
+  .home-sequenced-composition .home-link-group > .circuit-content { max-width: calc(100% - 4.5rem); }
+}
+@media (max-width: 380px) {
+  .home-sequenced-composition .home-destination > .circuit-content,
+  .home-sequenced-composition .home-link-group > .circuit-content { max-width: calc(100% - 3rem); }
+  .circuit-motif { width: 50px; height: 50px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .circuit-composition .connection-glow,
+  .circuit-composition .connection-trail,
+  .circuit-composition .connection-signal,
+  .circuit-composition .circuit-arrival-wash,
+  .circuit-composition .circuit-arrival-trace,
+  .circuit-composition .circuit-arrival-contact { animation: none !important; opacity: 0 !important; filter: none !important; }
+  .circuit-composition .circuit-frame-outer,
+  .circuit-composition .circuit-frame-inner { animation: none !important; filter: none !important; }
+  .circuit-composition .connection-base,
+  .circuit-composition .connection-support { opacity: 0.24; }
+  .circuit-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-motif { filter: none; }
 }

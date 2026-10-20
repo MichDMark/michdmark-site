@@ -21,7 +21,7 @@ export function Navbar() {
     return (
         <Box component="header" className="site-nav">
             <Container>
-                <Group h={72} justify="space-between" wrap="nowrap">
+                <Group h={72} justify="space-between" wrap="nowrap" className="header-bar">
                     <Logo />
 
                     <Group component="nav" aria-label="Navegación principal" visibleFrom="md" className="nav-links">

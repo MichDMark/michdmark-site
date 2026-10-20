@@ -11,7 +11,12 @@ export function Logo() {
             underline="never"
             className="brand-link"
         >
-            <span className="brand-mark" aria-hidden="true">MD</span>
+            <span className="brand-mark" aria-hidden="true">
+                <span className="brand-mark-label">MD</span>
+                <span className="brand-mark-contact brand-mark-contact-top" />
+                <span className="brand-mark-contact brand-mark-contact-bottom" />
+                <span className="brand-mark-trace" />
+            </span>
             <span className="brand-name">Mich <span>DMark</span></span>
         </Anchor>
     );
