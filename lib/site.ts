@@ -1,12 +1,43 @@
+import type { Metadata } from "next";
+
+export const defaultSiteUrl = "https://michdmark.com";
+
+export function resolveSiteUrl(override?: string) {
+  return override ?? defaultSiteUrl;
+}
+
 export const siteConfig = {
   name: "Mich DMark",
   shortName: "Mich",
   description:
-    "Mich DMark explora tecnología accesible e inteligencia artificial aplicada a software y hardware, y comparte ideas, proyectos y gadgets.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://michdmark.github.io/michdmark-site",
+    "Mich DMark explora tecnología accesible y el uso de agentes en software y hardware, y comparte ideas, proyectos y gadgets.",
+  url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   author: "Mich DMark",
   locale: "es_MX",
 };
+
+export function createPageMetadata(title: string, description: string, canonical: string): Metadata {
+  const url = absoluteUrl(canonical);
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      locale: siteConfig.locale,
+      siteName: siteConfig.name,
+      url,
+      title,
+      description,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
 
 export function absoluteUrl(path = "/", baseUrl = siteConfig.url) {
   const base = new URL(baseUrl);

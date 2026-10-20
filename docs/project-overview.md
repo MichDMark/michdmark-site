@@ -2,7 +2,7 @@
 
 ## Propósito
 
-Sitio personal de Mich DMark sobre tecnología accesible e inteligencia artificial aplicada a software y hardware. Las secciones de blog, proyectos y gadgets están preparadas para crecer con contenido nuevo.
+Sitio personal de Mich DMark sobre tecnología accesible y el uso de agentes en software y hardware. Las secciones de blog, proyectos y gadgets están preparadas para crecer con contenido nuevo.
 
 ## Stack
 
@@ -41,6 +41,6 @@ La configuración relevante vive en:
 
 ## URL pública
 
-La URL pública se lee desde `NEXT_PUBLIC_SITE_URL`. Si no existe, el fallback actual es `https://michdmark.github.io/michdmark-site`.
+El sitio está desplegado en GitHub Pages y responde bajo el dominio propio `https://michdmark.com/`. El build de Actions define `NEXT_PUBLIC_SITE_URL=https://michdmark.com`; ese mismo dominio es el valor por defecto para metadata, sitemap y robots al trabajar localmente. La variable puede sobrescribirse para una vista previa.
 
-Si se usa dominio custom en GitHub Pages, configurar `NEXT_PUBLIC_SITE_URL` con ese dominio para que metadata, sitemap y robots usen URLs canónicas correctas.
+El dominio personalizado se sirve desde la raíz. `basePath` y `assetPrefix` permanecen vacíos para que las rutas y los recursos del export estático usen esa raíz.

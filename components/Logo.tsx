@@ -1,8 +1,10 @@
 import { Anchor } from "@mantine/core";
+import Link from "next/link";
 
 export function Logo() {
     return (
         <Anchor
+            component={Link}
             href="/"
             aria-label="Ir al inicio"
             title="Ir al inicio"

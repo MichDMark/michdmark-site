@@ -2,7 +2,9 @@
 
 ## Enfoque
 
-El sitio de Mich DMark explora tecnología accesible e inteligencia artificial aplicada a software y hardware. El blog crecerá con explicaciones e ideas; proyectos y gadgets documentarán trabajo y herramientas cuando haya contenido listo. Las colecciones actuales están vacías y su contenido anterior se retiró sin conservar copias en el repositorio.
+El sitio de Mich DMark explora tecnología accesible y el uso de agentes en software y hardware. El blog crecerá con explicaciones e ideas; proyectos y gadgets documentarán trabajo y herramientas cuando haya contenido listo. Las colecciones actuales están vacías y su contenido anterior se retiró sin conservar copias en el repositorio.
+
+La terminología pública del sitio usa «agentes» para hablar de este tema; mantener esa elección en páginas, metadata y textos compartidos.
 
 ## Páginas
 
@@ -12,7 +14,7 @@ La navegación tiene cinco destinos públicos:
 | --- | --- | --- |
 | Inicio | `/` | Presentar a Mich DMark y el enfoque general del sitio. |
 | About me | `/about` | Explicar brevemente el enfoque personal y ofrecer redes y contacto. |
-| Blog | `/blog` | Publicar ideas y explicaciones accesibles sobre tecnología e IA. |
+| Blog | `/blog` | Publicar ideas y explicaciones accesibles sobre tecnología y agentes. |
 | Proyectos | `/projects` | Documentar proyectos de software y hardware y cómo se construyen. |
 | Gadgets | `/setup` | Compartir herramientas de software y hardware y su uso. |
 

@@ -7,6 +7,8 @@ Esta carpeta contiene documentación interna para mantener el blog de Mich DMark
 - `project-overview.md`: contexto, stack y reglas generales del proyecto.
 - `editorial-scope.md`: páginas, estados actuales y dirección editorial.
 - `ui-system.md`: estándar de UI basado en Mantine.
+- `redesign-2026-10.md`: alcance y decisiones de la composición conectada para las cinco páginas públicas.
+- `audit-2026-10.md`: remediación de dependencias y hallazgos pendientes.
 - `maintenance.md`: tareas recurrentes de mantenimiento técnico.
 
 La documentación debe ser práctica y corta. Si una decisión afecta arquitectura, despliegue o contenido, conviene dejarla registrada aquí.

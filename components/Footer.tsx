@@ -9,7 +9,7 @@ export function Footer() {
                 <div className="footer-inner">
                     <Stack gap={4}>
                         <Text className="footer-copy">© {new Date().getFullYear()} Mich DMark</Text>
-                        <Text className="footer-copy">Tecnología accesible, software, IA y hardware.</Text>
+                        <Text className="footer-copy">Tecnología accesible, software, agentes y hardware.</Text>
                     </Stack>
                     <Box component="nav" aria-label="Contacto" className="footer-links">
                         <SocialLinks group="contact" />
