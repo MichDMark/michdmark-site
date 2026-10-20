@@ -4,6 +4,7 @@ import { ConnectionNetwork } from "@/components/ConnectionNetwork";
 import { Container } from "@/components/Container";
 import { CircuitDetails } from "@/components/CircuitDetails";
 import { SocialLinks } from "@/components/SocialLinks";
+import { ViewportDiagnostics } from "@/components/ViewportDiagnostics";
 
 export default function Home() {
     return (
@@ -103,6 +104,7 @@ export default function Home() {
                     </ConnectionNetwork>
                 </Stack>
             </Container>
+            <ViewportDiagnostics />
         </Box>
     );
 }

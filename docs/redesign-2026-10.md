@@ -1,5 +1,11 @@
 # Muestra visual del rediseño (2026-10)
 
+## HMR para loopback local (LOCAL-010)
+
+- Next.js 16.3.8 protege sus recursos de desarrollo, incluido `/_next/hmr`, frente a orígenes cruzados. La configuración local admite `localhost` por defecto; `127.0.0.1` es otro origen y debe permitirse explícitamente para habilitar esos recursos y HMR.
+- Configurar únicamente `127.0.0.1` en `allowedDevOrigins`, opción de desarrollo de Next.js. Desactivar la escritura automática de reglas de agente (`agentRules: false`) para preservar el `AGENTS.md` del proyecto. No ampliar el allowlist ni alterar el comportamiento de exportación; el cambio no afecta el sitio publicado.
+- Validación LOCAL-010: inicialmente `localhost` aceptaba HMR y `127.0.0.1` era rechazado por Next. Tras permitir el origen exacto, la QA de Chromium y WebKit pasó 8/8 comprobaciones en escritorio y móvil para ambos hosts: Inicio presentó seis conexiones `.connection-base` alineadas a menos de 1 px, navegación a Blog y regreso, sin errores de JavaScript o HMR. El SVG completo contiene 50 trazos, incluidos detalles decorativos. El servidor permanece activo en `:3000`; no se deduce soporte IPv6, pues no escucha en `::1`. `npm run check` se validó en una copia aislada; `AGENTS.md` coincide con su baseline y no forma parte del cambio.
+
 ## Cabecera de navegación PCB (UI-007)
 
 - Integrar logo, navegación de escritorio y menú móvil con el sistema de módulos y señales UI-006: superficies oscuras, marcos dobles biselados, terminales y pistas discretas con acentos rojo/cian.
