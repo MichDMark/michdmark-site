@@ -16,6 +16,8 @@ export function CircuitDetails({ tone = "cyan" }: CircuitDetailsProps) {
                 <span className="circuit-pin-bank circuit-pin-bank-left" />
                 <span className="circuit-pin-one" />
             </span>
+            <span className="circuit-terminal" data-pcb-terminal />
+            <span className="circuit-terminal" data-pcb-output-terminal />
             <span className="circuit-trace circuit-trace-top" />
             <span className="circuit-trace circuit-trace-bottom" />
             <svg className="circuit-motif" viewBox="0 0 64 64" focusable="false">
@@ -25,9 +27,6 @@ export function CircuitDetails({ tone = "cyan" }: CircuitDetailsProps) {
                 <circle className="circuit-motif-pad" cx="49" cy="8" r="2" />
                 <circle className="circuit-motif-pad" cx="56" cy="42" r="2" />
             </svg>
-            <span className="circuit-arrival-wash" />
-            <span className="circuit-arrival-trace" />
-            <span className="circuit-arrival-contact" />
         </span>
     );
 }

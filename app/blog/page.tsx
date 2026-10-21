@@ -2,6 +2,7 @@ import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
+import { PcbCircuit } from "@/components/PcbCircuit";
 import { PostCard } from "@/components/PostCard";
 import { getAllPosts } from "@/lib/posts";
 import { createPageMetadata } from "@/lib/site";
@@ -17,7 +18,7 @@ export default function BlogPage() {
 
     return (
         <Container className="page-shell">
-            <div className="page-composition circuit-composition">
+            <PcbCircuit className="page-composition circuit-composition">
                 <section className="connected-origin page-origin circuit-module circuit-module-origin">
                     <CircuitDetails tone="red" />
                     <div className="circuit-content">
@@ -51,7 +52,7 @@ export default function BlogPage() {
                         )}
                     </div>
                 </section>
-            </div>
+            </PcbCircuit>
         </Container>
     );
 }

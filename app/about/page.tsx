@@ -2,6 +2,7 @@ import { Text } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
+import { PcbCircuit } from "@/components/PcbCircuit";
 import { SocialLinks } from "@/components/SocialLinks";
 import { createPageMetadata } from "@/lib/site";
 
@@ -14,7 +15,7 @@ export const metadata = createPageMetadata(
 export default function AboutPage() {
     return (
         <Container className="page-shell page-shell-narrow">
-            <div className="page-composition circuit-composition about-composition">
+            <PcbCircuit className="page-composition circuit-composition about-composition">
                 <section className="connected-origin page-origin circuit-module circuit-module-origin">
                     <CircuitDetails />
                     <div className="circuit-content">
@@ -40,7 +41,7 @@ export default function AboutPage() {
                         </div>
                     </section>
                 </div>
-            </div>
+            </PcbCircuit>
         </Container>
     );
 }

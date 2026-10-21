@@ -2,6 +2,7 @@ import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
+import { PcbCircuit } from "@/components/PcbCircuit";
 import { ProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/data/projects";
 import { createPageMetadata } from "@/lib/site";
@@ -15,7 +16,7 @@ export const metadata = createPageMetadata(
 export default function ProjectsPage() {
     return (
         <Container className="page-shell">
-            <div className="page-composition circuit-composition">
+            <PcbCircuit className="page-composition circuit-composition">
                 <section className="connected-origin page-origin circuit-module circuit-module-origin">
                     <CircuitDetails />
                     <div className="circuit-content">
@@ -48,7 +49,7 @@ export default function ProjectsPage() {
                         )}
                     </div>
                 </section>
-            </div>
+            </PcbCircuit>
         </Container>
     );
 }

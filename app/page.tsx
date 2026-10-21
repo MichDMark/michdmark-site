@@ -2,6 +2,7 @@ import { Box, Stack, Text, Title } from "@mantine/core";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { CircuitDetails } from "@/components/CircuitDetails";
+import { PcbCircuit } from "@/components/PcbCircuit";
 import { SocialLinks } from "@/components/SocialLinks";
 import { ViewportDiagnostics } from "@/components/ViewportDiagnostics";
 
@@ -10,7 +11,7 @@ export default function Home() {
         <Box component="section" className="home-hero" aria-labelledby="home-title">
             <Container>
                 <Stack className="home-flow" gap="xl">
-                    <div className="home-composition home-sequenced-composition circuit-composition">
+                    <PcbCircuit className="home-composition home-sequenced-composition circuit-composition">
                         <section className="connected-origin home-origin circuit-module circuit-module-origin">
                             <CircuitDetails tone="red" />
                             <div className="circuit-content">
@@ -87,7 +88,7 @@ export default function Home() {
                                 </section>
                             </div>
                         </div>
-                    </div>
+                    </PcbCircuit>
                 </Stack>
             </Container>
             <ViewportDiagnostics />
