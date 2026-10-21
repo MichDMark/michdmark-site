@@ -1,12 +1,12 @@
 :root {
   color-scheme: dark;
-  --site-bg: #050a0f;
-  --site-bg-soft: #08131c;
-  --site-surface: #0b1721;
-  --site-border: rgba(67, 217, 255, 0.14);
-  --site-border-strong: rgba(67, 217, 255, 0.36);
+  --site-bg: #061a17;
+  --site-bg-soft: #092521;
+  --site-surface: #0b2923;
+  --site-border: rgba(93, 167, 132, 0.2);
+  --site-border-strong: rgba(107, 195, 153, 0.42);
   --site-accent: #f21648;
-  --site-cyan: #43d9ff;
+  --site-cyan: #70e1bd;
   --site-text: #f2f6f8;
   --site-muted: #a4b3c0;
   --site-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -23,26 +23,46 @@ body {
   min-height: 100vh;
   overflow-x: clip;
   background:
-    radial-gradient(55rem 38rem at 77% 10%, rgba(17, 83, 105, 0.15), transparent 70%),
-    radial-gradient(42rem 32rem at 10% 18%, rgba(242, 22, 72, 0.09), transparent 72%),
+    radial-gradient(55rem 38rem at 77% 10%, rgba(23, 104, 77, 0.14), transparent 70%),
+    radial-gradient(42rem 32rem at 10% 18%, rgba(242, 22, 72, 0.065), transparent 72%),
     var(--site-bg);
   color: var(--site-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-body::before {
-  position: fixed;
-  z-index: 0;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(67, 217, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(67, 217, 255, 0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
-  content: "";
-  mask-image: linear-gradient(to bottom, black, transparent 88%);
-  pointer-events: none;
-}
+.pcb-board-background { --pcb-copper: #bd8950; --pcb-copper-bright: #dfb36d; --pcb-hole: #04100e; position: fixed; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: hidden; color: var(--site-cyan); pointer-events: none; }
+.pcb-board-pattern-fill { fill: url(#pcb-board-pattern); opacity: 1; }
+.pcb-pattern-trace { fill: none; stroke: var(--pcb-copper); stroke-width: 3.6; stroke-linecap: square; stroke-linejoin: bevel; vector-effect: non-scaling-stroke; opacity: 0.78; }
+.pcb-pattern-trace-wide { stroke-width: 5.5; opacity: 0.86; }
+.pcb-pattern-parallel { stroke: var(--pcb-copper-bright); stroke-width: 1.35; opacity: 0.78; }
+.pcb-pattern-trace-secondary { stroke: #9b7040; stroke-width: 2.4; opacity: 0.65; }
+.pcb-pad { fill: #c49554; stroke: #e4c07b; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.pcb-via { fill: var(--pcb-hole); stroke: #d1a761; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.pcb-component { fill: none; stroke-linecap: square; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.pcb-component-lead { stroke: #c5ccc0; stroke-width: 3; }
+.pcb-component-body { fill: #263a32; stroke: #d2ad69; stroke-width: 2.2; }
+.pcb-resistor-band { stroke: #df7849; stroke-width: 2.5; }
+.pcb-capacitor-body { fill: #17241e; stroke: #c79a5d; stroke-width: 2; }
+.pcb-capacitor-lid { fill: #b8c4ba; stroke: #eee0b7; stroke-width: 1.5; }
+.pcb-capacitor-stripe { stroke: #d8caa2; stroke-width: 3; }
+.pcb-capacitor-mark { stroke: #34483c; stroke-width: 1.5; }
+.pcb-component-pad { fill: #bbc6b8; stroke: #eee0b7; stroke-width: 1.5; }
+.pcb-inductor-core { fill: #101b17; stroke: #a87b45; stroke-width: 2; }
+.pcb-inductor-coil { stroke: #d1a761; stroke-width: 4; }
+.pcb-inductor-highlight { stroke: #f0c87f; stroke-width: 1.1; opacity: 0.85; }
+.pcb-silkscreen { fill: #b7a77c; font-family: var(--site-mono); font-size: 8px; letter-spacing: 1px; opacity: 0.72; }
+.pcb-main-trace { fill: none; stroke-linecap: square; stroke-linejoin: bevel; vector-effect: non-scaling-stroke; }
+.pcb-main-trace-mint { stroke: #528b70; stroke-width: 8; opacity: 0.86; }
+.pcb-main-trace-amber { stroke: #ad8048; stroke-width: 8; opacity: 0.88; }
+.pcb-main-signal { fill: none; stroke-linecap: round; stroke-linejoin: bevel; stroke-dasharray: 7 93; stroke-dashoffset: 0; stroke-width: 3.2; vector-effect: non-scaling-stroke; }
+.pcb-main-signal-mint { stroke: #c6ffe9; filter: drop-shadow(0 0 4px rgba(134, 255, 213, 0.9)); animation: pcb-main-travel 6.2s linear infinite; }
+.pcb-main-signal-amber { stroke: #ffe1a0; filter: drop-shadow(0 0 4px rgba(255, 189, 91, 0.84)); animation: pcb-main-travel 7.6s linear infinite; animation-delay: -3.1s; }
+.pcb-main-pad { fill: #b8c6b7; stroke-width: 3; vector-effect: non-scaling-stroke; }
+.pcb-main-pad-mint { stroke: #75c8a2; }
+.pcb-main-pad-amber { stroke: #cd9d57; }
+.pcb-main-via { fill: var(--pcb-hole); stroke-width: 3.2; vector-effect: non-scaling-stroke; }
+@keyframes pcb-main-travel { to { stroke-dashoffset: -100; } }
 
 ::selection {
   background: var(--site-accent);
@@ -432,58 +452,9 @@ button:focus-visible {
 
 .home-composition,
 .page-composition {
-  --connection-signal: #43d9ff;
   position: relative;
   display: block;
   isolation: isolate;
-}
-
-.home-sequenced-composition {
-  padding-right: 1.5rem;
-}
-
-.connection-lines {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.connection-base,
-.connection-signal {
-  fill: none;
-  stroke: var(--connection-signal);
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.connection-base {
-  stroke-width: 1.25;
-  opacity: 0.24;
-}
-
-.connection-signal {
-  stroke-width: 2;
-  stroke-dasharray: 2 98;
-  stroke-dashoffset: 0;
-  filter: drop-shadow(0 0 4px rgba(67, 217, 255, 0.82));
-  animation: connection-signal 6.8s linear infinite;
-}
-
-.home-sequenced-composition .connection-signal {
-  opacity: 0;
-  animation: home-connection-sequence 5.4s linear infinite;
-  animation-delay: var(--sequence-delay);
-}
-
-.connection-port {
-  fill: var(--site-cyan);
-  stroke: var(--site-bg);
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
 }
 
 .connected-origin,
@@ -494,51 +465,6 @@ button:focus-visible {
 
 .connected-origin {
   animation: home-item-enter 520ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
-}
-
-.connection-origin-port,
-.connection-target-port {
-  position: absolute;
-  z-index: 2;
-  display: block;
-  width: 12px;
-  height: 12px;
-  border: 2px solid var(--site-bg);
-  border-radius: 50%;
-  background: var(--site-cyan);
-  box-shadow: 0 0 0 1px rgba(67, 217, 255, 0.62), 0 0 14px rgba(67, 217, 255, 0.36);
-  pointer-events: none;
-}
-
-.connection-origin-port {
-  top: 50%;
-  right: 0;
-  transform: translate(50%, -50%);
-  background: var(--site-accent);
-  box-shadow: 0 0 0 1px rgba(242, 22, 72, 0.75), 0 0 16px rgba(242, 22, 72, 0.4);
-}
-
-.section-title-source {
-  position: relative;
-  display: inline-flex;
-  max-width: 100%;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.section-title-source .connection-origin-port {
-  position: relative;
-  top: auto;
-  right: auto;
-  left: auto;
-  flex: none;
-  transform: none;
-}
-
-.connection-target-port {
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .connected-destinations {
@@ -586,16 +512,6 @@ button:focus-visible {
   padding: 0 1rem 1.5rem 0;
 }
 
-.home-title-source {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-}
-
-.home-title-source .connection-origin-port {
-  right: -0.75rem;
-}
-
 .home-title {
   max-width: 9ch;
 }
@@ -609,8 +525,8 @@ button:focus-visible {
 .page-target {
   min-width: 0;
   padding: 1.35rem;
-  border: 1px solid rgba(67, 217, 255, 0.2);
-  background: linear-gradient(145deg, rgba(11, 23, 33, 0.94), rgba(5, 10, 15, 0.91));
+  border: 1px solid rgba(112, 225, 189, 0.2);
+  background: linear-gradient(145deg, rgba(8, 22, 19, 0.96), rgba(3, 13, 11, 0.94));
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.025), 0 18px 45px rgba(0, 0, 0, 0.14);
 }
 
@@ -727,10 +643,6 @@ button:focus-visible {
   flex-wrap: wrap;
 }
 
-.page-composition {
-  --connection-signal: #43d9ff;
-}
-
 .page-origin {
   padding: 0 1rem 1.5rem 0;
 }
@@ -774,29 +686,6 @@ button:focus-visible {
   animation-delay: 240ms;
 }
 
-.home-sequenced-composition:has([data-connection-target="blog"]:is(:hover, :active)) .connection-route[data-target="blog"],
-.home-sequenced-composition:has([data-connection-target="proyectos"]:is(:hover, :active)) .connection-route[data-target="proyectos"],
-.home-sequenced-composition:has([data-connection-target="gadgets"]:is(:hover, :active)) .connection-route[data-target="gadgets"],
-.home-sequenced-composition:has([data-connection-target="about"]:is(:hover, :active)) .connection-route[data-target="about"],
-.home-sequenced-composition:has([data-connection-target="redes"]:is(:hover, :active)) .connection-route[data-target="redes"],
-.home-sequenced-composition:has([data-connection-target="contacto"]:is(:hover, :active)) .connection-route[data-target="contacto"],
-.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="blog"]:focus-within) .connection-route[data-target="blog"],
-.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="proyectos"]:focus-within) .connection-route[data-target="proyectos"],
-.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="gadgets"]:focus-within) .connection-route[data-target="gadgets"],
-.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="about"]:focus-within) .connection-route[data-target="about"],
-.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="redes"]:focus-within) .connection-route[data-target="redes"],
-.home-sequenced-composition:not(:has([data-connection-target]:hover)):not(:has([data-connection-target]:active)):has([data-connection-target="contacto"]:focus-within) .connection-route[data-target="contacto"],
-.single-target-composition:has([data-connection-target]:hover) .connection-route,
-.single-target-composition:has([data-connection-target]:focus-within) .connection-route {
-  filter: drop-shadow(0 0 5px rgba(67, 217, 255, 0.7));
-}
-
-.home-sequenced-composition:has([data-connection-target]:hover) .connection-signal,
-.home-sequenced-composition:has([data-connection-target]:focus-within) .connection-signal,
-.home-sequenced-composition:has([data-connection-target]:active) .connection-signal {
-  visibility: hidden;
-}
-
 .connected-target:active {
   border-color: rgba(242, 22, 72, 0.75);
   background-color: rgba(242, 22, 72, 0.08);
@@ -816,24 +705,6 @@ button:focus-visible {
   border-color: rgba(67, 217, 255, 0.58);
   background-color: rgba(13, 31, 42, 0.96);
   box-shadow: 0 12px 36px rgba(67, 217, 255, 0.08);
-}
-
-.about-composition:has([data-connection-target="redes"]:hover) .connection-route[data-target="redes"],
-.about-composition:has([data-connection-target="redes"]:focus-within) .connection-route[data-target="redes"],
-.about-composition:has([data-connection-target="contacto"]:hover) .connection-route[data-target="contacto"],
-.about-composition:has([data-connection-target="contacto"]:focus-within) .connection-route[data-target="contacto"] {
-  filter: drop-shadow(0 0 5px rgba(67, 217, 255, 0.7));
-}
-
-@keyframes connection-signal {
-  to { stroke-dashoffset: -100; }
-}
-
-@keyframes home-connection-sequence {
-  0%, 1% { opacity: 0; stroke-dashoffset: 0; }
-  2% { opacity: 1; }
-  15% { opacity: 1; stroke-dashoffset: -100; }
-  16.67%, 100% { opacity: 0; stroke-dashoffset: -100; }
 }
 
 @keyframes home-item-enter {
@@ -1023,7 +894,7 @@ button:focus-visible {
   position: relative;
   z-index: 1;
   border-top: 1px solid var(--site-border);
-  background: rgba(3, 7, 11, 0.48);
+  background: #04110f;
 }
 
 .footer-inner {
@@ -1097,15 +968,6 @@ button:focus-visible {
 }
 
 @media (max-width: 800px) {
-  .home-composition,
-  .page-composition {
-    padding-left: 1rem;
-  }
-
-  .home-sequenced-composition {
-    padding-right: 0;
-  }
-
   .connected-destinations,
   .about-destinations,
   .home-destination-row {
@@ -1116,26 +978,6 @@ button:focus-visible {
   .home-origin,
   .page-origin {
     padding-right: 0;
-  }
-
-  .connection-origin-port {
-    right: auto;
-    left: -1rem;
-    transform: translate(-50%, -50%);
-  }
-
-  .section-title-source .connection-origin-port {
-    position: absolute;
-    top: 50%;
-    right: auto;
-    left: -1rem;
-    transform: translate(-50%, -50%);
-  }
-
-  .connection-target-port {
-    top: 50%;
-    left: 0;
-    transform: translate(-50%, -50%);
   }
 
   .connected-destinations {
@@ -1204,8 +1046,7 @@ button:focus-visible {
 
   .page-transition,
   .connected-origin,
-  .connected-target,
-  .connection-signal {
+  .connected-target {
     animation: none !important;
   }
 
@@ -1214,27 +1055,7 @@ button:focus-visible {
 
 }
 
-/* UI-006: PCB modules and synchronized transit signal. */
-.connection-support,
-.connection-glow,
-.connection-trail {
-  fill: none;
-  stroke: var(--connection-signal);
-  stroke-linecap: round;
-  stroke-linejoin: bevel;
-  vector-effect: non-scaling-stroke;
-}
-.connection-support { stroke-width: 0.7; opacity: 0.1; transform: translateY(4px); }
-.connection-glow { stroke-width: 10; stroke-dasharray: 16 84; opacity: 0; filter: blur(3px); animation: connection-signal 6.8s linear infinite; }
-.connection-trail { stroke-width: 4; stroke-dasharray: 9 91; opacity: 0; filter: drop-shadow(0 0 5px rgba(67, 217, 255, 0.9)); animation: connection-signal 6.8s linear infinite; }
-.home-sequenced-composition .connection-glow,
-.home-sequenced-composition .connection-trail { opacity: 0; animation: home-connection-sequence 5.4s linear infinite; animation-delay: var(--sequence-delay); }
-.home-sequenced-composition .connection-glow { stroke: #baf6ff; stroke-width: 12; filter: blur(4px); }
-.home-sequenced-composition .connection-trail { stroke: #e7fbff; stroke-width: 5; filter: drop-shadow(0 0 7px #43d9ff); }
-.home-sequenced-composition .connection-signal { stroke: #fff; stroke-width: 2.7; filter: drop-shadow(0 0 4px white); }
-
-.circuit-composition { --circuit-accent: var(--site-cyan); --circuit-glow: rgba(67, 217, 255, 0.82); }
-.circuit-composition[data-connection-sequence] { --connection-signal: #f4fcff; }
+.circuit-composition { --circuit-accent: var(--site-cyan); --circuit-glow: rgba(112, 225, 189, 0.82); }
 .circuit-module { --circuit-accent: var(--site-cyan); position: relative; isolation: isolate; overflow: visible; border-color: transparent !important; background: transparent !important; box-shadow: none !important; }
 .circuit-module-red { --circuit-accent: var(--site-accent); --circuit-glow: rgba(242, 22, 72, 0.9); }
 .circuit-module-origin { --circuit-accent: var(--site-accent); padding: clamp(1.2rem, 3vw, 2rem) !important; }
@@ -1245,35 +1066,43 @@ button:focus-visible {
 .page-content-target.circuit-module { min-height: 12rem; margin-top: clamp(3.25rem, 6vw, 4.75rem); padding: clamp(1.25rem, 3vw, 2rem) !important; }
 .page-target.circuit-module { min-height: 9rem; padding: clamp(1.25rem, 3vw, 2rem) !important; }
 .circuit-content { position: relative; z-index: 2; }
-.circuit-details { position: absolute; z-index: 0; inset: 0; overflow: visible; color: var(--circuit-accent); pointer-events: none; }
+.circuit-details { position: absolute; z-index: 0; inset: 0; overflow: visible; color: var(--circuit-accent); filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.52)); pointer-events: none; }
 .circuit-frame-outer, .circuit-surface-outer, .circuit-frame-inner, .circuit-surface-inner { position: absolute; inset: 0; clip-path: polygon(0 13px, 13px 0, calc(100% - 13px) 0, 100% 13px, 100% calc(100% - 13px), calc(100% - 13px) 100%, 13px 100%, 0 calc(100% - 13px)); }
-.circuit-frame-outer { background: color-mix(in srgb, var(--circuit-accent) 62%, transparent); }
-.circuit-surface-outer { inset: 1px; background: linear-gradient(145deg, rgba(12, 26, 36, 0.98), rgba(5, 11, 17, 0.98)); clip-path: polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px)); }
-.circuit-frame-inner { inset: 5px; background: color-mix(in srgb, var(--circuit-accent) 24%, transparent); clip-path: polygon(0 9px, 9px 0, calc(100% - 9px) 0, 100% 9px, 100% calc(100% - 9px), calc(100% - 9px) 100%, 9px 100%, 0 calc(100% - 9px)); }
-.circuit-surface-inner { inset: 6px; background: linear-gradient(140deg, rgba(9, 19, 27, 0.48), rgba(5, 10, 15, 0.72)); clip-path: polygon(0 8px, 8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px)); }
+.circuit-frame-outer { background: linear-gradient(135deg, rgba(188, 151, 91, 0.72), rgba(56, 78, 65, 0.9) 52%, color-mix(in srgb, var(--circuit-accent) 58%, transparent)); }
+.circuit-module-red .circuit-frame-outer { background: linear-gradient(135deg, rgba(205, 177, 171, 0.7), rgba(81, 52, 60, 0.84) 52%, color-mix(in srgb, var(--circuit-accent) 62%, transparent)); }
+.circuit-surface-outer { inset: 1px; background: #07100e; clip-path: polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px)); }
+.circuit-frame-inner { inset: 5px; background: linear-gradient(145deg, color-mix(in srgb, var(--circuit-accent) 46%, #87949b), color-mix(in srgb, var(--circuit-accent) 25%, #27343d)); clip-path: polygon(0 9px, 9px 0, calc(100% - 9px) 0, 100% 9px, 100% calc(100% - 9px), calc(100% - 9px) 100%, 9px 100%, 0 calc(100% - 9px)); }
+.circuit-surface-inner { inset: 6px; background: #080f0c; clip-path: polygon(0 8px, 8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px)); }
 .circuit-trace { position: absolute; height: 1px; background: color-mix(in srgb, var(--circuit-accent) 48%, transparent); box-shadow: 0 0 6px color-mix(in srgb, var(--circuit-accent) 30%, transparent); }
 .circuit-trace-top { top: 16px; right: 30px; width: 22%; }
 .circuit-trace-bottom { bottom: 16px; left: 28px; width: 19%; }
-.circuit-pin { position: absolute; width: 7px; height: 7px; border: 1px solid color-mix(in srgb, var(--circuit-accent) 66%, transparent); border-radius: 50%; background: var(--site-bg); box-shadow: 0 0 0 2px rgba(5, 10, 15, 0.92), 0 0 7px color-mix(in srgb, var(--circuit-accent) 34%, transparent); }
-.circuit-pin-top { top: 12px; right: 16px; }
-.circuit-pin-bottom { bottom: 12px; left: 16px; }
+.circuit-pin-array { position: absolute; z-index: 3; inset: 0; filter: drop-shadow(0 0 0 transparent); pointer-events: none; }
+.circuit-pin-bank { position: absolute; display: block; background-repeat: repeat; }
+.circuit-pin-bank-top, .circuit-pin-bank-bottom { right: 24px; left: 24px; height: 12px; background-image: repeating-linear-gradient(90deg, #d2dcdd 0 1px, #87969b 1px 5px, #4b5c63 5px 6px, transparent 6px 18px); }
+.circuit-pin-bank-top { top: -6px; }
+.circuit-pin-bank-bottom { bottom: -6px; }
+.circuit-pin-bank-left, .circuit-pin-bank-right { top: 24px; bottom: 24px; width: 12px; background-image: repeating-linear-gradient(180deg, #d2dcdd 0 1px, #87969b 1px 5px, #4b5c63 5px 6px, transparent 6px 18px); }
+.circuit-pin-bank-left { left: -6px; }
+.circuit-pin-bank-right { right: -6px; }
+.circuit-pin-one { position: absolute; z-index: 1; top: 10px; left: 10px; width: 6px; height: 6px; border: 1px solid rgba(220, 228, 226, 0.88); border-radius: 50%; background: var(--circuit-accent); box-shadow: 0 0 0 2px #080d13, 0 0 5px var(--circuit-glow); }
 .circuit-arrival-wash, .circuit-arrival-trace, .circuit-arrival-contact { position: absolute; opacity: 0; pointer-events: none; }
 .circuit-arrival-wash { inset: 1px; background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--circuit-accent) 20%, transparent), transparent 72%); }
 .circuit-arrival-trace { top: 16px; right: 30px; width: 34%; height: 2px; background: var(--circuit-accent); box-shadow: 0 0 12px var(--circuit-glow); }
 .circuit-arrival-contact { top: 10px; right: 13px; width: 12px; height: 12px; border: 2px solid var(--circuit-accent); border-radius: 50%; box-shadow: 0 0 12px var(--circuit-glow), inset 0 0 5px var(--circuit-glow); }
-.connection-output-port { position: absolute; z-index: 4; top: 80%; right: 0; width: 12px; height: 12px; transform: translate(50%, -50%); border: 2px solid var(--site-bg); border-radius: 50%; background: var(--circuit-accent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--circuit-accent) 68%, transparent), 0 0 11px color-mix(in srgb, var(--circuit-accent) 45%, transparent); pointer-events: none; }
-.circuit-module .connection-target-port { z-index: 4; top: 80%; left: 0; width: 12px; height: 12px; transform: translate(-50%, -50%); background: var(--circuit-accent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--circuit-accent) 72%, transparent), 0 0 11px color-mix(in srgb, var(--circuit-accent) 42%, transparent); }
 .home-sequenced-composition .home-origin.circuit-module { max-width: 800px; margin-bottom: 1rem; }
-.home-sequenced-composition .home-title-source .connection-origin-port { top: 50%; right: -1rem; }
 .home-sequenced-composition .home-destination-row { gap: clamp(1rem, 2vw, 1.5rem); }
 .home-sequenced-composition .home-destinations { gap: clamp(5rem, 8vw, 6.5rem); }
 .home-sequenced-composition .home-destination { transition: filter 180ms ease, color 180ms ease; }
-.home-sequenced-composition .home-featured-destination .circuit-surface-outer { background: linear-gradient(145deg, rgba(62, 12, 29, 0.98), rgba(17, 11, 18, 0.98)); }
-.circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer { background: color-mix(in srgb, var(--circuit-accent) 84%, white); filter: drop-shadow(0 0 9px var(--circuit-glow)); }
-.circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner { background: color-mix(in srgb, var(--circuit-accent) 58%, transparent); }
+.home-sequenced-composition .home-featured-destination .circuit-surface-outer { background: linear-gradient(145deg, #100b10, #080a0f); }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer { animation-play-state: paused; background: color-mix(in srgb, var(--circuit-accent) 84%, white); filter: drop-shadow(0 0 9px var(--circuit-glow)) !important; }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner { animation-play-state: paused; background: color-mix(in srgb, var(--circuit-accent) 58%, transparent); filter: drop-shadow(0 0 6px var(--circuit-glow)) brightness(1.2) !important; }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-pin-array { animation-play-state: paused; filter: drop-shadow(0 0 5px var(--circuit-glow)) !important; }
 .circuit-module:is(:hover, :focus-within, :active) .circuit-trace,
-.circuit-module:is(:hover, :focus-within, :active) .circuit-pin { background-color: var(--circuit-accent); box-shadow: 0 0 10px var(--circuit-glow); }
+.circuit-module:is(:hover, :focus-within, :active) .circuit-pin-one { background-color: var(--circuit-accent); box-shadow: 0 0 10px var(--circuit-glow); }
 .circuit-module:focus-visible { outline: 2px solid var(--circuit-accent); outline-offset: 5px; }
+.circuit-composition:has([data-connection-target]:hover, [data-connection-target]:focus-within, [data-connection-target]:active) .circuit-module:not(:hover):not(:focus-within):not(:active) .circuit-frame-outer,
+.circuit-composition:has([data-connection-target]:hover, [data-connection-target]:focus-within, [data-connection-target]:active) .circuit-module:not(:hover):not(:focus-within):not(:active) .circuit-frame-inner,
+.circuit-composition:has([data-connection-target]:hover, [data-connection-target]:focus-within, [data-connection-target]:active) .circuit-module:not(:hover):not(:focus-within):not(:active) .circuit-pin-array { animation-play-state: paused; filter: none !important; }
 .home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-arrival-wash,
 .home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-arrival-trace,
 .home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-arrival-contact { visibility: hidden; }
@@ -1283,130 +1112,56 @@ button:focus-visible {
 .page-composition .circuit-arrival-wash,
 .page-composition .circuit-arrival-trace,
 .page-composition .circuit-arrival-contact { animation: circuit-arrival 6.8s linear infinite; }
-.page-composition .connection-glow, .page-composition .connection-trail { animation: connection-signal 6.8s linear infinite; }
-.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-glow,
-.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-trail,
-.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-signal,
-.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-wash,
-.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-trace,
-.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-contact { visibility: hidden; }
+.home-sequenced-composition:has([data-connection-target]:hover, [data-connection-target]:focus-within, [data-connection-target]:active) .circuit-arrival-wash,
+.home-sequenced-composition:has([data-connection-target]:hover, [data-connection-target]:focus-within, [data-connection-target]:active) .circuit-arrival-trace,
+.home-sequenced-composition:has([data-connection-target]:hover, [data-connection-target]:focus-within, [data-connection-target]:active) .circuit-arrival-contact { visibility: hidden; }
 @keyframes circuit-arrival { 0%, 14% { opacity: 0; } 16% { opacity: 1; } 22%, 100% { opacity: 0; } }
 @media (max-width: 800px) {
   .home-sequenced-composition .home-origin.circuit-module { margin-bottom: 0; }
   .home-sequenced-composition .home-destinations { gap: 3.25rem; }
   .home-sequenced-composition .home-destination-row { gap: 1rem; }
-  .home-sequenced-composition .circuit-module .connection-target-port,
-  .circuit-module .connection-target-port { top: 40%; left: 0; }
-  .home-sequenced-composition .connection-output-port,
-  .connection-output-port { top: 80%; right: auto; left: 0; transform: translate(-50%, -50%); }
-  .home-sequenced-composition .home-title-source .connection-origin-port { right: auto; left: -1.2rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .circuit-composition .connection-glow,
-  .circuit-composition .connection-trail,
-  .circuit-composition .connection-signal,
+  .pcb-main-signal { animation: none !important; opacity: 0 !important; }
   .circuit-composition .circuit-arrival-wash,
   .circuit-composition .circuit-arrival-trace,
   .circuit-composition .circuit-arrival-contact { animation: none !important; opacity: 0 !important; }
 }
 
-/* UI-006-R1 refinements: visible signal layers, routed gutters and layered module detail. */
-.connection-lines { z-index: 1; }
-.home-composition.circuit-composition,
-.page-composition.circuit-composition { padding-right: 1.75rem; }
+/* Layered chip details and interaction states. */
 .circuit-composition .circuit-module { z-index: auto; isolation: auto; animation: none; }
 .circuit-composition .connected-origin,
 .circuit-composition .connected-target { z-index: auto; animation: none; }
 .circuit-composition .circuit-details { z-index: 0; }
 .circuit-composition .circuit-content { z-index: 2; animation: home-item-enter 520ms cubic-bezier(0.2, 0.7, 0.25, 1) both; }
-.circuit-composition .connection-origin-port,
-.circuit-composition .connection-target-port,
-.circuit-composition .connection-output-port { z-index: 4; }
 .home-sequenced-composition .home-destination > .circuit-content { display: flex; flex-direction: column; align-items: flex-start; gap: 0.55rem; max-width: calc(100% - 5.25rem); }
 .home-sequenced-composition .home-link-group > .circuit-content { max-width: 100%; }
 .home-sequenced-composition .home-destination-kicker { margin: 0; }
 .home-sequenced-composition .home-destination-arrow { z-index: 3; }
 
-/* The right rail lives in reserved padding; page targets enter from their top edge. */
-.page-composition.circuit-composition { padding-right: 1.75rem; }
 .page-composition .connected-destinations,
 .page-composition .page-content-target { margin-right: 0; }
-.page-composition .connection-target-port { top: 0; left: 1.5rem; transform: translate(-50%, -50%); }
-.page-composition .connection-route { color: var(--site-cyan); }
-.home-sequenced-composition .connection-route { color: var(--site-cyan); }
-.home-sequenced-composition .connection-route[data-target="blog"] { color: var(--site-accent); }
-.home-sequenced-composition .connection-route .connection-port { fill: currentColor; }
-.home-sequenced-composition .connection-route[data-target="blog"] .connection-glow { stroke: #ff5479; }
-.home-sequenced-composition .connection-route[data-target="blog"] .connection-trail { stroke: #ffabc0; filter: drop-shadow(0 0 7px rgba(242, 22, 72, 0.95)); }
-.page-composition .connection-route .connection-port { fill: var(--site-cyan); }
 
 /* Raised inner traces sit between the panel shell and readable content. */
-.circuit-motif { position: absolute; z-index: 0; top: 11px; right: 12px; width: 76px; height: 76px; overflow: visible; fill: none; color: var(--circuit-accent); opacity: 0.46; pointer-events: none; }
-.circuit-motif-ring { stroke: currentColor; stroke-width: 1; stroke-dasharray: 69 18; transform: rotate(-24deg); transform-origin: 56px 36px; }
-.circuit-motif-ring-inner { stroke-width: 1.2; stroke-dasharray: 44 12; }
-.circuit-motif-route { stroke: currentColor; stroke-width: 1; stroke-linecap: square; stroke-linejoin: bevel; }
+.circuit-motif { position: absolute; z-index: 0; top: 11px; right: 12px; width: 56px; height: 56px; overflow: visible; fill: none; color: var(--circuit-accent); opacity: 0.34; pointer-events: none; }
+.circuit-motif-package { fill: #080d13; stroke: currentColor; stroke-width: 1.5; }
+.circuit-motif-terminals, .circuit-motif-route { stroke: currentColor; stroke-width: 1.35; stroke-linecap: square; stroke-linejoin: bevel; }
 .circuit-motif-pad { fill: var(--site-bg); stroke: currentColor; stroke-width: 1.5; }
 .circuit-module:is(:hover, :focus-within, :active) .circuit-motif { opacity: 0.9; filter: drop-shadow(0 0 5px var(--circuit-glow)); }
-.circuit-module:is(:hover, :focus-within, :active) .circuit-motif-ring,
+.circuit-module:is(:hover, :focus-within, :active) .circuit-motif-package,
+.circuit-module:is(:hover, :focus-within, :active) .circuit-motif-terminals,
 .circuit-module:is(:hover, :focus-within, :active) .circuit-motif-route { stroke: color-mix(in srgb, var(--circuit-accent) 80%, white); }
 .circuit-motif { transition: opacity 180ms ease, filter 180ms ease; }
 .circuit-arrival-wash { z-index: 0; }
 .circuit-arrival-trace,
 .circuit-arrival-contact { z-index: 1; }
 .circuit-composition .circuit-frame-outer,
-.circuit-composition .circuit-frame-inner { animation: circuit-frame-arrival 5.4s linear infinite; animation-delay: var(--sequence-delay, 0s); }
+.circuit-composition .circuit-frame-inner,
+.circuit-composition .circuit-pin-array { animation: circuit-frame-arrival 5.4s linear infinite; animation-delay: var(--sequence-delay, 0s); }
 .page-composition .circuit-frame-outer,
-.page-composition .circuit-frame-inner { animation-duration: 6.8s; }
+.page-composition .circuit-frame-inner,
+.page-composition .circuit-pin-array { animation-duration: 6.8s; }
 
-/* Default-route signal is visible and arrives with the same phase as the module lighting. */
-.page-composition .connection-signal,
-.page-composition .connection-glow,
-.page-composition .connection-trail { opacity: 0; animation: routed-signal 6.8s linear infinite; }
-.page-composition .connection-signal { --signal-end-offset: -98; stroke: #fff; stroke-width: 2.5; filter: drop-shadow(0 0 4px white); }
-.page-composition .connection-trail { --signal-end-offset: -91; stroke: #e7fbff; stroke-width: 5; filter: drop-shadow(0 0 7px #43d9ff); }
-.page-composition .connection-glow { --signal-end-offset: -84; stroke: #baf6ff; stroke-width: 12; filter: blur(4px); }
-.page-composition .circuit-arrival-wash,
-.page-composition .circuit-arrival-trace,
-.page-composition .circuit-arrival-contact { animation: routed-arrival 6.8s linear infinite; }
-.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-glow,
-.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-trail,
-.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .connection-signal,
-.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-wash,
-.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-trace,
-.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-arrival-contact { visibility: hidden; }
-.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-module:not(:is(:hover, :focus-within, :active)) .circuit-frame-outer,
-.home-sequenced-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-module:not(:is(:hover, :focus-within, :active)) .circuit-frame-inner,
-.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-module:not(:is(:hover, :focus-within, :active)) .circuit-frame-outer,
-.page-composition:has([data-connection-target]:is(:hover, :focus-within, :active)) .circuit-module:not(:is(:hover, :focus-within, :active)) .circuit-frame-inner { filter: none !important; }
-.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer,
-.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner,
-.page-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer,
-.page-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner { filter: drop-shadow(0 0 10px var(--circuit-glow)) brightness(1.4) !important; }
-.home-sequenced-composition .circuit-frame-outer,
-.home-sequenced-composition .circuit-frame-inner { animation-delay: var(--sequence-delay, 0s); }
-.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer,
-.home-sequenced-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner { animation-play-state: running; }
-.home-sequenced-composition .connection-target-port[data-circuit-port-side="top"] { top: 0; left: 50%; transform: translate(-50%, -50%); }
-.page-composition .circuit-frame-outer,
-.page-composition .circuit-frame-inner { animation: routed-frame-arrival 6.8s linear infinite; }
-
-@keyframes routed-signal {
-  0%, 2% { opacity: 0; stroke-dashoffset: 0; }
-  7% { opacity: 1; stroke-dashoffset: 0; }
-  84% { opacity: 1; stroke-dashoffset: var(--signal-end-offset); }
-  90%, 100% { opacity: 0; stroke-dashoffset: var(--signal-end-offset); }
-}
-@keyframes routed-arrival {
-  0%, 80% { opacity: 0; }
-  82% { opacity: 0.3; }
-  84% { opacity: 1; }
-  90%, 100% { opacity: 0; }
-}
-@keyframes routed-frame-arrival {
-  0%, 80% { filter: none; }
-  84% { filter: drop-shadow(0 0 10px var(--circuit-glow)) brightness(1.65); }
-  90%, 100% { filter: none; }
-}
 @keyframes circuit-frame-arrival {
   0%, 14% { filter: none; }
   16% { filter: drop-shadow(0 0 10px var(--circuit-glow)) brightness(1.65); }
@@ -1414,43 +1169,35 @@ button:focus-visible {
 }
 
 @media (min-width: 801px) and (max-width: 840px) {
-  .home-sequenced-composition { padding-left: 1rem; }
   .home-sequenced-composition .home-destination-row { grid-template-columns: minmax(0, 1fr); }
   .home-sequenced-composition .home-destinations { gap: 3.25rem; margin-top: 3.5rem; }
   .home-sequenced-composition .home-destination { min-height: 10.5rem; }
-  .home-sequenced-composition .connection-target-port { top: 40%; left: 0; transform: translate(-50%, -50%); }
-  .home-sequenced-composition .connection-target-port[data-circuit-port-side="top"] { top: 40%; left: 0; }
-  .home-sequenced-composition .connection-output-port { top: 80%; right: auto; left: 0; transform: translate(-50%, -50%); }
-  .home-sequenced-composition .home-title-source .connection-origin-port { right: auto; left: -1.2rem; }
 }
+
 @media (max-width: 800px) {
-  .home-composition.circuit-composition,
-  .page-composition.circuit-composition { padding-right: 1.5rem; }
-  .page-composition .connection-target-port { top: 40%; left: 0; }
-  .home-sequenced-composition .connection-target-port[data-circuit-port-side="top"] {
-    top: 40%;
-    left: 0;
-    transform: translate(-50%, -50%);
-  }
-  .circuit-motif { top: 10px; right: 10px; width: 62px; height: 62px; opacity: 0.34; }
+  .circuit-pin-bank-top, .circuit-pin-bank-bottom { right: 24px; left: 24px; height: 10px; background-image: repeating-linear-gradient(90deg, #d2dcdd 0 1px, #87969b 1px 4px, #4b5c63 4px 5px, transparent 5px 16px); }
+  .circuit-pin-bank-top { top: -5px; }
+  .circuit-pin-bank-bottom { bottom: -5px; }
+  .circuit-pin-bank-left, .circuit-pin-bank-right { top: 24px; bottom: 24px; width: 10px; background-image: repeating-linear-gradient(180deg, #d2dcdd 0 1px, #87969b 1px 4px, #4b5c63 4px 5px, transparent 5px 16px); }
+  .circuit-pin-bank-left { left: -5px; }
+  .circuit-pin-bank-right { right: -5px; }
+  .circuit-motif { top: 10px; right: 10px; width: 48px; height: 48px; opacity: 0.3; }
   .home-sequenced-composition .home-destination > .circuit-content,
   .home-sequenced-composition .home-link-group > .circuit-content { max-width: calc(100% - 4.5rem); }
 }
+
 @media (max-width: 380px) {
   .home-sequenced-composition .home-destination > .circuit-content,
   .home-sequenced-composition .home-link-group > .circuit-content { max-width: calc(100% - 3rem); }
-  .circuit-motif { width: 50px; height: 50px; }
+  .circuit-motif { width: 42px; height: 42px; }
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .circuit-composition .connection-glow,
-  .circuit-composition .connection-trail,
-  .circuit-composition .connection-signal,
+  .pcb-main-signal { animation: none !important; opacity: 0 !important; }
   .circuit-composition .circuit-arrival-wash,
   .circuit-composition .circuit-arrival-trace,
   .circuit-composition .circuit-arrival-contact { animation: none !important; opacity: 0 !important; filter: none !important; }
   .circuit-composition .circuit-frame-outer,
-  .circuit-composition .circuit-frame-inner { animation: none !important; filter: none !important; }
-  .circuit-composition .connection-base,
-  .circuit-composition .connection-support { opacity: 0.24; }
-  .circuit-composition .circuit-module:is(:hover, :focus-within, :active) .circuit-motif { filter: none; }
+  .circuit-composition .circuit-frame-inner,
+  .circuit-composition .circuit-pin-array { animation: none !important; opacity: 1 !important; filter: none !important; }
 }

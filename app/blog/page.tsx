@@ -1,6 +1,5 @@
 import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { Container } from "@/components/Container";
-import { ConnectionNetwork } from "@/components/ConnectionNetwork";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
 import { PostCard } from "@/components/PostCard";
@@ -18,7 +17,7 @@ export default function BlogPage() {
 
     return (
         <Container className="page-shell">
-            <ConnectionNetwork className="page-composition circuit-composition single-target-composition">
+            <div className="page-composition circuit-composition">
                 <section className="connected-origin page-origin circuit-module circuit-module-origin">
                     <CircuitDetails tone="red" />
                     <div className="circuit-content">
@@ -26,14 +25,12 @@ export default function BlogPage() {
                             title="Blog"
                             eyebrow="IDEAS Y EXPLICACIONES"
                             description="Tecnología explicada de forma accesible y el uso de agentes en software y hardware."
-                            connectionSource
                         />
                     </div>
                 </section>
 
                 <section className="connected-target page-content-target circuit-module circuit-module-content" data-connection-target="contenido" aria-label="Contenido del blog">
                     <CircuitDetails tone="red" />
-                    <span className="connection-target-port" data-connection-target-port aria-hidden="true" />
                     <div className="circuit-content">
                         {posts.length > 0 ? (
                             <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
@@ -54,7 +51,7 @@ export default function BlogPage() {
                         )}
                     </div>
                 </section>
-            </ConnectionNetwork>
+            </div>
         </Container>
     );
 }

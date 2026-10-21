@@ -1,6 +1,5 @@
 import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { Container } from "@/components/Container";
-import { ConnectionNetwork } from "@/components/ConnectionNetwork";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -16,7 +15,7 @@ export const metadata = createPageMetadata(
 export default function ProjectsPage() {
     return (
         <Container className="page-shell">
-            <ConnectionNetwork className="page-composition circuit-composition single-target-composition">
+            <div className="page-composition circuit-composition">
                 <section className="connected-origin page-origin circuit-module circuit-module-origin">
                     <CircuitDetails />
                     <div className="circuit-content">
@@ -24,13 +23,11 @@ export default function ProjectsPage() {
                             title="Proyectos"
                             eyebrow="SOFTWARE / HARDWARE"
                             description="Un espacio para compartir proyectos y explicar cómo se construyen."
-                            connectionSource
                         />
                     </div>
                 </section>
                 <section className="connected-target page-content-target circuit-module circuit-module-content" data-connection-target="contenido" aria-label="Contenido de proyectos">
                     <CircuitDetails />
-                    <span className="connection-target-port" data-connection-target-port aria-hidden="true" />
                     <div className="circuit-content">
                         {projects.length > 0 ? (
                             <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
@@ -51,7 +48,7 @@ export default function ProjectsPage() {
                         )}
                     </div>
                 </section>
-            </ConnectionNetwork>
+            </div>
         </Container>
     );
 }

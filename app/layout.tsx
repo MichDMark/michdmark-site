@@ -4,6 +4,7 @@ import "./globals.css";
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from "@mantine/core";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { PcbBackground } from "@/components/PcbBackground";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 import { theme } from "@/lib/theme";
 
@@ -53,6 +54,7 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
+          <PcbBackground />
           <a className="skip-link" href="#main-content">Saltar al contenido</a>
           <Navbar />
           <main id="main-content" className="site-main">{children}</main>

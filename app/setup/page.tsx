@@ -1,6 +1,5 @@
 import { Card, Paper, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { Container } from "@/components/Container";
-import { ConnectionNetwork } from "@/components/ConnectionNetwork";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
 import { gadgets } from "@/data/gadgets";
@@ -15,7 +14,7 @@ export const metadata = createPageMetadata(
 export default function SetupPage() {
     return (
         <Container className="page-shell">
-            <ConnectionNetwork className="page-composition circuit-composition single-target-composition">
+            <div className="page-composition circuit-composition">
                 <section className="connected-origin page-origin circuit-module circuit-module-origin">
                     <CircuitDetails />
                     <div className="circuit-content">
@@ -23,13 +22,11 @@ export default function SetupPage() {
                             title="Gadgets"
                             eyebrow="HERRAMIENTAS"
                             description="Un espacio para conocer las herramientas de software y hardware y cómo las uso."
-                            connectionSource
                         />
                     </div>
                 </section>
                 <section className="connected-target page-content-target circuit-module circuit-module-content" data-connection-target="contenido" aria-label="Contenido de gadgets">
                     <CircuitDetails />
-                    <span className="connection-target-port" data-connection-target-port aria-hidden="true" />
                     <div className="circuit-content">
                         {gadgets.length > 0 ? (
                             <Stack gap={56}>
@@ -62,7 +59,7 @@ export default function SetupPage() {
                         )}
                     </div>
                 </section>
-            </ConnectionNetwork>
+            </div>
         </Container>
     );
 }
