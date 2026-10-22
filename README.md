@@ -20,6 +20,8 @@ npm install
 npm run dev
 ```
 
+La instalación requiere Git y aplica automáticamente el parche local de `braces` mediante `postinstall`. Si instalas con `--ignore-scripts`, ejecuta después `npm run postinstall` para aplicar esa protección. El alcance y mantenimiento del parche están documentados en [`docs/audit-2026-10.md`](docs/audit-2026-10.md).
+
 Abre `http://localhost:3000`.
 
 ## Scripts
