@@ -2,7 +2,7 @@
 
 Sitio personal estático de Mich DMark, construido con Next.js, TypeScript, Mantine y Tabler Icons.
 
-El sitio explora tecnología accesible y el uso de agentes en software y hardware. Mantiene cinco secciones: Inicio, About me, Blog, Proyectos y Gadgets. El contenido está en construcción y las colecciones pueden permanecer vacías. No usa backend, base de datos ni CMS; el contenido vive en Markdown y datos locales de TypeScript.
+El sitio explora tecnología accesible y el uso de agentes en software y hardware. Mantiene cinco secciones: Inicio, About me, Bitácora (`/blog`), Proyectos (`/projects`) y Gadgets (`/setup`). Cada colección tiene un modelo de datos e interacción propios sobre una arquitectura 100% estática (sin backend, base de datos ni CMS); el contenido vive en Markdown y datos locales de TypeScript.
 
 ## Stack
 

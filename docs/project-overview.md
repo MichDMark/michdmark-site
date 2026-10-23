@@ -28,7 +28,7 @@ Sitio personal de Mich DMark sobre tecnología accesible y el uso de agentes en 
 - Gadgets/setup: `data/gadgets.ts`
 - Redes/contacto: `data/social.ts`
 
-La navegación pública consta de Inicio (`/`), About me (`/about`), Blog (`/blog`), Proyectos (`/projects`) y Gadgets (`/setup`). El alcance editorial y las convenciones para conectar contenido se documentan en `editorial-scope.md`.
+La navegación pública consta de Inicio (`/`), About me (`/about`), Bitácora (`/blog`), Proyectos (`/projects`) y Gadgets (`/setup`). El alcance editorial, los modelos diferenciados por sección y las convenciones para conectar contenido se documentan en `editorial-scope.md`.
 
 ## Despliegue
 

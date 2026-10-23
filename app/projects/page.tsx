@@ -1,15 +1,15 @@
-import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Paper, Stack, Text } from "@mantine/core";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
 import { PcbCircuit } from "@/components/PcbCircuit";
-import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectWorkbench } from "@/components/ProjectWorkbench";
 import { projects } from "@/data/projects";
 import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata(
     "Proyectos",
-    "Proyectos de software y hardware de Mich DMark, con tecnología explicada de forma accesible.",
+    "Banco de pruebas de software y hardware de Mich DMark: arquitectura por bloques, simulador de señales y evolución de prototipos.",
     "/projects/",
 );
 
@@ -22,8 +22,8 @@ export default function ProjectsPage() {
                     <div className="circuit-content">
                         <SectionHeader
                             title="Proyectos"
-                            eyebrow="SOFTWARE / HARDWARE"
-                            description="Un espacio para compartir proyectos y explicar cómo se construyen."
+                            eyebrow="BANCO DE PRUEBAS // WORKBENCH"
+                            description="Sistemas desarmados por capas: explora sus bloques físicos y lógicos, ejecuta escenarios de señal y revisa qué falló antes de llegar a la versión actual."
                         />
                     </div>
                 </section>
@@ -31,11 +31,7 @@ export default function ProjectsPage() {
                     <CircuitDetails />
                     <div className="circuit-content">
                         {projects.length > 0 ? (
-                            <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
-                                {projects.map((project) => (
-                                    <ProjectCard key={project.name} project={project} />
-                                ))}
-                            </SimpleGrid>
+                            <ProjectWorkbench projects={projects} />
                         ) : (
                             <Paper component="section" aria-label="Estado de proyectos" className="empty-state">
                                 <Stack gap="xs">

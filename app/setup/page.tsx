@@ -1,14 +1,15 @@
-import { Card, Paper, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Paper, Stack, Text } from "@mantine/core";
 import { Container } from "@/components/Container";
+import { GadgetsRack } from "@/components/GadgetsRack";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
 import { PcbCircuit } from "@/components/PcbCircuit";
-import { gadgets } from "@/data/gadgets";
+import { gadgets, gadgetWorkflows } from "@/data/gadgets";
 import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata(
     "Gadgets",
-    "Gadgets y herramientas de software y hardware de Mich DMark.",
+    "Mesa de taller y fichas técnicas (Datasheets) de las herramientas de software y hardware de Mich DMark.",
     "/setup/",
 );
 
@@ -21,8 +22,8 @@ export default function SetupPage() {
                     <div className="circuit-content">
                         <SectionHeader
                             title="Gadgets"
-                            eyebrow="HERRAMIENTAS"
-                            description="Un espacio para conocer las herramientas de software y hardware y cómo las uso."
+                            eyebrow="MESA DE TALLER // DATASHEETS"
+                            description="Fichas operativas de mi equipo de software y hardware: especificaciones clave, límites reales, recetas de configuración y cómo se conectan en cada flujo."
                         />
                     </div>
                 </section>
@@ -30,23 +31,7 @@ export default function SetupPage() {
                     <CircuitDetails />
                     <div className="circuit-content">
                         {gadgets.length > 0 ? (
-                            <Stack gap={56}>
-                                {gadgets.map((category) => (
-                                    <Stack key={category.title} gap="lg">
-                                        <Title order={2} size="h3" c="white" pl="md" style={{ borderLeft: "2px solid var(--site-accent)" }}>
-                                            {category.title}
-                                        </Title>
-                                        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="lg">
-                                            {category.items.map((item) => (
-                                                <Card key={item.name} padding="md" radius="sm" withBorder className="content-card">
-                                                    <Text fw={700} c="gray.0" mb={4}>{item.name}</Text>
-                                                    <Text size="sm" c="gray.4" lh={1.7}>{item.description}</Text>
-                                                </Card>
-                                            ))}
-                                        </SimpleGrid>
-                                    </Stack>
-                                ))}
-                            </Stack>
+                            <GadgetsRack categories={gadgets} workflows={gadgetWorkflows} />
                         ) : (
                             <Paper component="section" aria-label="Estado de gadgets" className="empty-state">
                                 <Stack gap="xs">

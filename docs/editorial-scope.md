@@ -1,34 +1,60 @@
-# Alcance editorial
+# Alcance editorial y modelos de sección
 
 ## Enfoque
 
-El sitio de Mich DMark explora tecnología accesible y el uso de agentes en software y hardware. El blog crecerá con explicaciones e ideas; proyectos y gadgets documentarán trabajo y herramientas cuando haya contenido listo. Las colecciones actuales están vacías y su contenido anterior se retiró sin conservar copias en el repositorio.
+El sitio de Mich DMark explora tecnología accesible y el uso de agentes en software y hardware. Para evitar que todas las páginas parezcan el mismo listado de tarjetas con texto plano, cada sección principal tiene una **identidad informativa, estructura de datos y mecánica de interacción propias**, manteniendo el sitio 100% estático en Markdown y TypeScript local.
 
 La terminología pública del sitio usa «agentes» para hablar de este tema; mantener esa elección en páginas, metadata y textos compartidos.
 
-## Páginas
+## Páginas e identidad por sección
 
 La navegación tiene cinco destinos públicos:
 
-| Página | Ruta | Propósito |
+| Página | Ruta | Identidad y propósito |
 | --- | --- | --- |
-| Inicio | `/` | Presentar a Mich DMark y el enfoque general del sitio. |
+| Inicio | `/` | Presentar a Mich DMark y conectar el mapa general del sitio sobre la placa PCB. |
 | About me | `/about` | Explicar brevemente el enfoque personal y ofrecer redes y contacto. |
-| Blog | `/blog` | Publicar ideas y explicaciones accesibles sobre tecnología y agentes. |
-| Proyectos | `/projects` | Documentar proyectos de software y hardware y cómo se construyen. |
-| Gadgets | `/setup` | Compartir herramientas de software y hardware y su uso. |
+| Bitácora | `/blog` | Cuaderno de laboratorio e ingeniería: entradas cronológicas con filtro tipo *DIP switch* y síntesis desplegable de señales clave (*TL;DR*). |
+| Proyectos | `/projects` | Banco de pruebas (*Workbench*): sistemas desarmables con inspector interactivo por capas (`Arquitectura`, `Simulador de señal` y `Evolución v0.1 → v1.0`). |
+| Gadgets | `/setup` | Mesa de taller y *Datasheets*: fichas técnicas con métricas reales, recetas de configuración copiables y simulador de flujos de trabajo (*Signal Flow*). |
 
-Mientras cada colección esté vacía, su página explica su propósito y muestra el mensaje «Contenido en preparación» sin tarjetas vacías ni apariencia de error.
+> Nota de ruta: La sección **Bitácora** conserva la ruta `/blog/` y `/blog/<slug>/` por simplicidad técnica y estabilidad de enlaces, cambiando su nombre visible en navegación, portada y encabezados.
 
-La exportación estática de Next.js requiere al menos un parámetro para generar una ruta dinámica. Por ello, mientras el blog no tenga publicaciones, no se genera una ruta de detalle de artículos. Antes de agregar el primer archivo `.md` a `content/posts/`:
+Mientras una colección esté vacía, su página explica su propósito y muestra el mensaje «Contenido en preparación» sin tarjetas vacías ni apariencia de error.
 
-1. Añadir/restaurar `app/blog/[slug]/page.tsx` con `generateStaticParams()` basado en `getAllPosts()`, metadata por post y el renderizado con `getPostBySlug()` (incluyendo `notFound()` para slugs desconocidos). La función debe producir un parámetro por cada post; Next.js no acepta una lista vacía con `output: "export"`.
-2. Confirmar que `PostCard` enlaza a `/blog/<slug>/` para coincidir con `trailingSlash: true`.
-3. Agregar el primer post y ejecutar `npm run check` para validar la exportación estática.
-4. Inspeccionar `out/blog/<slug>/index.html`, los enlaces desde el listado y `out/sitemap.xml` para comprobar que el artículo se exporta y se incluye en el sitemap.
+## Modelos de información por sección
 
-## Referencias futuras entre contenidos
+### 1. Bitácora (`content/posts/*.md` y `lib/posts.ts`)
 
-Cuando existan publicaciones, proyectos o gadgets que aporten contexto mutuo, se podrán añadir referencias explícitas y bidireccionales entre ellos. Por ejemplo, un post puede enlazar al proyecto o gadget que describe, y la página de ese proyecto o gadget puede enlazar de regreso al post. Las relaciones deberán usar identificadores estables (como el slug del post y un identificador del proyecto o gadget) y datos locales; no implementar todavía filtros, páginas de detalle ni un sistema de relaciones.
+Combina narrativa en Markdown con metadatos estructurados en el frontmatter:
+
+- Campos obligatorios: `title`, `description`, `date` (`YYYY-MM-DD`).
+- Campos opcionales:
+  - `tags`: lista de etiquetas temáticas.
+  - `kind`: `"experimento" | "ensayo" | "guia" | "nota-rapida"` para clasificar el formato de la entrada.
+  - `signals`: lista de 2 a 4 puntos clave (*TL;DR*) que el visitante puede desplegar directamente en el bus de lectura sin abrir el artículo completo.
+  - `relatedProjects` y `relatedGadgets`: identificadores estables (`id`) para enlazar con Proyectos y Gadgets.
+
+La exportación estática de Next.js requiere al menos un parámetro para generar `app/blog/[slug]/page.tsx`. Si en el futuro se vacían todos los archivos `.md` de `content/posts/`, debe retirarse temporalmente `app/blog/[slug]/page.tsx` hasta volver a tener al menos una entrada publicada.
+
+### 2. Proyectos (`data/projects.ts`)
+
+Cada proyecto se modela como un **sistema desarmable** en lugar de un texto plano:
+
+- Identificación y contexto: `id`, `name`, `tagline`, `description`, `domain` (`"software" | "hardware" | "hibrido" | "agentes"`), `status` (`"produccion" | "prototipo" | "experimento" | "archivado"`), `stack` y `url`.
+- `metrics`: pares `{ label, value }` con mediciones o datos concretos del sistema.
+- `blocks`: nodos del diagrama de arquitectura (`id`, `label`, `role`: `"input" | "core" | "output" | "storage"`, `tech`, `detail`) que el usuario puede inspeccionar en la pestaña **Arquitectura**.
+- `simulation`: escenarios pregrabados (`id`, `inputLabel`, `trace`, `output`) para que el visitante ejecute y recorra paso a paso el comportamiento del proyecto en la pestaña **Simulador**.
+- `milestones`: hitos de iteración (`version`, `title`, `outcome`, `status`: `"failed" | "iterated" | "shipped"`) mostrados en la pestaña **Evolución**.
+- `gadgetIds` y `relatedPostSlug`: referencias cruzadas hacia `/setup/` y `/blog/`.
+
+### 3. Gadgets (`data/gadgets.ts`)
+
+Cada herramienta de software o hardware se presenta como un **Datasheet operativo** dentro de su categoría (`GadgetCategory`), acompañado de flujos de trabajo (`GadgetWorkflow`):
+
+- Ficha técnica (`Gadget`): `id`, `name`, `description`, `role`, `status` (`"diario" | "por-proyecto" | "en-pruebas" | "reemplazado"`), `verdict` (`"imprescindible" | "recomendado" | "situacional"`), `specs` (`{ label, value }[]`), `pros` (`string[]`), `limit` (límite real detectado) y `replaces` (qué herramienta sustituyó).
+- `configSnippet`: bloque opcional `{ label, code }` con parámetros de trabajo, flags o configuración lista para copiar al portapapeles.
+- Flujos de señal (`gadgetWorkflows`): escenarios (`id`, `title`, `description`, `steps`, `gadgetIds`) que al seleccionarse iluminan en la mesa de taller únicamente los gadgets que trabajan juntos en ese pipeline.
+- `projectIds` y `combosWith`: conexiones explícitas con proyectos y otras herramientas.
 
 Las redes sociales y los medios de contacto actuales se mantienen en `data/social.ts`.

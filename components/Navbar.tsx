@@ -8,7 +8,7 @@ import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 
 const navItems = [
-    { name: "Blog", href: "/blog/" },
+    { name: "Bitácora", href: "/blog/" },
     { name: "Proyectos", href: "/projects/" },
     { name: "Gadgets", href: "/setup/" },
     { name: "About me", href: "/about/" },

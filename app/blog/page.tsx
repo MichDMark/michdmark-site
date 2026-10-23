@@ -1,15 +1,15 @@
-import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Paper, Stack, Text } from "@mantine/core";
+import { BitacoraExplorer } from "@/components/BitacoraExplorer";
 import { Container } from "@/components/Container";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
 import { PcbCircuit } from "@/components/PcbCircuit";
-import { PostCard } from "@/components/PostCard";
 import { getAllPosts } from "@/lib/posts";
 import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata(
-    "Blog",
-    "Ideas y explicaciones accesibles sobre tecnología y el uso de agentes en software y hardware.",
+    "Bitácora",
+    "Cuaderno de laboratorio con experimentos, señales clave y explicaciones accesibles sobre tecnología y agentes en software y hardware.",
     "/blog/",
 );
 
@@ -23,29 +23,25 @@ export default function BlogPage() {
                     <CircuitDetails tone="red" />
                     <div className="circuit-content">
                         <SectionHeader
-                            title="Blog"
-                            eyebrow="IDEAS Y EXPLICACIONES"
-                            description="Tecnología explicada de forma accesible y el uso de agentes en software y hardware."
+                            title="Bitácora"
+                            eyebrow="CUADERNO DE LABORATORIO // SEÑALES"
+                            description="Notas de experimento, decisiones técnicas y explicaciones accesibles sobre agentes en software y hardware."
                         />
                     </div>
                 </section>
 
-                <section className="connected-target page-content-target circuit-module circuit-module-content" data-connection-target="contenido" aria-label="Contenido del blog">
+                <section className="connected-target page-content-target circuit-module circuit-module-content" data-connection-target="contenido" aria-label="Contenido de la bitácora">
                     <CircuitDetails tone="red" />
                     <div className="circuit-content">
                         {posts.length > 0 ? (
-                            <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} spacing="lg">
-                                {posts.map((post) => (
-                                    <PostCard key={post.slug} post={post} />
-                                ))}
-                            </SimpleGrid>
+                            <BitacoraExplorer posts={posts} />
                         ) : (
-                            <Paper component="section" aria-label="Estado del blog" className="empty-state">
+                            <Paper component="section" aria-label="Estado de la bitácora" className="empty-state">
                                 <Stack gap="xs">
-                                    <Text className="section-kicker">BLOG / ARCHIVO</Text>
+                                    <Text className="section-kicker">BITÁCORA / ARCHIVO</Text>
                                     <Text className="empty-state-title">Contenido en preparación</Text>
                                     <Text className="empty-state-description">
-                                        Aquí encontrarás ideas sobre tecnología y el uso de agentes en software y hardware.
+                                        Aquí encontrarás registros de laboratorio e ideas sobre tecnología y el uso de agentes en software y hardware.
                                     </Text>
                                 </Stack>
                             </Paper>

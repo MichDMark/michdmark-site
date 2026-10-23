@@ -19,16 +19,16 @@ No se usan Tailwind CSS, shadcn/ui, Aceternity UI, Chakra UI, lucide-react ni re
 
 ## Componentes de dominio
 
-Los componentes en `components/` pueden existir cuando representan conceptos del sitio:
+Los componentes en `components/` pueden existir cuando representan conceptos del sitio o del sistema PCB:
 
-- `Navbar`
-- `MobileMenu`
-- `PostCard`
-- `ProjectCard`
-- `SocialLinks`
-- `SectionHeader`
+- `Navbar`, `MobileMenu`, `Logo` y `Footer`: navegación compartida y marco del sitio.
+- `PcbBackground`, `PcbCircuit` y `CircuitDetails`: placa base, ruteo de señales medido en patas reales y encapsulados IC.
+- `BitacoraExplorer` y `PostCard`: explorador con filtros tipo *DIP switch*, bus cronológico y despliegue de señales clave para Bitácora (`/blog`).
+- `ProjectWorkbench` y `ProjectCard`: banco de pruebas interactivo por capas (`Arquitectura`, `Simulador` y `Evolución`) para Proyectos (`/projects`).
+- `GadgetsRack`: mesa de taller con simulador de flujos de señal (*Signal Flow*), fichas técnicas (*Datasheets*) y snippets copiables para Gadgets (`/setup`).
+- `SocialLinks` y `SectionHeader`: cabeceras y enlaces reutilizables.
 
-Internamente deben componerse con Mantine.
+Internamente deben componerse con Mantine y mantener el lenguaje visual PCB oscuro con acentos rojo y cian.
 
 ## Iconos
 
