@@ -4,7 +4,7 @@ import { GadgetsRack } from "@/components/GadgetsRack";
 import { SectionHeader } from "@/components/SectionHeader";
 import { CircuitDetails } from "@/components/CircuitDetails";
 import { PcbCircuit } from "@/components/PcbCircuit";
-import { gadgets, gadgetWorkflows } from "@/data/gadgets";
+import { gadgets } from "@/data/gadgets";
 import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata(
@@ -23,7 +23,7 @@ export default function SetupPage() {
                         <SectionHeader
                             title="Gadgets"
                             eyebrow="MESA DE TALLER // DATASHEETS"
-                            description="Fichas operativas de mi equipo de software y hardware: especificaciones clave, límites reales, recetas de configuración y cómo se conectan en cada flujo."
+                            description="Fichas operativas de mi equipo de software y hardware: especificaciones, límites reales y recetas de configuración visibles para consulta rápida."
                         />
                     </div>
                 </section>
@@ -31,7 +31,7 @@ export default function SetupPage() {
                     <CircuitDetails />
                     <div className="circuit-content">
                         {gadgets.length > 0 ? (
-                            <GadgetsRack categories={gadgets} workflows={gadgetWorkflows} />
+                            <GadgetsRack categories={gadgets} />
                         ) : (
                             <Paper component="section" aria-label="Estado de gadgets" className="empty-state">
                                 <Stack gap="xs">

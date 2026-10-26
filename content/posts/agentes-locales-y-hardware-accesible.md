@@ -3,18 +3,13 @@ title: "Agentes locales y hardware accesible: por qué unir la terminal con la m
 description: "Cómo estructurar prototipos donde un microcontrolador captura señales reales y un agente en terminal ayuda a diagnosticarlas sin depender de servicios complejos."
 date: "2026-10-23"
 tags: ["Agentes", "Hardware", "Software", "Bitácora"]
-kind: "experimento"
-signals:
-  - "Un protocolo de texto simple (JSONL por USB-CDC) convierte cualquier microcontrolador en una fuente legible para herramientas y agentes locales."
-  - "Separar la captura determinista del análisis asistido evita falsos positivos y mantiene el proyecto 100% reproducible."
-  - "Documentar los fallos de versión (v0.1 a v1.0) enseña más sobre un diseño real que mostrar solo el resultado final."
 relatedProjects: ["monitor-nodo-pcb"]
 relatedGadgets: ["agy-cli", "esp32-s3-devkit"]
 ---
 
-Cuando empezamos un proyecto que mezcla electrónica y software, es fácil caer en dos extremos: o construimos un sistema enorme en la nube solo para leer un sensor, o nos quedamos mirando miles de líneas crudas en un monitor serie tratando de adivinar en qué milisegundo cayó el voltaje.
+Cuando empecé a unir electrónica y software, me encontré entre dos extremos: construir un sistema enorme en la nube solo para leer un sensor o mirar miles de líneas crudas en un monitor serie e intentar adivinar en qué milisegundo cayó el voltaje.
 
-En esta primera entrada de la **Bitácora** quiero compartir el enfoque que estoy usando para mantener mis experimentos simples, accesibles y fáciles de depurar.
+Quiero compartir una forma más sencilla de trabajar: mantener las piezas cerca, hacer que los datos se puedan leer y dejar que cada parte haga lo que mejor sabe hacer.
 
 ## 1. Hablar un idioma que tanto tú como tus herramientas entiendan
 
@@ -32,15 +27,15 @@ Esa decisión tan pequeña cambia todo el flujo de trabajo:
 
 ## 2. Lo que hace el circuito vs. lo que analiza el agente
 
-El secreto para que los agentes sean útiles en hardware y software accesible es **no pedirles que adivinen lo que una regla simple puede medir**:
+Con el tiempo entendí que un agente es más útil cuando no le pido que adivine lo que una regla simple puede medir:
 
 1. **La placa y el colector local** miden con precisión: tiempos, umbrales, errores de checksum y reintentos en el bus I2C.
-2. **El agente** entra cuando hay que correlacionar síntomas, resumir qué cambió entre una prueba y otra o proponer una lista de verificación con el multímetro.
+2. **El agente** ayuda cuando necesito relacionar síntomas, resumir qué cambió entre una prueba y otra o preparar una lista de cosas que revisar.
 
 ## 3. Hacia dónde va este espacio
 
-Por eso separé este sitio en tres áreas con formatos distintos:
+Por eso este sitio tiene tres espacios con propósitos distintos:
 
 - En **Bitácora** (`/blog/`) encontrarás el contexto, las ideas y el porqué de cada decisión.
-- En **Proyectos** (`/projects/`) puedes abrir el banco de pruebas, inspeccionar los bloques de cada sistema y correr simulaciones de señal.
+- En **Proyectos** (`/projects/`) puedes abrir el banco de pruebas e inspeccionar la arquitectura, la traza real y la evolución de cada sistema.
 - En **Gadgets** (`/setup/`) están las fichas técnicas y las configuraciones reales de las herramientas que participan en cada flujo.

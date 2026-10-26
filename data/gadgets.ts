@@ -21,10 +21,11 @@ export interface Gadget {
     specs: GadgetSpec[];
     pros: string[];
     limit: string;
-    configSnippet?: GadgetConfigSnippet;
+    configSnippet: GadgetConfigSnippet;
     replaces?: string;
     combosWith?: string[];
     projectIds?: string[];
+    relatedPostSlug?: string;
     link?: string;
 }
 
@@ -35,37 +36,6 @@ export interface GadgetCategory {
     description: string;
     items: Gadget[];
 }
-
-export interface GadgetWorkflow {
-    id: string;
-    title: string;
-    description: string;
-    steps: string[];
-    gadgetIds: string[];
-}
-
-export const gadgetWorkflows: GadgetWorkflow[] = [
-    {
-        id: "flujo-hardware-agentes",
-        title: "Diagnóstico de hardware con agentes",
-        description: "Captura señales físicas en la mesa de trabajo y las analiza en terminal sin depender de servicios externos.",
-        steps: [
-            "Muestreo y envío de telemetría JSONL desde el ESP32-S3",
-            "Inspección de tramas y validación automatizada con el agente de terminal",
-        ],
-        gadgetIds: ["esp32-s3-devkit", "agy-cli"],
-    },
-    {
-        id: "flujo-edicion-estatica",
-        title: "Iteración rápida de software estático",
-        description: "Flujo diario para diseñar, verificar tipos, correr pruebas y exportar sitios estáticos listos para producción.",
-        steps: [
-            "Coordinación de cambios y pruebas unitarias desde la CLI de agentes",
-            "Verificación de build estático y auditoría antes de publicar",
-        ],
-        gadgetIds: ["agy-cli"],
-    },
-];
 
 export const gadgets: GadgetCategory[] = [
     {
@@ -100,6 +70,7 @@ export const gadgets: GadgetCategory[] = [
                 replaces: "Reemplazó el uso de chats aislados fuera del repositorio que obligaban a copiar y pegar archivos manualmente.",
                 combosWith: ["esp32-s3-devkit"],
                 projectIds: ["monitor-nodo-pcb"],
+                relatedPostSlug: "agentes-locales-y-hardware-accesible",
                 link: "https://michdmark.com/blog/agentes-locales-y-hardware-accesible/",
             },
         ],
@@ -136,6 +107,7 @@ export const gadgets: GadgetCategory[] = [
                 replaces: "Sustituyó placas de 8 bits cuando necesito instrumentación rápida con estructura JSONL y conectividad.",
                 combosWith: ["agy-cli"],
                 projectIds: ["monitor-nodo-pcb"],
+                relatedPostSlug: "agentes-locales-y-hardware-accesible",
                 link: "https://michdmark.com/projects/",
             },
         ],

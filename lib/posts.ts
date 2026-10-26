@@ -4,9 +4,6 @@ import YAML from "yaml";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
-export const postKinds = ["experimento", "ensayo", "guia", "nota-rapida"] as const;
-export type PostKind = (typeof postKinds)[number];
-
 export interface Post {
     slug: string;
     title: string;
@@ -14,8 +11,6 @@ export interface Post {
     description: string;
     tags: string[];
     content: string;
-    kind?: PostKind;
-    signals?: string[];
     relatedProjects?: string[];
     relatedGadgets?: string[];
 }
@@ -43,22 +38,6 @@ function optionalStringArray(data: Record<string, unknown>, field: string, fileN
     }
 
     return value;
-}
-
-function optionalPostKind(data: Record<string, unknown>, fileName: string): PostKind | undefined {
-    if (!Object.hasOwn(data, "kind")) {
-        return undefined;
-    }
-
-    const value = data.kind;
-    if (typeof value !== "string" || !postKinds.includes(value as PostKind)) {
-        invalidFrontmatter(
-            fileName,
-            `el campo "kind" debe ser uno de: ${postKinds.join(", ")}`,
-        );
-    }
-
-    return value as PostKind;
 }
 
 function isValidIsoDate(value: string): boolean {
@@ -118,8 +97,6 @@ function parsePost(fileName: string, slug: string, source: string): Post {
     }
 
     const tags = optionalStringArray(fields, "tags", fileName) ?? [];
-    const kind = optionalPostKind(fields, fileName);
-    const signals = optionalStringArray(fields, "signals", fileName);
     const relatedProjects = optionalStringArray(fields, "relatedProjects", fileName);
     const relatedGadgets = optionalStringArray(fields, "relatedGadgets", fileName);
 
@@ -130,8 +107,6 @@ function parsePost(fileName: string, slug: string, source: string): Post {
         description,
         tags,
         content: source.slice(contentStart),
-        ...(kind ? { kind } : {}),
-        ...(signals ? { signals } : {}),
         ...(relatedProjects ? { relatedProjects } : {}),
         ...(relatedGadgets ? { relatedGadgets } : {}),
     };

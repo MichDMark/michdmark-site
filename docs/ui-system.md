@@ -16,6 +16,8 @@ No se usan Tailwind CSS, shadcn/ui, Aceternity UI, Chakra UI, lucide-react ni re
 - Usar el color `brand` del theme para el acento rojo.
 - Mantener el sitio en dark mode por defecto.
 - Respetar foco visible y `prefers-reduced-motion`; los detalles cian son decorativos y el rojo conserva la identidad de marca.
+- Bitácora, Proyectos y Gadgets son colecciones autónomas con propósitos distintos, no partes de un mismo proyecto. Bitácora tiene voz narrativa de blog personal; las referencias entre secciones son opcionales y discretas.
+- En Proyectos y Gadgets, mantener la información completa en una sola vista sin pestañas ni acordeones. El HTML estático inicial debe ser escaneable para personas y agentes y usar estructura semántica (`article`, `dl`, `ul`, `ol`, `pre` y `code`). Los filtros solo ayudan a recorrer el contenido.
 
 ## Componentes de dominio
 
@@ -23,9 +25,9 @@ Los componentes en `components/` pueden existir cuando representan conceptos del
 
 - `Navbar`, `MobileMenu`, `Logo` y `Footer`: navegación compartida y marco del sitio.
 - `PcbBackground`, `PcbCircuit` y `CircuitDetails`: placa base, ruteo de señales medido en patas reales y encapsulados IC.
-- `BitacoraExplorer` y `PostCard`: explorador con filtros tipo *DIP switch*, bus cronológico y despliegue de señales clave para Bitácora (`/blog`).
-- `ProjectWorkbench` y `ProjectCard`: banco de pruebas interactivo por capas (`Arquitectura`, `Simulador` y `Evolución`) para Proyectos (`/projects`).
-- `GadgetsRack`: mesa de taller con simulador de flujos de señal (*Signal Flow*), fichas técnicas (*Datasheets*) y snippets copiables para Gadgets (`/setup`).
+- `BitacoraExplorer` y `PostCard`: artículos narrativos con fecha, etiquetas, extracto, búsqueda y filtros sencillos para Bitácora (`/blog`).
+- `ProjectWorkbench` y `ProjectCard`: proyectos autónomos con métricas, arquitectura completa, una traza de ejemplo y todos sus hitos visibles; las referencias opcionales aparecen al pie (`/projects`).
+- `GadgetsRack`: fichas técnicas autónomas por estación con especificaciones, fortalezas, límites y recetas visibles y copiables; las referencias opcionales aparecen al pie (`/setup`).
 - `SocialLinks` y `SectionHeader`: cabeceras y enlaces reutilizables.
 
 Internamente deben componerse con Mantine y mantener el lenguaje visual PCB oscuro con acentos rojo y cian.

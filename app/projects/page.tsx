@@ -9,7 +9,7 @@ import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata(
     "Proyectos",
-    "Banco de pruebas de software y hardware de Mich DMark: arquitectura por bloques, simulador de señales y evolución de prototipos.",
+    "Proyectos de software y hardware de Mich DMark: métricas, arquitectura completa, trazas de ejemplo y evolución de prototipos.",
     "/projects/",
 );
 
@@ -23,7 +23,7 @@ export default function ProjectsPage() {
                         <SectionHeader
                             title="Proyectos"
                             eyebrow="BANCO DE PRUEBAS // WORKBENCH"
-                            description="Sistemas desarmados por capas: explora sus bloques físicos y lógicos, ejecuta escenarios de señal y revisa qué falló antes de llegar a la versión actual."
+                            description="Sistemas documentados por capas: consulta sus métricas, bloques físicos y lógicos, una traza reproducible y los hitos de cada versión en una sola vista."
                         />
                     </div>
                 </section>

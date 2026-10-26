@@ -9,7 +9,7 @@ import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata(
     "Bitácora",
-    "Cuaderno de laboratorio con experimentos, señales clave y explicaciones accesibles sobre tecnología y agentes en software y hardware.",
+    "Un espacio para contar ideas, aprendizajes y experiencias sobre tecnología accesible y el uso de agentes.",
     "/blog/",
 );
 
@@ -24,8 +24,8 @@ export default function BlogPage() {
                     <div className="circuit-content">
                         <SectionHeader
                             title="Bitácora"
-                            eyebrow="CUADERNO DE LABORATORIO // SEÑALES"
-                            description="Notas de experimento, decisiones técnicas y explicaciones accesibles sobre agentes en software y hardware."
+                            eyebrow="IDEAS, HISTORIAS Y TECNOLOGÍA"
+                            description="Un espacio para contar ideas, aprendizajes y experiencias sobre tecnología accesible y el uso de agentes."
                         />
                     </div>
                 </section>
@@ -38,10 +38,10 @@ export default function BlogPage() {
                         ) : (
                             <Paper component="section" aria-label="Estado de la bitácora" className="empty-state">
                                 <Stack gap="xs">
-                                    <Text className="section-kicker">BITÁCORA / ARCHIVO</Text>
+                                    <Text className="section-kicker">BITÁCORA / ARTÍCULOS</Text>
                                     <Text className="empty-state-title">Contenido en preparación</Text>
                                     <Text className="empty-state-description">
-                                        Aquí encontrarás registros de laboratorio e ideas sobre tecnología y el uso de agentes en software y hardware.
+                                        Aquí encontrarás historias, aprendizajes e ideas sobre tecnología accesible y el uso de agentes.
                                     </Text>
                                 </Stack>
                             </Paper>

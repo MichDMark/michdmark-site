@@ -32,9 +32,9 @@ export default function Home() {
                                 <Link href="/blog/" className="connected-target home-target home-destination home-featured-destination circuit-module circuit-module-red" data-connection-target="blog" aria-labelledby="home-blog-title" data-sequence-index="0">
                                     <CircuitDetails tone="red" />
                                     <div className="circuit-content">
-                                        <span className="home-destination-kicker">CUADERNO DE LABORATORIO</span>
+                                        <span className="home-destination-kicker">IDEAS Y EXPERIENCIAS</span>
                                         <span id="home-blog-title" className="home-target-title">Bitácora</span>
-                                        <span className="home-target-description">Experimentos, señales y explicaciones con claridad.</span>
+                                        <span className="home-target-description">Historias, aprendizajes y tecnología explicada con claridad.</span>
                                     </div>
                                     <span className="home-destination-arrow" aria-hidden="true">↗</span>
                                 </Link>

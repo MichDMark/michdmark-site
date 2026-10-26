@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { gadgets, gadgetWorkflows } from "./gadgets";
+import { gadgets } from "./gadgets";
 import { projects } from "./projects";
 import { socialLinks } from "./social";
+import { getPostBySlug } from "../lib/posts";
 
 function expectValidHref(href: string) {
   expect(() => new URL(href)).not.toThrow();
@@ -22,7 +23,7 @@ describe("site data", () => {
     }
   });
 
-  it("has valid projects with workbench blocks and milestones", () => {
+  it("has valid projects with visible architecture, scenarios, and milestones", () => {
     expect(Array.isArray(projects)).toBe(true);
     expect(projects.length).toBeGreaterThan(0);
 
@@ -36,10 +37,16 @@ describe("site data", () => {
       expect(project.blocks.length).toBeGreaterThan(0);
       expect(project.milestones.length).toBeGreaterThan(0);
       expectValidHref(project.url);
+      if (project.relatedPostSlug) {
+        expect(getPostBySlug(project.relatedPostSlug)).not.toBeNull();
+      }
+      for (const gadgetId of project.gadgetIds ?? []) {
+        expect(gadgets.flatMap((category) => category.items).some((item) => item.id === gadgetId)).toBe(true);
+      }
     }
   });
 
-  it("has valid gadget categories, datasheets, and workflows", () => {
+  it("has valid gadget categories and datasheets connected to projects and Bitácora", () => {
     expect(Array.isArray(gadgets)).toBe(true);
     expect(gadgets.length).toBeGreaterThan(0);
 
@@ -59,6 +66,14 @@ describe("site data", () => {
         expect(item.specs.length).toBeGreaterThan(0);
         expect(item.pros.length).toBeGreaterThan(0);
         expect(item.limit.trim()).not.toHaveLength(0);
+        expect(item.configSnippet).toBeDefined();
+        expect(item.configSnippet?.code.trim()).not.toBe("");
+        if (item.relatedPostSlug) {
+          expect(getPostBySlug(item.relatedPostSlug)).not.toBeNull();
+        }
+        for (const projectId of item.projectIds ?? []) {
+          expect(projects.some((project) => project.id === projectId)).toBe(true);
+        }
 
         if (item.link) {
           expectValidHref(item.link);
@@ -66,13 +81,7 @@ describe("site data", () => {
       }
     }
 
-    for (const workflow of gadgetWorkflows) {
-      expect(workflow.id.trim()).not.toHaveLength(0);
-      expect(workflow.title.trim()).not.toHaveLength(0);
-      expect(workflow.steps.length).toBeGreaterThan(0);
-      for (const id of workflow.gadgetIds) {
-        expect(gadgetIds.has(id)).toBe(true);
-      }
-    }
+    expect(gadgetIds.has("agy-cli")).toBe(true);
+    expect(gadgetIds.has("esp32-s3-devkit")).toBe(true);
   });
 });

@@ -66,6 +66,30 @@ describe("posts", () => {
     });
   });
 
+  it("parses only narrative fields and optional section references", () => {
+    const { directory } = createFixture();
+    writePost(
+      directory,
+      "connected-entry",
+      `---\ntitle: Connected entry\ndescription: A connected example\ndate: 2026-10-23\ntags: [Hardware, Agentes]\nrelatedProjects: [monitor-nodo-pcb]\nrelatedGadgets: [agy-cli, esp32-s3-devkit]\n---\nBody.\n`,
+    );
+
+    const post = getPostBySlug("connected-entry", directory);
+
+    expect(post).toMatchObject({
+      slug: "connected-entry",
+      title: "Connected entry",
+      date: "2026-10-23",
+      description: "A connected example",
+      tags: ["Hardware", "Agentes"],
+      content: "Body.\n",
+      relatedProjects: ["monitor-nodo-pcb"],
+      relatedGadgets: ["agy-cli", "esp32-s3-devkit"],
+    });
+    expect(post).not.toHaveProperty("kind");
+    expect(post).not.toHaveProperty("signals");
+  });
+
   it.each([
     ["missing opening delimiter", "title: T\ndate: 2024-01-01\n"],
     ["missing closing delimiter", "---\ntitle: T\n"],
