@@ -32,13 +32,13 @@ body {
 }
 
 .pcb-board-background { --pcb-hole: #050a0f; position: fixed; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: hidden; color: var(--site-cyan); pointer-events: none; }
-.pcb-board-pattern-fill { fill: url(#pcb-board-pattern); opacity: 0.85; }
-.pcb-pattern-trace { fill: none; stroke: #43d9ff; stroke-width: 3.2; stroke-linecap: square; stroke-linejoin: bevel; vector-effect: non-scaling-stroke; opacity: 0.6; }
-.pcb-pattern-trace-wide { stroke: #f21648; stroke-width: 4; opacity: 0.68; }
-.pcb-pattern-parallel { stroke: #b9c5cf; stroke-width: 1.4; opacity: 0.52; }
+.pcb-board-pattern-fill { fill: url(#pcb-board-pattern); opacity: 0.38; }
+.pcb-pattern-trace { fill: none; stroke: #43d9ff; stroke-width: 3.2; stroke-linecap: square; stroke-linejoin: bevel; vector-effect: non-scaling-stroke; opacity: 0.45; }
+.pcb-pattern-trace-wide { stroke: #f21648; stroke-width: 4; opacity: 0.5; }
+.pcb-pattern-parallel { stroke: #b9c5cf; stroke-width: 1.4; opacity: 0.38; }
 .pcb-pattern-trace-secondary { stroke: #43d9ff; stroke-width: 2.4; opacity: 0.46; }
-.pcb-pad { fill: #aebbc5; fill-opacity: 0.7; stroke: #e1e7eb; stroke-width: 1.6; vector-effect: non-scaling-stroke; }
-.pcb-via { fill: var(--pcb-hole); stroke: #aebbc5; stroke-width: 2; opacity: 0.7; vector-effect: non-scaling-stroke; }
+.pcb-pad { fill: #aebbc5; fill-opacity: 0.5; stroke: #e1e7eb; stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.pcb-via { fill: var(--pcb-hole); stroke: #aebbc5; stroke-width: 2; opacity: 0.5; vector-effect: non-scaling-stroke; }
 .pcb-component { fill: none; stroke-linecap: square; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .pcb-component-lead { stroke: #c5d0d8; stroke-width: 3; }
 .pcb-component-body { fill: #080d13; stroke: #8c9aa5; stroke-width: 2.2; }
@@ -86,6 +86,7 @@ body {
 .pcb-circuit[data-pcb-ready="true"] .circuit-pin-array,
 .pcb-circuit[data-pcb-ready="true"] .circuit-terminal:not([data-pcb-output-terminal]) { animation: pcb-chip-arrival 4.8s linear infinite; animation-delay: var(--pcb-route-delay, 0s); }
 .pcb-circuit[data-pcb-ready="true"] [data-pcb-output-terminal] { animation: pcb-output-contact-arrival 4.8s linear infinite; animation-delay: var(--pcb-route-delay, 0s); }
+.pcb-circuit[data-pcb-ready="true"] .circuit-module-content :is(.circuit-frame-outer, .circuit-frame-inner, .circuit-pin-array, .circuit-terminal) { animation: none; }
 
 ::selection {
   background: var(--site-accent);
@@ -760,7 +761,7 @@ button:focus-visible {
   color: var(--site-text);
   font-size: clamp(3.25rem, 8vw, 6.8rem);
   font-weight: 760;
-  letter-spacing: -0.075em;
+  letter-spacing: -0.045em;
   line-height: 0.94;
 }
 
@@ -854,7 +855,7 @@ button:focus-visible {
   color: var(--site-text);
   font-size: clamp(2.25rem, 5vw, 3.75rem);
   font-weight: 740;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.035em;
   line-height: 1.04;
 }
 
@@ -959,10 +960,20 @@ button:focus-visible {
 }
 
 .markdown-body {
-  color: var(--mantine-color-gray-3);
-  font-size: var(--mantine-font-size-md);
-  line-height: 1.75;
+  max-width: 68ch;
+  color: #dde5ec;
+  font-size: 1.0625rem;
+  line-height: 1.8;
 }
+
+.markdown-body p { margin: 0 0 1.25em; }
+.markdown-body :where(ul, ol) { padding-left: 1.35rem; margin: 0 0 1.25em; }
+.markdown-body li + li { margin-top: 0.45em; }
+
+.project-metrics-list, .gadget-spec-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.65rem; margin: 0; }
+.project-metrics-list > div, .gadget-spec-list > div { padding: 0.6rem 0.75rem; border: 1px solid rgba(67, 217, 255, 0.16); border-radius: 4px; background: rgba(5, 12, 18, 0.78); }
+.project-metrics-list dt, .gadget-spec-list dt { color: var(--site-muted); font-family: var(--site-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.project-metrics-list dd, .gadget-spec-list dd { margin: 0.2rem 0 0; color: var(--site-text); font-family: var(--site-mono); font-size: 0.92rem; font-weight: 700; }
 
 .markdown-body :where(h1, h2, h3, h4) {
   color: var(--mantine-color-white);
@@ -1115,12 +1126,12 @@ button:focus-visible {
 .home-sequenced-composition .home-destinations { gap: clamp(5rem, 8vw, 6.5rem); }
 .home-sequenced-composition .home-destination { transition: filter 180ms ease, color 180ms ease; }
 .home-sequenced-composition .home-featured-destination .circuit-surface-outer { background: linear-gradient(145deg, #100b10, #080a0f); }
-.circuit-module:is(:hover, :focus-within, :active) .circuit-frame-outer { background: color-mix(in srgb, var(--circuit-accent) 84%, white); filter: drop-shadow(0 0 9px var(--circuit-glow)) !important; }
-.circuit-module:is(:hover, :focus-within, :active) .circuit-frame-inner { background: color-mix(in srgb, var(--circuit-accent) 58%, transparent); filter: drop-shadow(0 0 6px var(--circuit-glow)) brightness(1.2) !important; }
-.circuit-module:is(:hover, :focus-within, :active) .circuit-pin-array { filter: drop-shadow(0 0 5px var(--circuit-glow)) !important; }
-.circuit-module:is(:hover, :focus-within, :active) .circuit-terminal { filter: drop-shadow(0 0 7px var(--circuit-glow)) brightness(1.4) !important; }
-.circuit-module:is(:hover, :focus-within, :active) .circuit-trace,
-.circuit-module:is(:hover, :focus-within, :active) .circuit-pin-one { background-color: var(--circuit-accent); box-shadow: 0 0 10px var(--circuit-glow); }
+.circuit-module:not(.circuit-module-content):is(:hover, :focus-within, :active) .circuit-frame-outer { background: color-mix(in srgb, var(--circuit-accent) 84%, white); filter: drop-shadow(0 0 9px var(--circuit-glow)) !important; }
+.circuit-module:not(.circuit-module-content):is(:hover, :focus-within, :active) .circuit-frame-inner { background: color-mix(in srgb, var(--circuit-accent) 58%, transparent); filter: drop-shadow(0 0 6px var(--circuit-glow)) brightness(1.2) !important; }
+.circuit-module:not(.circuit-module-content):is(:hover, :focus-within, :active) .circuit-pin-array { filter: drop-shadow(0 0 5px var(--circuit-glow)) !important; }
+.circuit-module:not(.circuit-module-content):is(:hover, :focus-within, :active) .circuit-terminal { filter: drop-shadow(0 0 7px var(--circuit-glow)) brightness(1.4) !important; }
+.circuit-module:not(.circuit-module-content):is(:hover, :focus-within, :active) .circuit-trace,
+.circuit-module:not(.circuit-module-content):is(:hover, :focus-within, :active) .circuit-pin-one { background-color: var(--circuit-accent); box-shadow: 0 0 10px var(--circuit-glow); }
 .circuit-module:focus-visible { outline: 2px solid var(--circuit-accent); outline-offset: 5px; }
 .circuit-composition:has([data-connection-target]:hover, [data-connection-target]:focus-within, [data-connection-target]:active) .circuit-module:not(:hover):not(:focus-within):not(:active) .circuit-frame-outer,
 .circuit-composition:has([data-connection-target]:hover, [data-connection-target]:focus-within, [data-connection-target]:active) .circuit-module:not(:hover):not(:focus-within):not(:active) .circuit-frame-inner,

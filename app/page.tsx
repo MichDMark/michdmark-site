@@ -32,7 +32,7 @@ export default function Home() {
                                     <CircuitDetails tone="red" />
                                     <div className="circuit-content">
                                         <span className="home-destination-kicker">IDEAS Y EXPERIENCIAS</span>
-                                        <span id="home-blog-title" className="home-target-title">Bitácora</span>
+                                        <span id="home-blog-title" className="home-target-title">Blog</span>
                                         <span className="home-target-description">Historias, aprendizajes y tecnología explicada con claridad.</span>
                                     </div>
                                     <span className="home-destination-arrow" aria-hidden="true">↗</span>
@@ -42,7 +42,7 @@ export default function Home() {
                                     <CircuitDetails />
                                     <div className="circuit-content">
                                         <span className="home-destination-kicker">SOFTWARE / HARDWARE</span>
-                                        <span id="home-projects-title" className="home-target-title">Proyectos</span>
+                                        <span id="home-projects-title" className="home-target-title">Projects</span>
                                         <span className="home-target-description">Ideas convertidas en proyectos.</span>
                                     </div>
                                     <span className="home-destination-arrow" aria-hidden="true">↗</span>
@@ -73,7 +73,7 @@ export default function Home() {
                                 <section className="connected-target home-target home-link-group home-secondary-destination circuit-module" data-connection-target="redes" aria-labelledby="home-social-title" data-sequence-index="4">
                                     <CircuitDetails />
                                     <div className="circuit-content">
-                                        <Text id="home-social-title" component="h2" className="home-target-title">Redes</Text>
+                                        <Text id="home-social-title" component="h2" className="home-target-title">Social</Text>
                                         <SocialLinks group="social" />
                                     </div>
                                 </section>
@@ -81,7 +81,7 @@ export default function Home() {
                                 <section className="connected-target home-target home-link-group home-secondary-destination circuit-module" data-connection-target="contacto" aria-labelledby="home-contact-title" data-sequence-index="5">
                                     <CircuitDetails />
                                     <div className="circuit-content">
-                                        <Text id="home-contact-title" component="h2" className="home-target-title">Contacto</Text>
+                                        <Text id="home-contact-title" component="h2" className="home-target-title">Contact</Text>
                                         <SocialLinks group="contact" />
                                     </div>
                                 </section>

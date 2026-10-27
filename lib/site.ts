@@ -60,25 +60,25 @@ export function buildLlmsTxt() {
     "",
     "## Secciones principales",
     `- [Inicio](${absoluteUrl("/")})`,
-    `- [Bitácora](${absoluteUrl("/blog/")})`,
-    `- [Proyectos](${absoluteUrl("/projects/")})`,
+    `- [Blog](${absoluteUrl("/blog/")})`,
+    `- [Projects](${absoluteUrl("/projects/")})`,
     `- [Gadgets](${absoluteUrl("/setup/")})`,
     `- [About me](${absoluteUrl("/about/")})`,
     "",
-    "## Bitácora",
+    "## Blog",
     ...(posts.length
       ? posts.map((post) => `- [${post.title}](${absoluteUrl(`/blog/${post.slug}/`)}) — ${post.description}`)
-      : ["- Contenido en preparación."]),
+      : ["- Próximamente."]),
     "",
-    "## Proyectos",
+    "## Projects",
     ...(projects.length
       ? projects.map((project) => `- [${project.name}](${absoluteUrl(`/projects/#${project.id}`)}) — ${project.description}`)
-      : ["- Contenido en preparación."]),
+      : ["- Próximamente."]),
     "",
     "## Gadgets",
     ...(gadgetItems.length
       ? gadgetItems.map((gadget) => `- [${gadget.name}](${absoluteUrl(`/setup/#${gadget.id}`)}) — ${gadget.role}`)
-      : ["- Contenido en preparación."]),
+      : ["- Próximamente."]),
   ];
 
   return `${sections.join("\n")}\n`;

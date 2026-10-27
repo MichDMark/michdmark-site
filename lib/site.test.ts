@@ -29,7 +29,7 @@ describe("createPageMetadata", () => {
   it.each([
     ["About me", "/about/"],
     ["Blog", "/blog/"],
-    ["Proyectos", "/projects/"],
+    ["Projects", "/projects/"],
     ["Gadgets", "/setup/"],
   ])("sets route-specific social metadata for %s", (title, canonical) => {
     const description = `Descripción de ${title}`;
@@ -53,20 +53,20 @@ describe("createPageMetadata", () => {
 });
 
 describe("buildLlmsTxt", () => {
-  it("lists absolute section URLs and marks empty collections as in preparation", () => {
+  it("lists absolute section URLs and marks empty collections as coming soon", () => {
     const llmsTxt = buildLlmsTxt();
 
     expect(llmsTxt).toContain("# Mich DMark");
     expect(llmsTxt).toContain("> Sitio personal estático sobre tecnología accesible y el uso de agentes en software y hardware.");
     expect(llmsTxt).toContain("## Secciones principales");
     expect(llmsTxt).toContain(`- [Inicio](${absoluteUrl("/")})`);
-    expect(llmsTxt).toContain(`- [Bitácora](${absoluteUrl("/blog/")})`);
-    expect(llmsTxt).toContain(`- [Proyectos](${absoluteUrl("/projects/")})`);
+    expect(llmsTxt).toContain(`- [Blog](${absoluteUrl("/blog/")})`);
+    expect(llmsTxt).toContain(`- [Projects](${absoluteUrl("/projects/")})`);
     expect(llmsTxt).toContain(`- [Gadgets](${absoluteUrl("/setup/")})`);
     expect(llmsTxt).toContain(`- [About me](${absoluteUrl("/about/")})`);
 
-    for (const section of ["Bitácora", "Proyectos", "Gadgets"]) {
-      expect(llmsTxt).toContain(`## ${section}\n- Contenido en preparación.`);
-    }
+    expect(llmsTxt).toContain("## Blog\n- Próximamente.");
+    expect(llmsTxt).toContain("## Projects\n- Próximamente.");
+    expect(llmsTxt).toContain("## Gadgets\n- Próximamente.");
   });
 });

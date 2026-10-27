@@ -24,13 +24,13 @@ Sitio personal de Mich DMark sobre tecnología accesible y el uso de agentes en 
 ## Contenido editable
 
 - Posts: `content/posts/`
-- Proyectos: `data/projects.ts`
+- Projects: `data/projects.ts`
 - Gadgets/setup: `data/gadgets.ts`
 - Redes/contacto: `data/social.ts`
 
-La navegación pública consta de Inicio (`/`), About me (`/about`), Bitácora (`/blog`), Proyectos (`/projects`) y Gadgets (`/setup`). El alcance editorial, los modelos diferenciados por sección y las convenciones para conectar contenido se documentan en `editorial-scope.md`.
+La navegación pública consta de Inicio (`/`), About me (`/about`), Blog (`/blog`), Projects (`/projects`) y Gadgets (`/setup`). El alcance editorial, los modelos diferenciados por sección y las convenciones para conectar contenido se documentan en `editorial-scope.md`.
 
-El export estático incluye `/llms.txt`, un índice Markdown con enlaces absolutos a las secciones y a las entradas, proyectos y gadgets disponibles. Las colecciones vacías se indican como «Contenido en preparación».
+El export estático incluye `/llms.txt`, un índice Markdown con enlaces absolutos a las secciones y a las entradas, proyectos y gadgets disponibles. Las colecciones vacías se indican como «Próximamente».
 
 ## Despliegue
 

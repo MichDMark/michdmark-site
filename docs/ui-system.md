@@ -16,8 +16,9 @@ No se usan Tailwind CSS, shadcn/ui, Aceternity UI, Chakra UI, lucide-react ni re
 - Usar el color `brand` del theme para el acento rojo.
 - Mantener el sitio en dark mode por defecto.
 - Respetar foco visible y `prefers-reduced-motion`; los detalles cian son decorativos y el rojo conserva la identidad de marca.
-- Bitácora, Proyectos y Gadgets son colecciones autónomas con propósitos distintos, no partes de un mismo proyecto. Bitácora tiene voz narrativa de blog personal; las referencias entre secciones son opcionales y discretas.
-- En Proyectos y Gadgets, mantener la información completa en una sola vista sin pestañas ni acordeones. El HTML estático inicial debe ser escaneable para personas y agentes y usar estructura semántica (`article`, `dl`, `ul`, `ol`, `pre` y `code`). Los filtros solo ayudan a recorrer el contenido.
+- Protagonismo PCB en Inicio, Calma Editorial en Contenido: el fondo PCB se mantiene atenuado, `.circuit-module-content` evita destellos periódicos y los artículos limitan su ancho de lectura a 68ch.
+- Blog, Projects y Gadgets son colecciones autónomas con propósitos distintos, no partes de un mismo proyecto. Blog tiene voz narrativa de blog personal; las referencias entre secciones son opcionales y discretas.
+- En Projects y Gadgets, mantener la información completa en una sola vista sin pestañas ni acordeones. El HTML estático inicial debe ser escaneable para personas y agentes y usar estructura semántica (`article`, `dl`, `ul`, `ol`, `pre` y `code`). Los filtros solo ayudan a recorrer el contenido.
 
 ## Componentes de dominio
 
@@ -25,7 +26,7 @@ Los componentes en `components/` pueden existir cuando representan conceptos del
 
 - `Navbar`, `MobileMenu`, `Logo` y `Footer`: navegación compartida y marco del sitio.
 - `PcbBackground`, `PcbCircuit` y `CircuitDetails`: placa base, ruteo de señales medido en patas reales y encapsulados IC.
-- `BitacoraExplorer` y `PostCard`: artículos narrativos con fecha, etiquetas, extracto, búsqueda y filtros sencillos para Bitácora (`/blog`).
+- `BitacoraExplorer` y `PostCard`: artículos narrativos con fecha, etiquetas, extracto, búsqueda y filtros sencillos para Blog (`/blog`).
 - `ProjectWorkbench` y `ProjectCard`: proyectos autónomos con métricas, arquitectura completa, una traza de ejemplo y todos sus hitos visibles; las referencias opcionales aparecen al pie (`/projects`).
 - `GadgetsRack`: fichas técnicas autónomas por estación con especificaciones, fortalezas, límites y recetas visibles y copiables; las referencias opcionales aparecen al pie (`/setup`).
 - `SocialLinks` y `SectionHeader`: cabeceras y enlaces reutilizables.

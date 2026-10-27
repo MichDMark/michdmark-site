@@ -29,14 +29,14 @@ export default function AboutPage() {
                     <section className="connected-target page-target circuit-module" data-connection-target="redes" aria-labelledby="about-social-title">
                         <CircuitDetails />
                         <div className="circuit-content">
-                            <Text id="about-social-title" component="h2" className="home-target-kicker">REDES</Text>
+                            <Text id="about-social-title" component="h2" className="home-target-kicker">SOCIAL</Text>
                             <SocialLinks group="social" />
                         </div>
                     </section>
                     <section className="connected-target page-target circuit-module" data-connection-target="contacto" aria-labelledby="about-contact-title">
                         <CircuitDetails />
                         <div className="circuit-content">
-                            <Text id="about-contact-title" component="h2" className="home-target-kicker">CONTACTO</Text>
+                            <Text id="about-contact-title" component="h2" className="home-target-kicker">CONTACT</Text>
                             <SocialLinks group="contact" />
                         </div>
                     </section>

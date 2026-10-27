@@ -8,7 +8,7 @@ import { getAllPosts } from "@/lib/posts";
 import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata(
-    "Bitácora",
+    "Blog",
     "Un espacio para contar ideas, aprendizajes y experiencias sobre tecnología accesible y el uso de agentes.",
     "/blog/",
 );
@@ -23,7 +23,7 @@ export default function BlogPage() {
                     <CircuitDetails tone="red" />
                     <div className="circuit-content">
                         <SectionHeader
-                            title="Bitácora"
+                            title="Blog"
                             eyebrow="IDEAS, HISTORIAS Y TECNOLOGÍA"
                             description="Un espacio para contar ideas, aprendizajes y experiencias sobre tecnología accesible y el uso de agentes."
                         />
@@ -38,8 +38,8 @@ export default function BlogPage() {
                         ) : (
                             <Paper component="section" aria-label="Estado de la bitácora" className="empty-state">
                                 <Stack gap="xs">
-                                    <Text className="section-kicker">BITÁCORA / ARTÍCULOS</Text>
-                                    <Text className="empty-state-title">Contenido en preparación</Text>
+                                    <Text className="section-kicker">BLOG / ARTÍCULOS</Text>
+                                    <Text className="empty-state-title">Próximamente</Text>
                                     <Text className="empty-state-description">
                                         Aquí encontrarás historias, aprendizajes e ideas sobre tecnología accesible y el uso de agentes.
                                     </Text>

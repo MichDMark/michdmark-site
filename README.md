@@ -2,7 +2,7 @@
 
 Sitio personal estático de Mich DMark, construido con Next.js, TypeScript, Mantine y Tabler Icons.
 
-El sitio explora tecnología accesible y el uso de agentes en software y hardware. Mantiene cinco secciones: Inicio, About me, Bitácora (`/blog`), Proyectos (`/projects`) y Gadgets (`/setup`). Cada colección tiene un modelo de datos e interacción propios sobre una arquitectura 100% estática (sin backend, base de datos ni CMS); el contenido vive en Markdown y datos locales de TypeScript.
+El sitio explora tecnología accesible y el uso de agentes en software y hardware. Mantiene cinco secciones: Inicio, About me, Blog (`/blog`), Projects (`/projects`) y Gadgets (`/setup`). Cada colección tiene un modelo de datos e interacción propios sobre una arquitectura 100% estática (sin backend, base de datos ni CMS); el contenido vive en Markdown y datos locales de TypeScript.
 
 ## Stack
 
@@ -56,13 +56,13 @@ El slug se genera a partir del nombre del archivo.
 
 ### Datos editables
 
-- Proyectos: `data/projects.ts`
+- Projects: `data/projects.ts`
 - Gadgets/setup: `data/gadgets.ts`
 - Redes sociales y contacto: `data/social.ts`
 
 El alcance editorial actual y el criterio para relacionar contenido en el futuro están descritos en [`docs/editorial-scope.md`](docs/editorial-scope.md).
 
-El build genera [`/llms.txt`](https://michdmark.com/llms.txt) con enlaces absolutos y un índice de las colecciones disponibles para lectura por agentes. Cuando una colección está vacía, el archivo indica «Contenido en preparación».
+El build genera [`/llms.txt`](https://michdmark.com/llms.txt) con enlaces absolutos y un índice de las colecciones disponibles para lectura por agentes. Cuando una colección está vacía, el archivo indica «Próximamente».
 
 ## Vista previa estática
 

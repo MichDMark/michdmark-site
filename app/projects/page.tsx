@@ -8,7 +8,7 @@ import { projects } from "@/data/projects";
 import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata(
-    "Proyectos",
+    "Projects",
     "Proyectos de software y hardware de Mich DMark: métricas, arquitectura completa, trazas de ejemplo y evolución de prototipos.",
     "/projects/",
 );
@@ -21,7 +21,7 @@ export default function ProjectsPage() {
                     <CircuitDetails />
                     <div className="circuit-content">
                         <SectionHeader
-                            title="Proyectos"
+                            title="Projects"
                             eyebrow="BANCO DE PRUEBAS // WORKBENCH"
                             description="Sistemas documentados por capas: consulta sus métricas, bloques físicos y lógicos, una traza reproducible y los hitos de cada versión en una sola vista."
                         />
@@ -35,8 +35,8 @@ export default function ProjectsPage() {
                         ) : (
                             <Paper component="section" aria-label="Estado de proyectos" className="empty-state">
                                 <Stack gap="xs">
-                                    <Text className="section-kicker">PROYECTOS / ARCHIVO</Text>
-                                    <Text className="empty-state-title">Contenido en preparación</Text>
+                                    <Text className="section-kicker">PROJECTS / ARCHIVO</Text>
+                                    <Text className="empty-state-title">Próximamente</Text>
                                     <Text className="empty-state-description">
                                         Aquí compartiré proyectos de software y hardware, junto con el proceso para hacerlos.
                                     </Text>

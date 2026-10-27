@@ -116,7 +116,7 @@ export function GadgetsRack({ categories }: GadgetsRackProps) {
                                                         ))}
                                                         {item.relatedPostSlug && (
                                                             <Anchor href={`/blog/${item.relatedPostSlug}/`} size="xs" c="dimmed">
-                                                                Bitácora
+                                                                Blog
                                                             </Anchor>
                                                         )}
                                                     </Group>

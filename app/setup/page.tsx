@@ -36,7 +36,7 @@ export default function SetupPage() {
                             <Paper component="section" aria-label="Estado de gadgets" className="empty-state">
                                 <Stack gap="xs">
                                     <Text className="section-kicker">GADGETS / ARCHIVO</Text>
-                                    <Text className="empty-state-title">Contenido en preparación</Text>
+                                    <Text className="empty-state-title">Próximamente</Text>
                                     <Text className="empty-state-description">
                                         Aquí compartiré gadgets y herramientas, y el papel que tienen en mi trabajo.
                                     </Text>
