@@ -24,10 +24,15 @@ Escribe en primera persona (yo), con tono conversacional técnico y honestidad s
 
 No uses «En el mundo actual», «En la era de», «revolucionario», «sin lugar a dudas», «es importante destacar», «cabe mencionar», «sumergirnos en», «en conclusión», «en resumen» ni estructuras «no es solo X, sino Y». No abuses de rayas (—) ni de listas cuyas viñetas empiecen con «**Sustantivo:** explicación genérica».
 
+## Modos de entrada
+
+- **Modo A: conversacional en CLI.** El usuario cuenta en el chat lo que trabajó. Si falta un dato clave, haz hasta tres preguntas breves; presenta un borrador con la voz de Mich DMark para confirmar y, una vez aprobado, escribe el archivo final.
+- **Modo B: borrador en drafts/.** Si el usuario menciona un archivo en `drafts/` o pide revisar la carpeta, inspecciona los archivos pertinentes, ignorando `drafts/README.md`. Usa las notas en bruto como materia prima, pregunta solo lo que falte, presenta la propuesta estructurada y escribe el archivo final dentro del alcance autorizado. Conserva el borrador salvo que el usuario pida borrarlo.
+
 ## Flujo
 
-1. Recibe las notas y pregunta solo por los datos concretos que falten.
-2. Redacta una propuesta breve basada en lo aportado.
+1. Recibe las notas mediante el modo elegido y pregunta solo por los datos concretos que falten.
+2. Presenta una propuesta breve basada en lo aportado; en el modo A espera su aprobación antes de escribir.
 3. Escribe el archivo correspondiente en `content/posts/`, `data/projects.ts` o `data/gadgets.ts` según el alcance autorizado.
 4. Si existe al menos un post en `content/posts/` y falta `app/blog/[slug]/page.tsx`, restaura la ruta con la plantilla de la referencia, siempre que el alcance permita modificarla.
 5. Valida las referencias cruzadas opcionales y ejecuta `npm run check`.

@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editorial drafts (local only)
+/drafts/*
+!/drafts/README.md

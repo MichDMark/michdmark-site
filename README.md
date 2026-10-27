@@ -39,6 +39,8 @@ npm run check
 
 ## Contenido
 
+La skill `mich-editorial` ayuda a crear contenido conversando en el CLI o a partir de notas locales en `drafts/`. Esos archivos quedan fuera de Git; consulta [la guía de borradores](drafts/README.md).
+
 ### Posts
 
 Crea un archivo `.md` en `content/posts/` con este frontmatter:

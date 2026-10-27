@@ -15,7 +15,7 @@
 
 ## Skills y herramientas editoriales
 
-La skill `mich-editorial` ya está disponible en `.agents/skills/mich-editorial/` y `.codex/skills/mich-editorial/` para redactar y validar contenido y referencias.
+La skill `mich-editorial` está disponible en `.agents/skills/mich-editorial/` y `.codex/skills/mich-editorial/`. El flujo híbrido permite trabajar mediante conversación en CLI o notas locales en `drafts/`, ignoradas por Git salvo su guía.
 
 - Crear herramientas para generar borradores de fichas para Projects y Gadgets.
 - Ampliar la auditoría previa a publicar del índice `/llms.txt`.

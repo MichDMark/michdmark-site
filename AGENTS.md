@@ -43,7 +43,8 @@ Los pendientes posteriores a la versión 2.0.0 están en `docs/roadmap.md`.
 - `data/`: datos editables para proyectos, gadgets y redes.
 - `lib/`: utilidades y lectura de posts.
 - `docs/`: documentación interna del proyecto.
-- `.codex/`: espacio para configuración y futuras skills locales.
+- `drafts/`: notas editoriales locales ignoradas por Git, salvo su guía `README.md`.
+- `.codex/` y `.agents/`: incluyen la skill `mich-editorial` para trabajar contenido desde el CLI o desde `drafts/`.
 
 ## Reglas de trabajo
 
