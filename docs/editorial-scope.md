@@ -8,6 +8,8 @@ Projects y Gadgets presentan su información completa en una sola vista, sin pes
 
 La terminología pública del sitio usa «agentes» para hablar de este tema; mantener esa elección en páginas, metadata y textos compartidos.
 
+La skill `mich-editorial` permite preparar entradas mediante conversación en el CLI o a partir de notas locales en `drafts/`.
+
 ## Páginas e identidad por sección
 
 La navegación tiene cinco destinos públicos:

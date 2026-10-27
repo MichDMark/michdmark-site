@@ -13,13 +13,9 @@
 - Publicar los primeros sistemas de Projects en `data/projects.ts`.
 - Publicar las primeras fichas técnicas de Gadgets en `data/gadgets.ts`.
 
-## Skills y herramientas editoriales
+## Validación previa a despliegue
 
-La skill `mich-editorial` está disponible en `.agents/skills/mich-editorial/` y `.codex/skills/mich-editorial/`. El flujo híbrido permite trabajar mediante conversación en CLI o notas locales en `drafts/`, ignoradas por Git salvo su guía.
-
-- Crear herramientas para generar borradores de fichas para Projects y Gadgets.
-- Ampliar la auditoría previa a publicar del índice `/llms.txt`.
-- Preparar un checklist de despliegue estático en GitHub Pages.
+- Crear un checklist automatizado o script de verificación previa a la publicación para las referencias cruzadas y el índice `/llms.txt`.
 
 ## Mantenimiento técnico
 
