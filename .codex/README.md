@@ -1,12 +1,7 @@
 # .codex
 
-Espacio reservado para configuración local de Codex y futuras skills específicas del proyecto.
+Configuración y skills locales de Codex para este proyecto.
 
-## Futuras skills posibles
+La skill editorial `mich-editorial` está disponible en `.codex/skills/mich-editorial/` y también en `.agents/skills/mich-editorial/`. Reúne la voz editorial, los esquemas y la plantilla de restauración de artículos.
 
-- Revisión de posts Markdown.
-- Generación de borradores de documentación.
-- Auditoría de contenido antes de publicar.
-- Checklist de despliegue estático en GitHub Pages.
-
-Mantener cualquier skill enfocada en este proyecto: blog personal estático, sin backend ni servicios externos.
+El roadmap del proyecto conserva los pendientes de automatización y despliegue.

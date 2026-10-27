@@ -13,11 +13,12 @@
 - Publicar los primeros sistemas de Projects en `data/projects.ts`.
 - Publicar las primeras fichas técnicas de Gadgets en `data/gadgets.ts`.
 
-## Skills locales en `.codex/skills/`
+## Skills y herramientas editoriales
 
-- Revisar y validar posts Markdown.
-- Generar borradores de fichas para Projects y Gadgets.
-- Auditar referencias cruzadas e índice `/llms.txt` antes de publicar.
+La skill `mich-editorial` ya está disponible en `.agents/skills/mich-editorial/` y `.codex/skills/mich-editorial/` para redactar y validar contenido y referencias.
+
+- Crear herramientas para generar borradores de fichas para Projects y Gadgets.
+- Ampliar la auditoría previa a publicar del índice `/llms.txt`.
 - Preparar un checklist de despliegue estático en GitHub Pages.
 
 ## Mantenimiento técnico
