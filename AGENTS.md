@@ -4,11 +4,16 @@ Guía para agentes que trabajen en este proyecto.
 
 ## Contexto del proyecto
 
-- Blog personal y portafolio estático de Mich DMark.
+- Blog personal y portafolio estático de Mich DMark, versión 2.0.0.
 - Stack: Next.js App Router, TypeScript, Mantine y Tabler Icons.
 - Despliegue: GitHub Pages usando `output: "export"`.
 - No hay backend, base de datos, CMS ni autenticación.
 - El contenido vive en Markdown y archivos TypeScript locales.
+- Blog (`/blog/`) reúne narraciones Markdown; Projects (`/projects/`) presenta sistemas con métricas, bloques, traza y evolución en una vista; Gadgets (`/setup/`) reúne fichas con especificaciones, límites y snippets copiables en una vista. Son colecciones autónomas.
+- Los títulos principales son Blog, Projects, Gadgets, About me, Social y Contact; los textos descriptivos y el contenido editorial están en español.
+- Zero-Hidden-Content: evitar pestañas o acordeones que oculten datos en el HTML inicial. El índice estático `/llms.txt` se genera con `app/llms.txt/route.ts` y `buildLlmsTxt` en `lib/site.ts`.
+- El sistema visual usa una PCB oscura, acento rojo y cian decorativo: protagonismo en Inicio y calma editorial en `.circuit-module-content`, con artículos de hasta 68ch.
+- Por `output: "export"`, mantener `app/blog/[slug]/page.tsx` solo cuando exista al menos un post en `content/posts/`.
 
 ## Objetivo técnico
 
@@ -17,7 +22,9 @@ Mantener el proyecto simple, rápido y fácil de editar. Evitar agregar infraest
 ## Comandos de validación
 
 ```bash
-npm audit
+npm audit --audit-level=critical
+npm audit --omit=dev --audit-level=high
+npm audit --audit-level=high # reporte informativo de CI
 npm run lint
 npm run test
 npx tsc --noEmit
@@ -26,6 +33,7 @@ npm run check
 ```
 
 El build genera la carpeta `out/` para GitHub Pages.
+Los pendientes posteriores a la versión 2.0.0 están en `docs/roadmap.md`.
 
 ## Estructura relevante
 
