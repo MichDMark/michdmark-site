@@ -30,6 +30,8 @@ Sitio personal de Mich DMark sobre tecnología accesible y el uso de agentes en 
 
 La navegación pública consta de Inicio (`/`), About me (`/about`), Bitácora (`/blog`), Proyectos (`/projects`) y Gadgets (`/setup`). El alcance editorial, los modelos diferenciados por sección y las convenciones para conectar contenido se documentan en `editorial-scope.md`.
 
+El export estático incluye `/llms.txt`, un índice Markdown con enlaces absolutos a las secciones y a las entradas, proyectos y gadgets disponibles. Las colecciones vacías se indican como «Contenido en preparación».
+
 ## Despliegue
 
 El proyecto se exporta como sitio estático con `next build` y publica `out/` mediante GitHub Pages.

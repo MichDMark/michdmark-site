@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { gadgets } from "../data/gadgets";
+import { projects } from "../data/projects";
+import { getAllPosts } from "./posts";
 
 export const defaultSiteUrl = "https://michdmark.com";
 
@@ -46,4 +49,37 @@ export function absoluteUrl(path = "/", baseUrl = siteConfig.url) {
   base.hash = "";
 
   return new URL(path.replace(/^\/+/, ""), base).toString();
+}
+
+export function buildLlmsTxt() {
+  const posts = getAllPosts();
+  const gadgetItems = gadgets.flatMap((category) => category.items);
+  const sections = [
+    "# Mich DMark",
+    "> Sitio personal estático sobre tecnología accesible y el uso de agentes en software y hardware.",
+    "",
+    "## Secciones principales",
+    `- [Inicio](${absoluteUrl("/")})`,
+    `- [Bitácora](${absoluteUrl("/blog/")})`,
+    `- [Proyectos](${absoluteUrl("/projects/")})`,
+    `- [Gadgets](${absoluteUrl("/setup/")})`,
+    `- [About me](${absoluteUrl("/about/")})`,
+    "",
+    "## Bitácora",
+    ...(posts.length
+      ? posts.map((post) => `- [${post.title}](${absoluteUrl(`/blog/${post.slug}/`)}) — ${post.description}`)
+      : ["- Contenido en preparación."]),
+    "",
+    "## Proyectos",
+    ...(projects.length
+      ? projects.map((project) => `- [${project.name}](${absoluteUrl(`/projects/#${project.id}`)}) — ${project.description}`)
+      : ["- Contenido en preparación."]),
+    "",
+    "## Gadgets",
+    ...(gadgetItems.length
+      ? gadgetItems.map((gadget) => `- [${gadget.name}](${absoluteUrl(`/setup/#${gadget.id}`)}) — ${gadget.role}`)
+      : ["- Contenido en preparación."]),
+  ];
+
+  return `${sections.join("\n")}\n`;
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { absoluteUrl, createPageMetadata, defaultSiteUrl, resolveSiteUrl, siteConfig } from "./site";
+import { absoluteUrl, buildLlmsTxt, createPageMetadata, defaultSiteUrl, resolveSiteUrl, siteConfig } from "./site";
 
 describe("resolveSiteUrl", () => {
   it("uses the verified custom domain by default and preserves an explicit override", () => {
@@ -49,5 +49,24 @@ describe("createPageMetadata", () => {
       },
       twitter: { card: "summary", title, description },
     });
+  });
+});
+
+describe("buildLlmsTxt", () => {
+  it("lists absolute section URLs and marks empty collections as in preparation", () => {
+    const llmsTxt = buildLlmsTxt();
+
+    expect(llmsTxt).toContain("# Mich DMark");
+    expect(llmsTxt).toContain("> Sitio personal estático sobre tecnología accesible y el uso de agentes en software y hardware.");
+    expect(llmsTxt).toContain("## Secciones principales");
+    expect(llmsTxt).toContain(`- [Inicio](${absoluteUrl("/")})`);
+    expect(llmsTxt).toContain(`- [Bitácora](${absoluteUrl("/blog/")})`);
+    expect(llmsTxt).toContain(`- [Proyectos](${absoluteUrl("/projects/")})`);
+    expect(llmsTxt).toContain(`- [Gadgets](${absoluteUrl("/setup/")})`);
+    expect(llmsTxt).toContain(`- [About me](${absoluteUrl("/about/")})`);
+
+    for (const section of ["Bitácora", "Proyectos", "Gadgets"]) {
+      expect(llmsTxt).toContain(`## ${section}\n- Contenido en preparación.`);
+    }
   });
 });

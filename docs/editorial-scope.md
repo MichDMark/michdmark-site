@@ -24,6 +24,8 @@ La navegación tiene cinco destinos públicos:
 
 Mientras una colección esté vacía, su página explica su propósito y muestra el mensaje «Contenido en preparación» sin tarjetas vacías ni apariencia de error.
 
+El export estático genera `/llms.txt` como índice Markdown para agentes. Incluye enlaces absolutos a las secciones y enumera dinámicamente sus publicaciones, proyectos y gadgets; para una colección vacía indica «Contenido en preparación».
+
 ## Modelos de información por sección
 
 ### 1. Bitácora (`content/posts/*.md` y `lib/posts.ts`)
@@ -35,7 +37,7 @@ Es un blog personal escrito en Markdown. El frontmatter conserva solo los datos 
   - `tags`: lista de etiquetas temáticas.
   - `relatedProjects` y `relatedGadgets`: listas opcionales de identificadores estables (`id`). Solo se muestran como enlaces de texto discretos al final de la entrada.
 
-La exportación estática de Next.js requiere al menos un parámetro para generar `app/blog/[slug]/page.tsx`. Si en el futuro se vacían todos los archivos `.md` de `content/posts/`, debe retirarse temporalmente `app/blog/[slug]/page.tsx` hasta volver a tener al menos una entrada publicada.
+La exportación estática de Next.js requiere al menos un parámetro para generar `app/blog/[slug]/page.tsx`. Mientras `content/posts/` no tenga publicaciones, la ruta dinámica se retira; se vuelve a añadir cuando exista al menos una entrada.
 
 ### 2. Proyectos (`data/projects.ts`)
 
@@ -56,6 +58,6 @@ Cada herramienta de software o hardware se presenta como un **Datasheet operativ
 - `configSnippet`: bloque obligatorio `{ label, code }` con parámetros de trabajo, flags o configuración siempre visible dentro de `<pre><code>` y con un control para copiar.
 - `projectIds` y `relatedPostSlug`: referencias opcionales a proyectos y entradas de Bitácora, mostradas al pie de la ficha. `combosWith` registra compatibilidad con otras herramientas.
 
-La entrada `aprender-y-construir-con-agentes` es narrativa y no enlaza a Proyectos ni Gadgets. `agentes-locales-y-hardware-accesible` conserva referencias opcionales al proyecto `monitor-nodo-pcb` y a los gadgets `agy-cli` y `esp32-s3-devkit`.
+Las colecciones de publicaciones, proyectos y gadgets están actualmente vacías mientras se prepara contenido nuevo. Las referencias opcionales se añaden solo cuando aportan contexto y aparecen de forma discreta al final del contenido correspondiente.
 
 Las redes sociales y los medios de contacto actuales se mantienen en `data/social.ts`.

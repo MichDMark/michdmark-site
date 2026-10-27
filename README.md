@@ -62,6 +62,8 @@ El slug se genera a partir del nombre del archivo.
 
 El alcance editorial actual y el criterio para relacionar contenido en el futuro están descritos en [`docs/editorial-scope.md`](docs/editorial-scope.md).
 
+El build genera [`/llms.txt`](https://michdmark.com/llms.txt) con enlaces absolutos y un índice de las colecciones disponibles para lectura por agentes. Cuando una colección está vacía, el archivo indica «Contenido en preparación».
+
 ## Vista previa estática
 
 El proyecto requiere Node.js 24, fijado en `.node-version`. `npm run dev` inicia el entorno de desarrollo; `npm run build` genera el export estático en `out/`. Para previsualizar ese export con Python 3:
