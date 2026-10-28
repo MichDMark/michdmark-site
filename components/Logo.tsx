@@ -12,10 +12,13 @@ export function Logo() {
             className="brand-link"
         >
             <span className="brand-mark" aria-hidden="true">
-                <span className="brand-mark-label">MD</span>
-                <span className="brand-mark-contact brand-mark-contact-top" />
-                <span className="brand-mark-contact brand-mark-contact-bottom" />
-                <span className="brand-mark-trace" />
+                <svg viewBox="0 0 64 64" focusable="false">
+                    <path d="M2 18h8v4H2zm0 12h8v4H2zm0 12h8v4H2zm52-24h8v4h-8zm0 12h8v4h-8zm0 12h8v4h-8z" fill="#83a9b4" />
+                    <path d="M14 6h36l6 6v40l-6 6H14l-6-6V12z" fill="#f21648" />
+                    <path d="M15 9h34l4 4v38l-4 4H15l-4-4V13z" fill="#070d13" />
+                    <circle cx="17" cy="16" r="2.5" fill="#43d9ff" />
+                    <path d="M15.5 25h3v15h-3zm3 3h3v3h-3zm3 3h3v3h-3zm3-3h3v3h-3zm3-3h3v15h-3zm6 0h9v3h-9zm0 3h3v9h-3zm9 0h3v9h-3zm-9 9h9v3h-9zm15-12h3v15h-3zm3 3h3v3h-3zm3 3h3v3h-3zm3-3h3v3h-3zm3-3h3v15h-3z" fill="#f4f8fb" transform="translate(7 0) scale(0.7 1)" />
+                </svg>
             </span>
             <span className="brand-name">Mich <span>DMark</span></span>
         </Anchor>

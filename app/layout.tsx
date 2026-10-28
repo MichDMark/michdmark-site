@@ -5,7 +5,7 @@ import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from "@mantine/c
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { PcbBackground } from "@/components/PcbBackground";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
 import { theme } from "@/lib/theme";
 
 export const metadata: Metadata = {
@@ -36,9 +36,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-  },
-  icons: {
-    icon: absoluteUrl("/favicon.ico"),
   },
 };
 

@@ -210,26 +210,13 @@ button:focus-visible {
 }
 
 .brand-mark {
-  position: relative;
-  display: grid;
-  width: 34px;
+  display: block;
+  width: 42px;
   height: 34px;
-  flex: 0 0 34px;
-  place-items: center;
-  border: 1px solid rgba(242, 22, 72, 0.66);
-  background: linear-gradient(145deg, rgba(242, 22, 72, 0.19), rgba(7, 13, 19, 0.95));
-  color: #ff5276;
-  clip-path: polygon(0 6px, 6px 0, 28px 0, 100% 6px, 100% 28px, 28px 100%, 6px 100%, 0 28px);
-  font-family: var(--site-mono);
-  font-size: 0.76rem;
-  font-weight: 700;
+  flex: 0 0 42px;
 }
 
-.brand-mark-label { position: relative; z-index: 2; }
-.brand-mark-contact { position: absolute; z-index: 1; width: 4px; height: 4px; border: 1px solid var(--site-cyan); border-radius: 50%; background: var(--site-bg); }
-.brand-mark-contact-top { top: 3px; right: 4px; }
-.brand-mark-contact-bottom { bottom: 3px; left: 4px; border-color: var(--site-accent); }
-.brand-mark-trace { position: absolute; right: 5px; bottom: 7px; width: 8px; height: 1px; transform: rotate(-45deg); background: rgba(67, 217, 255, 0.72); }
+.brand-mark svg { display: block; width: 100%; height: 100%; }
 
 .brand-name {
   color: var(--site-text);
